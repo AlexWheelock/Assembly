@@ -1,0 +1,307 @@
+      Line    Address     Opcode    Label            DisAssy          
+       1   000         2801                GOTO 0x1                   
+       2   001         1683                BSF STATUS, 0x5            
+       3   002         1303                BCF STATUS, 0x6            
+       4   003         1001                BCF TMR0, 0x0              
+       5   004         1081                BCF TMR0, 0x1              
+       6   005         1101                BCF TMR0, 0x2              
+       7   006         1581                BSF TMR0, 0x3              
+       8   007         1201                BCF TMR0, 0x4              
+       9   008         1281                BCF TMR0, 0x5              
+      10   009         1701                BSF TMR0, 0x6              
+      11   00A         1781                BSF TMR0, 0x7              
+      12   00B         1283                BCF STATUS, 0x5            
+      13   00C         1303                BCF STATUS, 0x6            
+      14   00D         118B                BCF INTCON, 0x3            
+      15   00E         120B                BCF INTCON, 0x4            
+      16   00F         128B                BCF INTCON, 0x5            
+      17   010         170B                BSF INTCON, 0x6            
+      18   011         178B                BSF INTCON, 0x7            
+      19   012         1683                BSF STATUS, 0x5            
+      20   013         1303                BCF STATUS, 0x6            
+      21   014         100C                BCF PIR1, 0x0              
+      22   015         108C                BCF PIR1, 0x1              
+      23   016         110C                BCF PIR1, 0x2              
+      24   017         118C                BCF PIR1, 0x3              
+      25   018         120C                BCF PIR1, 0x4              
+      26   019         128C                BCF PIR1, 0x5              
+      27   01A         130C                BCF PIR1, 0x6              
+      28   01B         138C                BCF PIR1, 0x7              
+      29   01C         1283                BCF STATUS, 0x5            
+      30   01D         1303                BCF STATUS, 0x6            
+      31   01E         3000                MOVLW 0x0                  
+      32   01F         0097                MOVWF CCP1CON              
+      33   020         1283                BCF STATUS, 0x5            
+      34   021         1303                BCF STATUS, 0x6            
+      35   022         0190                CLRF T1CON                 
+      36   023         1283                BCF STATUS, 0x5            
+      37   024         1303                BCF STATUS, 0x6            
+      38   025         0192                CLRF T2CON                 
+      39   026         1283                BCF STATUS, 0x5            
+      40   027         1303                BCF STATUS, 0x6            
+      41   028         0185                CLRF PORTA                 
+      42   029         1683                BSF STATUS, 0x5            
+      43   02A         1303                BCF STATUS, 0x6            
+      44   02B         3030                MOVLW 0x30                 
+      45   02C         0085                MOVWF PORTA                
+      46   02D         1283                BCF STATUS, 0x5            
+      47   02E         1303                BCF STATUS, 0x6            
+      48   02F         0186                CLRF PORTB                 
+      49   030         1683                BSF STATUS, 0x5            
+      50   031         1303                BCF STATUS, 0x6            
+      51   032         30FF                MOVLW 0xFF                 
+      52   033         0086                MOVWF PORTB                
+      53   034         1683                BSF STATUS, 0x5            
+      54   035         1703                BSF STATUS, 0x6            
+      55   036         3000                MOVLW 0x0                  
+      56   037         0089                MOVWF PORTE                
+      57   038         1283                BCF STATUS, 0x5            
+      58   039         1303                BCF STATUS, 0x6            
+      59   03A         0187                CLRF PORTC                 
+      60   03B         1683                BSF STATUS, 0x5            
+      61   03C         1303                BCF STATUS, 0x6            
+      62   03D         3000                MOVLW 0x0                  
+      63   03E         0087                MOVWF PORTC                
+      64   03F         2840                GOTO 0x40                  
+      65   040         1283                BCF STATUS, 0x5            
+      66   041         1303                BCF STATUS, 0x6            
+      67   042         1B86                BTFSC PORTB, 0x7           
+      68   043         2857                GOTO 0x57                  
+      69   044         1B06                BTFSC PORTB, 0x6           
+      70   045         285C                GOTO 0x5C                  
+      71   046         1A86                BTFSC PORTB, 0x5           
+      72   047         2861                GOTO 0x61                  
+      73   048         1A06                BTFSC PORTB, 0x4           
+      74   049         2866                GOTO 0x66                  
+      75   04A         1986                BTFSC PORTB, 0x3           
+      76   04B         286B                GOTO 0x6B                  
+      77   04C         1906                BTFSC PORTB, 0x2           
+      78   04D         2870                GOTO 0x70                  
+      79   04E         1886                BTFSC PORTB, 0x1           
+      80   04F         2875                GOTO 0x75                  
+      81   050         1806                BTFSC PORTB, 0x0           
+      82   051         287A                GOTO 0x7A                  
+      83   052         1283                BCF STATUS, 0x5            
+      84   053         1303                BCF STATUS, 0x6            
+      85   054         3030                MOVLW 0x30                 
+      86   055         0087                MOVWF PORTC                
+      87   056         2840                GOTO 0x40                  
+      88   057         1283                BCF STATUS, 0x5            
+      89   058         1303                BCF STATUS, 0x6            
+      90   059         3038                MOVLW 0x38                 
+      91   05A         0087                MOVWF PORTC                
+      92   05B         2840                GOTO 0x40                  
+      93   05C         1283                BCF STATUS, 0x5            
+      94   05D         1303                BCF STATUS, 0x6            
+      95   05E         3037                MOVLW 0x37                 
+      96   05F         0087                MOVWF PORTC                
+      97   060         2840                GOTO 0x40                  
+      98   061         1283                BCF STATUS, 0x5            
+      99   062         1303                BCF STATUS, 0x6            
+     100   063         3036                MOVLW 0x36                 
+     101   064         0087                MOVWF PORTC                
+     102   065         2840                GOTO 0x40                  
+     103   066         1283                BCF STATUS, 0x5            
+     104   067         1303                BCF STATUS, 0x6            
+     105   068         3035                MOVLW 0x35                 
+     106   069         0087                MOVWF PORTC                
+     107   06A         2840                GOTO 0x40                  
+     108   06B         1283                BCF STATUS, 0x5            
+     109   06C         1303                BCF STATUS, 0x6            
+     110   06D         3034                MOVLW 0x34                 
+     111   06E         0087                MOVWF PORTC                
+     112   06F         2840                GOTO 0x40                  
+     113   070         1283                BCF STATUS, 0x5            
+     114   071         1303                BCF STATUS, 0x6            
+     115   072         3033                MOVLW 0x33                 
+     116   073         0087                MOVWF PORTC                
+     117   074         2840                GOTO 0x40                  
+     118   075         1283                BCF STATUS, 0x5            
+     119   076         1303                BCF STATUS, 0x6            
+     120   077         3032                MOVLW 0x32                 
+     121   078         0087                MOVWF PORTC                
+     122   079         2840                GOTO 0x40                  
+     123   07A         1283                BCF STATUS, 0x5            
+     124   07B         1303                BCF STATUS, 0x6            
+     125   07C         3031                MOVLW 0x31                 
+     126   07D         0087                MOVWF PORTC                
+     127   07E         2840                GOTO 0x40                  
+     128   07F         3400                RETLW 0x0                  
+     129   080         3400                RETLW 0x0                  
+     130   081         3FFF                ADDLW 0xFF                 
+     131   082         3FFF                ADDLW 0xFF                 
+     132   083         3FFF                ADDLW 0xFF                 
+     133   084         3FFF                ADDLW 0xFF                 
+     134   085         3FFF                ADDLW 0xFF                 
+     135   086         3FFF                ADDLW 0xFF                 
+     136   087         3FFF                ADDLW 0xFF                 
+     137   088         3FFF                ADDLW 0xFF                 
+     138   089         3FFF                ADDLW 0xFF                 
+     139   08A         3FFF                ADDLW 0xFF                 
+     140   08B         3FFF                ADDLW 0xFF                 
+     141   08C         3FFF                ADDLW 0xFF                 
+     142   08D         3FFF                ADDLW 0xFF                 
+     143   08E         3FFF                ADDLW 0xFF                 
+     144   08F         3FFF                ADDLW 0xFF                 
+     145   090         3FFF                ADDLW 0xFF                 
+     146   091         3FFF                ADDLW 0xFF                 
+     147   092         3FFF                ADDLW 0xFF                 
+     148   093         3FFF                ADDLW 0xFF                 
+     149   094         3FFF                ADDLW 0xFF                 
+     150   095         3FFF                ADDLW 0xFF                 
+     151   096         3FFF                ADDLW 0xFF                 
+     152   097         3FFF                ADDLW 0xFF                 
+     153   098         3FFF                ADDLW 0xFF                 
+     154   099         3FFF                ADDLW 0xFF                 
+     155   09A         3FFF                ADDLW 0xFF                 
+     156   09B         3FFF                ADDLW 0xFF                 
+     157   09C         3FFF                ADDLW 0xFF                 
+     158   09D         3FFF                ADDLW 0xFF                 
+     159   09E         3FFF                ADDLW 0xFF                 
+     160   09F         3FFF                ADDLW 0xFF                 
+     161   0A0         3FFF                ADDLW 0xFF                 
+     162   0A1         3FFF                ADDLW 0xFF                 
+     163   0A2         3FFF                ADDLW 0xFF                 
+     164   0A3         3FFF                ADDLW 0xFF                 
+     165   0A4         3FFF                ADDLW 0xFF                 
+     166   0A5         3FFF                ADDLW 0xFF                 
+     167   0A6         3FFF                ADDLW 0xFF                 
+     168   0A7         3FFF                ADDLW 0xFF                 
+     169   0A8         3FFF                ADDLW 0xFF                 
+     170   0A9         3FFF                ADDLW 0xFF                 
+     171   0AA         3FFF                ADDLW 0xFF                 
+     172   0AB         3FFF                ADDLW 0xFF                 
+     173   0AC         3FFF                ADDLW 0xFF                 
+     174   0AD         3FFF                ADDLW 0xFF                 
+     175   0AE         3FFF                ADDLW 0xFF                 
+     176   0AF         3FFF                ADDLW 0xFF                 
+     177   0B0         3FFF                ADDLW 0xFF                 
+     178   0B1         3FFF                ADDLW 0xFF                 
+     179   0B2         3FFF                ADDLW 0xFF                 
+     180   0B3         3FFF                ADDLW 0xFF                 
+     181   0B4         3FFF                ADDLW 0xFF                 
+     182   0B5         3FFF                ADDLW 0xFF                 
+     183   0B6         3FFF                ADDLW 0xFF                 
+     184   0B7         3FFF                ADDLW 0xFF                 
+     185   0B8         3FFF                ADDLW 0xFF                 
+     186   0B9         3FFF                ADDLW 0xFF                 
+     187   0BA         3FFF                ADDLW 0xFF                 
+     188   0BB         3FFF                ADDLW 0xFF                 
+     189   0BC         3FFF                ADDLW 0xFF                 
+     190   0BD         3FFF                ADDLW 0xFF                 
+     191   0BE         3FFF                ADDLW 0xFF                 
+     192   0BF         3FFF                ADDLW 0xFF                 
+     193   0C0         3FFF                ADDLW 0xFF                 
+     194   0C1         3FFF                ADDLW 0xFF                 
+     195   0C2         3FFF                ADDLW 0xFF                 
+     196   0C3         3FFF                ADDLW 0xFF                 
+     197   0C4         3FFF                ADDLW 0xFF                 
+     198   0C5         3FFF                ADDLW 0xFF                 
+     199   0C6         3FFF                ADDLW 0xFF                 
+     200   0C7         3FFF                ADDLW 0xFF                 
+     201   0C8         3FFF                ADDLW 0xFF                 
+     202   0C9         3FFF                ADDLW 0xFF                 
+     203   0CA         3FFF                ADDLW 0xFF                 
+     204   0CB         3FFF                ADDLW 0xFF                 
+     205   0CC         3FFF                ADDLW 0xFF                 
+     206   0CD         3FFF                ADDLW 0xFF                 
+     207   0CE         3FFF                ADDLW 0xFF                 
+     208   0CF         3FFF                ADDLW 0xFF                 
+     209   0D0         3FFF                ADDLW 0xFF                 
+     210   0D1         3FFF                ADDLW 0xFF                 
+     211   0D2         3FFF                ADDLW 0xFF                 
+     212   0D3         3FFF                ADDLW 0xFF                 
+     213   0D4         3FFF                ADDLW 0xFF                 
+     214   0D5         3FFF                ADDLW 0xFF                 
+     215   0D6         3FFF                ADDLW 0xFF                 
+     216   0D7         3FFF                ADDLW 0xFF                 
+     217   0D8         3FFF                ADDLW 0xFF                 
+     218   0D9         3FFF                ADDLW 0xFF                 
+     219   0DA         3FFF                ADDLW 0xFF                 
+     220   0DB         3FFF                ADDLW 0xFF                 
+     221   0DC         3FFF                ADDLW 0xFF                 
+     222   0DD         3FFF                ADDLW 0xFF                 
+     223   0DE         3FFF                ADDLW 0xFF                 
+     224   0DF         3FFF                ADDLW 0xFF                 
+     225   0E0         3FFF                ADDLW 0xFF                 
+     226   0E1         3FFF                ADDLW 0xFF                 
+     227   0E2         3FFF                ADDLW 0xFF                 
+     228   0E3         3FFF                ADDLW 0xFF                 
+     229   0E4         3FFF                ADDLW 0xFF                 
+     230   0E5         3FFF                ADDLW 0xFF                 
+     231   0E6         3FFF                ADDLW 0xFF                 
+     232   0E7         3FFF                ADDLW 0xFF                 
+     233   0E8         3FFF                ADDLW 0xFF                 
+     234   0E9         3FFF                ADDLW 0xFF                 
+     235   0EA         3FFF                ADDLW 0xFF                 
+     236   0EB         3FFF                ADDLW 0xFF                 
+     237   0EC         3FFF                ADDLW 0xFF                 
+     238   0ED         3FFF                ADDLW 0xFF                 
+     239   0EE         3FFF                ADDLW 0xFF                 
+     240   0EF         3FFF                ADDLW 0xFF                 
+     241   0F0         3FFF                ADDLW 0xFF                 
+     242   0F1         3FFF                ADDLW 0xFF                 
+     243   0F2         3FFF                ADDLW 0xFF                 
+     244   0F3         3FFF                ADDLW 0xFF                 
+     245   0F4         3FFF                ADDLW 0xFF                 
+     246   0F5         3FFF                ADDLW 0xFF                 
+     247   0F6         3FFF                ADDLW 0xFF                 
+     248   0F7         3FFF                ADDLW 0xFF                 
+     249   0F8         3FFF                ADDLW 0xFF                 
+     250   0F9         3FFF                ADDLW 0xFF                 
+     251   0FA         3FFF                ADDLW 0xFF                 
+     252   0FB         3FFF                ADDLW 0xFF                 
+     253   0FC         3FFF                ADDLW 0xFF                 
+     254   0FD         3FFF                ADDLW 0xFF                 
+     255   0FE         3FFF                ADDLW 0xFF                 
+     256   0FF         3FFF                ADDLW 0xFF                 
+     257   100         3FFF                ADDLW 0xFF                 
+     258   101         3FFF                ADDLW 0xFF                 
+     259   102         3FFF                ADDLW 0xFF                 
+     260   103         3FFF                ADDLW 0xFF                 
+     261   104         3FFF                ADDLW 0xFF                 
+     262   105         3FFF                ADDLW 0xFF                 
+     263   106         3FFF                ADDLW 0xFF                 
+     264   107         3FFF                ADDLW 0xFF                 
+     265   108         3FFF                ADDLW 0xFF                 
+     266   109         3FFF                ADDLW 0xFF                 
+     267   10A         3FFF                ADDLW 0xFF                 
+     268   10B         3FFF                ADDLW 0xFF                 
+     269   10C         3FFF                ADDLW 0xFF                 
+     270   10D         3FFF                ADDLW 0xFF                 
+     271   10E         3FFF                ADDLW 0xFF                 
+     272   10F         3FFF                ADDLW 0xFF                 
+     273   110         3FFF                ADDLW 0xFF                 
+     274   111         3FFF                ADDLW 0xFF                 
+     275   112         3FFF                ADDLW 0xFF                 
+     276   113         3FFF                ADDLW 0xFF                 
+     277   114         3FFF                ADDLW 0xFF                 
+     278   115         3FFF                ADDLW 0xFF                 
+     279   116         3FFF                ADDLW 0xFF                 
+     280   117         3FFF                ADDLW 0xFF                 
+     281   118         3FFF                ADDLW 0xFF                 
+     282   119         3FFF                ADDLW 0xFF                 
+     283   11A         3FFF                ADDLW 0xFF                 
+     284   11B         3FFF                ADDLW 0xFF                 
+     285   11C         3FFF                ADDLW 0xFF                 
+     286   11D         3FFF                ADDLW 0xFF                 
+     287   11E         3FFF                ADDLW 0xFF                 
+     288   11F         3FFF                ADDLW 0xFF                 
+     289   120         3FFF                ADDLW 0xFF                 
+     290   121         3FFF                ADDLW 0xFF                 
+     291   122         3FFF                ADDLW 0xFF                 
+     292   123         3FFF                ADDLW 0xFF                 
+     293   124         3FFF                ADDLW 0xFF                 
+     294   125         3FFF                ADDLW 0xFF                 
+     295   126         3FFF                ADDLW 0xFF                 
+     296   127         3FFF                ADDLW 0xFF                 
+     297   128         3FFF                ADDLW 0xFF                 
+     298   129         3FFF                ADDLW 0xFF                 
+     299   12A         3FFF                ADDLW 0xFF                 
+     300   12B         3FFF                ADDLW 0xFF                 
+     301   12C         3FFF                ADDLW 0xFF                 
+     302   12D         3FFF                ADDLW 0xFF                 
+     303   12E         3FFF                ADDLW 0xFF                 
+     304   12F         3FFF                ADDLW 0xFF                 
+     305   130         3FFF                ADDLW 0xFF                 
+     306   131         3FFF                ADDLW 0xFF                 
