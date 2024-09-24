@@ -82,10 +82,14 @@ CCPR2H           EQU  H'001C'
 CCP2CON          EQU  H'001D'
 ADRESH           EQU  H'001E'
 ADCON0           EQU  H'001F'
-COUNT1		 EQU  H'0020'   
-COUNT2		 EQU  H'0021' 
-COUNT3		 EQU  H'0022' 
-
+W_TEMP		 EQU  H'0020'
+STATUS_TEMP	 EQU  H'0021'
+COUNT1		 EQU  H'0022'
+COUNT2		 EQU  H'0023'
+COUNT3		 EQU  H'0024'
+COUNT4		 EQU  H'0025'		 
+COUNT5		 EQU  H'0026'
+		 
 ;-----Bank1------------------
 OPTION_REG       EQU  H'0081'
 TRISA            EQU  H'0085'

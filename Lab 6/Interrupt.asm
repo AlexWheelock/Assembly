@@ -29,9 +29,10 @@
 		
 		#INCLUDE <p16f883.inc>        		; processor specific variable definitions
 		#INCLUDE <16F883_SETUP.inc>		; Custom setup file for the PIC16F883 micro-controller
+		#INCLUDE <SUBROUTINES.inc>		; File containing all of the used subroutines
 		LIST      p=16f883		  	; list directive to define processor
-		errorlevel -302,-207,-305,-206,-203	;suppress "not in bank 0" message,  Found label after column 1,
-							;Using default destination of 1 (file),  Found call to macro in column 1
+		errorlevel -302,-207,-305,-206,-203	; suppress "not in bank 0" message,  Found label after column 1,
+							; Using default destination of 1 (file),  Found call to macro in column 1
 
 		; CONFIG1
 ; __config 0xE0E2
@@ -51,13 +52,13 @@
 ;Define Variable Registers
 ;******************************************
 
- 	COUNT1	EQU	0x20
-	COUNT2	EQU	0x21
-	COUNT3	EQU	0x22
-	COUNT4	EQU	0x23
-	COUNT5	EQU	0x24
-	STEP	EQU	0x25
-	LEG_1	EQU	0x26
+    W_TEMP	EQU	0X20
+    STATUS_TEMP	EQU	0X21
+    COUNT1	EQU	0X22
+    COUNT2	EQU	0X23
+    COUNT3	EQU	0X24
+    COUNT4	EQU	0x25		 
+    COUNT5	EQU	0x26
 		
 ;******************************************		
 ;Interrupt Vectors
@@ -78,14 +79,28 @@ SETUP
 ;INTERRUPT SERVICE ROUTINE
 ;******************************************
 INTERRUPT
-		
+		MOVWF	W_TEMP
+		SWAPF	STATUS,W
+		MOVWF	STATUS_TEMP
+		BANKSEL	PORTC
+		MOVLW	0X37
+		MOVWF	PORTC
+		CALL	DELAY
+		SWAPF	STATUS_TEMP,W
+		MOVWF	STATUS
+		SWAPF	W_TEMP,F
+		SWAPF	W_TEMP,W
+		BCF	INTCON,RBIF
+		RETFIE
 		
 ;******************************************
 ;Main Code
 ;******************************************
 MAIN	
 		BANKSEL	PORTC
-
+		MOVLW	0X31
+		MOVWF	PORTC
+		GOTO	MAIN
 END
 		
 ;******************************************		
