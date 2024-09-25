@@ -2,7 +2,7 @@
 ;										    *
 ;   Filename:	    Interrupt.asm						    *
 ;   Date:	    September 24, 2024						    *
-;   File Version:   1								    *
+;   File Version:   2								    *
 ;   Author:	    Alex Wheelock						    *
 ;   Company:	    Idaho State University					    *
 ;   Description:    Program that sets a dot-matrix display to display a "1",	    *
@@ -18,12 +18,9 @@
 ;										    *
 ;   1:	Initialize file, and set up the file along with includes		    *
 ;										    *
-;										    *
-;										    *
-;										    *		
-;										    *
-;										    *		
-;										    *		
+;   2:	Setup interrupt when RB0 push button is pressed to cause a 2 second change  * 
+;	on the output, making the dot-matrix display a 7, then reverting back to a  *
+;	"1".									    *	
 ;										    *		
 ;************************************************************************************		
 		
@@ -52,55 +49,55 @@
 ;Define Variable Registers
 ;******************************************
 
-    W_TEMP	EQU	0X20
-    STATUS_TEMP	EQU	0X21
-    COUNT1	EQU	0X22
-    COUNT2	EQU	0X23
-    COUNT3	EQU	0X24
-    COUNT4	EQU	0x25		 
-    COUNT5	EQU	0x26
+    W_TEMP	EQU	0X20				;Used to store W upon an interrupt from RB0
+    STATUS_TEMP	EQU	0X21				;Used to store STATUS on an interrupt from RB0
+    COUNT1	EQU	0X22				;/
+    COUNT2	EQU	0X23				;
+    COUNT3	EQU	0X24				;Registers used to set the 2 second delay when the RB0 interrupt occurs
+    COUNT4	EQU	0x25		 		;
+    COUNT5	EQU	0x26				;\
 		
 ;******************************************		
 ;Interrupt Vectors
 ;******************************************
-		ORG	H'000'
+		ORG	H'000'				;ORGs beginning of code
 		GOTO	SETUP				;RESET CONDITION GOTO SETUP
-		ORG	H'004'
-		GOTO	INTERRUPT
+		ORG	H'004'				;ORGs interrupt location
+		GOTO	INTERRUPT			;Interrupt occurred, carry out ISR
 
 ;******************************************
 ;SETUP ROUTINE
 ;******************************************
 SETUP
-		CALL	INITIALIZE
+		CALL	INITIALIZE			;Call setup include file to initialize the PIC
 		GOTO	MAIN				;END OF SETUP ROUTINE
 		
 ;******************************************
 ;INTERRUPT SERVICE ROUTINE
 ;******************************************
 INTERRUPT
-		MOVWF	W_TEMP
-		SWAPF	STATUS,W
-		MOVWF	STATUS_TEMP
-		BANKSEL	PORTC
-		MOVLW	0X37
-		MOVWF	PORTC
-		CALL	DELAY
-		SWAPF	STATUS_TEMP,W
-		MOVWF	STATUS
-		SWAPF	W_TEMP,F
-		SWAPF	W_TEMP,W
-		BCF	INTCON,RBIF
-		RETFIE
+		MOVWF	W_TEMP				;/
+		SWAPF	STATUS,W			;Saves the W & STATUS registers into a temporary location to not interfere with the MAIN code that was interrupted, when resumed
+		MOVWF	STATUS_TEMP			;\
+		BANKSEL	PORTC				;
+		MOVLW	0X37				;/Set the output to display a "7"
+		MOVWF	PORTC				;\
+		CALL	DELAY				;Cause a 2 second delay
+		SWAPF	STATUS_TEMP,W			;/
+		MOVWF	STATUS				;Move the previously stored W & STATUS registers back into the current W & STATUS registers before resuming MAIN code
+		SWAPF	W_TEMP,F			;
+		SWAPF	W_TEMP,W			;\
+		BCF	INTCON,RBIF			;Clear RBIF so that interrupts can occur again
+		RETFIE					;Return to last address in the stack, enable interrupts
 		
 ;******************************************
 ;Main Code
 ;******************************************
 MAIN	
-		BANKSEL	PORTC
-		MOVLW	0X31
-		MOVWF	PORTC
-		GOTO	MAIN
+		BANKSEL	PORTC				;			
+		MOVLW	0X31				;/Set output to display a "1"
+		MOVWF	PORTC				;\
+		GOTO	MAIN				;Restart back to MAIN
 END
 		
 ;******************************************		

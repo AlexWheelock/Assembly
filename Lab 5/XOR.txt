@@ -1,0 +1,75 @@
+       Line      Address       Opcode      Label             DisAssy          
+       1     000           2801                    GOTO 0x1                   
+       2     001           1683                    BSF STATUS, 0x5            
+       3     002           1303                    BCF STATUS, 0x6            
+       4     003           1001                    BCF OPTION_REG, 0x0              
+       5     004           1081                    BCF OPTION_REG, 0x1              
+       6     005           1101                    BCF OPTION_REG, 0x2              
+       7     006           1581                    BSF OPTION_REG, 0x3              
+       8     007           1201                    BCF OPTION_REG, 0x4              
+       9     008           1281                    BCF OPTION_REG, 0x5              
+      10     009           1701                    BSF OPTION_REG, 0x6              
+      11     00A           1781                    BSF OPTION_REG, 0x7              
+      12     00B           1283                    BCF STATUS, 0x5            
+      13     00C           1303                    BCF STATUS, 0x6            
+      14     00D           118B                    BCF INTCON, 0x3            
+      15     00E           120B                    BCF INTCON, 0x4            
+      16     00F           128B                    BCF INTCON, 0x5            
+      17     010           170B                    BSF INTCON, 0x6            
+      18     011           178B                    BSF INTCON, 0x7            
+      19     012           1683                    BSF STATUS, 0x5            
+      20     013           1303                    BCF STATUS, 0x6            
+      21     014           100C                    BCF PIE1, 0x0              
+      22     015           108C                    BCF PIE1, 0x1              
+      23     016           110C                    BCF PIE1, 0x2              
+      24     017           118C                    BCF PIE1, 0x3              
+      25     018           120C                    BCF PIE1, 0x4              
+      26     019           128C                    BCF PIE1, 0x5              
+      27     01A           130C                    BCF PIE1, 0x6              
+      28     01B           138C                    BCF PIE1, 0x7              
+      29     01C           1283                    BCF STATUS, 0x5            
+      30     01D           1303                    BCF STATUS, 0x6            
+      31     01E           3000                    MOVLW 0x0                  
+      32     01F           0097                    MOVWF CCP1CON              
+      33     020           1283                    BCF STATUS, 0x5            
+      34     021           1303                    BCF STATUS, 0x6            
+      35     022           0190                    CLRF T1CON                 
+      36     023           1283                    BCF STATUS, 0x5            
+      37     024           1303                    BCF STATUS, 0x6            
+      38     025           0192                    CLRF T2CON                 
+      39     026           1283                    BCF STATUS, 0x5            
+      40     027           1303                    BCF STATUS, 0x6            
+      41     028           0185                    CLRF PORTA                 
+      42     029           1683                    BSF STATUS, 0x5            
+      43     02A           1303                    BCF STATUS, 0x6            
+      44     02B           30FF                    MOVLW 0xFF                 
+      45     02C           0085                    MOVWF TRISA                
+      46     02D           1283                    BCF STATUS, 0x5            
+      47     02E           1303                    BCF STATUS, 0x6            
+      48     02F           0186                    CLRF PORTB                 
+      49     030           1683                    BSF STATUS, 0x5            
+      50     031           1303                    BCF STATUS, 0x6            
+      51     032           30FF                    MOVLW 0xFF                 
+      52     033           0086                    MOVWF TRISB                
+      53     034           1683                    BSF STATUS, 0x5            
+      54     035           1703                    BSF STATUS, 0x6            
+      55     036           3000                    MOVLW 0x0                  
+      56     037           0089                    MOVWF ANSELH                
+      57     038           1283                    BCF STATUS, 0x5            
+      58     039           1303                    BCF STATUS, 0x6            
+      59     03A           3001                    MOVLW 0x1                  
+      60     03B           0087                    MOVWF PORTC                
+      61     03C           1683                    BSF STATUS, 0x5            
+      62     03D           1303                    BCF STATUS, 0x6            
+      63     03E           3000                    MOVLW 0x0                  
+      64     03F           0087                    MOVWF TRISC                
+      65     040           2841                    GOTO 0x41                  
+      66     041           1283                    BCF STATUS, 0x5            
+      67     042           1303                    BCF STATUS, 0x6            
+      68     043           3001                    MOVLW 0x1                  
+      69     044           0606                    XORWF PORTB, W             
+      70     045           0087                    MOVWF PORTC                
+      71     046           2843                    GOTO 0x43                  
+      72     047           3400                    RETLW 0x0                  
+      73     048           3400                    RETLW 0x0                  
+      74     049           3FFF                    ADDLW 0xFF                 

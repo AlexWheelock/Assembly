@@ -1,0 +1,309 @@
+       Line      Address       Opcode      Label          DisAssy       
+       1     000           2820                    GOTO 0x20            
+       2     001           3FFF                    ADDLW 0xFF           
+       3     002           3FFF                    ADDLW 0xFF           
+       4     003           3FFF                    ADDLW 0xFF           
+       5     004           3FFF                    ADDLW 0xFF           
+       6     005           3FFF                    ADDLW 0xFF           
+       7     006           3FFF                    ADDLW 0xFF           
+       8     007           3FFF                    ADDLW 0xFF           
+       9     008           3FFF                    ADDLW 0xFF           
+      10     009           3FFF                    ADDLW 0xFF           
+      11     00A           0782                    ADDWF PCL, F         
+      12     00B           34A5                    RETLW 0xA5           
+      13     00C           34B9                    RETLW 0xB9           
+      14     00D           34C4                    RETLW 0xC4           
+      15     00E           34DC                    RETLW 0xDC           
+      16     00F           34F8                    RETLW 0xF8           
+      17     010           348B                    RETLW 0x8B           
+      18     011           3493                    RETLW 0x93           
+      19     012           34C5                    RETLW 0xC5           
+      20     013           34DD                    RETLW 0xDD           
+      21     014           34A6                    RETLW 0xA6           
+      22     015           34BA                    RETLW 0xBA           
+      23     016           34C6                    RETLW 0xC6           
+      24     017           34DE                    RETLW 0xDE           
+      25     018           34FA                    RETLW 0xFA           
+      26     019           3400                    RETLW 0x0            
+      27     01A           3400                    RETLW 0x0            
+      28     01B           3FFF                    ADDLW 0xFF           
+      29     01C           3FFF                    ADDLW 0xFF           
+      30     01D           3FFF                    ADDLW 0xFF           
+      31     01E           3FFF                    ADDLW 0xFF           
+      32     01F           3FFF                    ADDLW 0xFF           
+      33     020           1683                    BSF STATUS, 0x5      
+      34     021           1303                    BCF STATUS, 0x6      
+      35     022           1001                    BCF OPTION_REG, 0x0        
+      36     023           1081                    BCF OPTION_REG, 0x1        
+      37     024           1101                    BCF OPTION_REG, 0x2        
+      38     025           1581                    BSF OPTION_REG, 0x3        
+      39     026           1201                    BCF OPTION_REG, 0x4        
+      40     027           1281                    BCF OPTION_REG, 0x5        
+      41     028           1701                    BSF OPTION_REG, 0x6        
+      42     029           1781                    BSF OPTION_REG, 0x7        
+      43     02A           1283                    BCF STATUS, 0x5      
+      44     02B           1303                    BCF STATUS, 0x6      
+      45     02C           118B                    BCF INTCON, 0x3      
+      46     02D           120B                    BCF INTCON, 0x4      
+      47     02E           128B                    BCF INTCON, 0x5      
+      48     02F           170B                    BSF INTCON, 0x6      
+      49     030           178B                    BSF INTCON, 0x7      
+      50     031           1683                    BSF STATUS, 0x5      
+      51     032           1303                    BCF STATUS, 0x6      
+      52     033           100C                    BCF PIE1, 0x0        
+      53     034           108C                    BCF PIE1, 0x1        
+      54     035           110C                    BCF PIE1, 0x2        
+      55     036           118C                    BCF PIE1, 0x3        
+      56     037           120C                    BCF PIE1, 0x4        
+      57     038           128C                    BCF PIE1, 0x5        
+      58     039           130C                    BCF PIE1, 0x6        
+      59     03A           138C                    BCF PIE1, 0x7        
+      60     03B           1283                    BCF STATUS, 0x5      
+      61     03C           1303                    BCF STATUS, 0x6      
+      62     03D           3000                    MOVLW 0x0            
+      63     03E           0097                    MOVWF CCP1CON        
+      64     03F           1283                    BCF STATUS, 0x5      
+      65     040           1303                    BCF STATUS, 0x6      
+      66     041           0190                    CLRF T1CON           
+      67     042           1283                    BCF STATUS, 0x5      
+      68     043           1303                    BCF STATUS, 0x6      
+      69     044           0192                    CLRF T2CON           
+      70     045           1283                    BCF STATUS, 0x5      
+      71     046           1303                    BCF STATUS, 0x6      
+      72     047           0185                    CLRF PORTA           
+      73     048           1683                    BSF STATUS, 0x5      
+      74     049           1303                    BCF STATUS, 0x6      
+      75     04A           30FE                    MOVLW 0xFE           
+      76     04B           0085                    MOVWF TRISA          
+      77     04C           1683                    BSF STATUS, 0x5      
+      78     04D           1703                    BSF STATUS, 0x6      
+      79     04E           3000                    MOVLW 0x0            
+      80     04F           0088                    MOVWF 0x8            
+      81     050           1283                    BCF STATUS, 0x5      
+      82     051           1303                    BCF STATUS, 0x6      
+      83     052           0186                    CLRF PORTB           
+      84     053           1683                    BSF STATUS, 0x5      
+      85     054           1303                    BCF STATUS, 0x6      
+      86     055           30F0                    MOVLW 0xF0           
+      87     056           0086                    MOVWF TRISB          
+      88     057           1683                    BSF STATUS, 0x5      
+      89     058           1703                    BSF STATUS, 0x6      
+      90     059           3000                    MOVLW 0x0            
+      91     05A           0089                    MOVWF ANSELH          
+      92     05B           1283                    BCF STATUS, 0x5      
+      93     05C           1303                    BCF STATUS, 0x6      
+      94     05D           3000                    MOVLW 0x0            
+      95     05E           0087                    MOVWF PORTC          
+      96     05F           1683                    BSF STATUS, 0x5      
+      97     060           1303                    BCF STATUS, 0x6      
+      98     061           3000                    MOVLW 0x0            
+      99     062           0087                    MOVWF TRISC         
+     100     063           2871                    GOTO 0x71            
+     101     064           00A0                    MOVWF 0x20           
+     102     065           0000                    NOP                  
+     103     066           0000                    NOP                  
+     104     067           0BA0                    DECFSZ 0x20, F       
+     105     068           2865                    GOTO 0x65            
+     106     069           0008                    RETURN               
+     107     06A           1C05                    BTFSS PORTA, 0x0     
+     108     06B           286F                    GOTO 0x6F            
+     109     06C           0000                    NOP                  
+     110     06D           1005                    BCF PORTA, 0x0       
+     111     06E           0008                    RETURN               
+     112     06F           1405                    BSF PORTA, 0x0       
+     113     070           0008                    RETURN               
+     114     071           1283                    BCF STATUS, 0x5      
+     115     072           1303                    BCF STATUS, 0x6      
+     116     073           3008                    MOVLW 0x8            
+     117     074           0086                    MOVWF PORTB          
+     118     075           1B86                    BTFSC PORTB, 0x7     
+     119     076           292E                    GOTO 0x12E           
+     120     077           1B06                    BTFSC PORTB, 0x6     
+     121     078           2926                    GOTO 0x126           
+     122     079           1A86                    BTFSC PORTB, 0x5     
+     123     07A           291E                    GOTO 0x11E           
+     124     07B           1A06                    BTFSC PORTB, 0x4     
+     125     07C           2915                    GOTO 0x115           
+     126     07D           3004                    MOVLW 0x4            
+     127     07E           0086                    MOVWF PORTB          
+     128     07F           1B86                    BTFSC PORTB, 0x7     
+     129     080           2910                    GOTO 0x110           
+     130     081           1B06                    BTFSC PORTB, 0x6     
+     131     082           290A                    GOTO 0x10A           
+     132     083           1A86                    BTFSC PORTB, 0x5     
+     133     084           2902                    GOTO 0x102           
+     134     085           1A06                    BTFSC PORTB, 0x4     
+     135     086           28F6                    GOTO 0xF6            
+     136     087           3002                    MOVLW 0x2            
+     137     088           0086                    MOVWF PORTB          
+     138     089           1B86                    BTFSC PORTB, 0x7     
+     139     08A           28E5                    GOTO 0xE5            
+     140     08B           1B06                    BTFSC PORTB, 0x6     
+     141     08C           28DD                    GOTO 0xDD            
+     142     08D           1A86                    BTFSC PORTB, 0x5     
+     143     08E           28CF                    GOTO 0xCF            
+     144     08F           1A06                    BTFSC PORTB, 0x4     
+     145     090           28C8                    GOTO 0xC8            
+     146     091           3001                    MOVLW 0x1            
+     147     092           0086                    MOVWF PORTB          
+     148     093           1B86                    BTFSC PORTB, 0x7     
+     149     094           28B7                    GOTO 0xB7            
+     150     095           1B06                    BTFSC PORTB, 0x6     
+     151     096           28B0                    GOTO 0xB0            
+     152     097           1A86                    BTFSC PORTB, 0x5     
+     153     098           28A3                    GOTO 0xA3            
+     154     099           1A06                    BTFSC PORTB, 0x4     
+     155     09A           289C                    GOTO 0x9C            
+     156     09B           2873                    GOTO 0x73            
+     157     09C           300D                    MOVLW 0xD            
+     158     09D           200A                    CALL 0xA             
+     159     09E           2064                    CALL 0x64            
+     160     09F           2064                    CALL 0x64            
+     161     0A0           2064                    CALL 0x64            
+     162     0A1           206A                    CALL 0x6A            
+     163     0A2           2873                    GOTO 0x73            
+     164     0A3           300C                    MOVLW 0xC            
+     165     0A4           200A                    CALL 0xA             
+     166     0A5           2064                    CALL 0x64            
+     167     0A6           2064                    CALL 0x64            
+     168     0A7           2064                    CALL 0x64            
+     169     0A8           0000                    NOP                  
+     170     0A9           0000                    NOP                  
+     171     0AA           0000                    NOP                  
+     172     0AB           0000                    NOP                  
+     173     0AC           0000                    NOP                  
+     174     0AD           0000                    NOP                  
+     175     0AE           206A                    CALL 0x6A            
+     176     0AF           2873                    GOTO 0x73            
+     177     0B0           300B                    MOVLW 0xB            
+     178     0B1           200A                    CALL 0xA             
+     179     0B2           2064                    CALL 0x64            
+     180     0B3           2064                    CALL 0x64            
+     181     0B4           2064                    CALL 0x64            
+     182     0B5           206A                    CALL 0x6A            
+     183     0B6           2873                    GOTO 0x73            
+     184     0B7           300A                    MOVLW 0xA            
+     185     0B8           200A                    CALL 0xA             
+     186     0B9           2064                    CALL 0x64            
+     187     0BA           2064                    CALL 0x64            
+     188     0BB           2064                    CALL 0x64            
+     189     0BC           0000                    NOP                  
+     190     0BD           0000                    NOP                  
+     191     0BE           0000                    NOP                  
+     192     0BF           0000                    NOP                  
+     193     0C0           0000                    NOP                  
+     194     0C1           0000                    NOP                  
+     195     0C2           0000                    NOP                  
+     196     0C3           0000                    NOP                  
+     197     0C4           0000                    NOP                  
+     198     0C5           0000                    NOP                  
+     199     0C6           206A                    CALL 0x6A            
+     200     0C7           2873                    GOTO 0x73            
+     201     0C8           3009                    MOVLW 0x9            
+     202     0C9           200A                    CALL 0xA             
+     203     0CA           2064                    CALL 0x64            
+     204     0CB           2064                    CALL 0x64            
+     205     0CC           2064                    CALL 0x64            
+     206     0CD           206A                    CALL 0x6A            
+     207     0CE           2873                    GOTO 0x73            
+     208     0CF           3008                    MOVLW 0x8            
+     209     0D0           200A                    CALL 0xA             
+     210     0D1           2064                    CALL 0x64            
+     211     0D2           2064                    CALL 0x64            
+     212     0D3           0000                    NOP                  
+     213     0D4           0000                    NOP                  
+     214     0D5           0000                    NOP                  
+     215     0D6           0000                    NOP                  
+     216     0D7           0000                    NOP                  
+     217     0D8           0000                    NOP                  
+     218     0D9           0000                    NOP                  
+     219     0DA           0000                    NOP                  
+     220     0DB           206A                    CALL 0x6A            
+     221     0DC           2873                    GOTO 0x73            
+     222     0DD           3007                    MOVLW 0x7            
+     223     0DE           200A                    CALL 0xA             
+     224     0DF           2064                    CALL 0x64            
+     225     0E0           2064                    CALL 0x64            
+     226     0E1           0000                    NOP                  
+     227     0E2           0000                    NOP                  
+     228     0E3           206A                    CALL 0x6A            
+     229     0E4           2873                    GOTO 0x73            
+     230     0E5           3001                    MOVLW 0x1            
+     231     0E6           200A                    CALL 0xA             
+     232     0E7           2064                    CALL 0x64            
+     233     0E8           2064                    CALL 0x64            
+     234     0E9           0000                    NOP                  
+     235     0EA           0000                    NOP                  
+     236     0EB           0000                    NOP                  
+     237     0EC           0000                    NOP                  
+     238     0ED           0000                    NOP                  
+     239     0EE           0000                    NOP                  
+     240     0EF           0000                    NOP                  
+     241     0F0           0000                    NOP                  
+     242     0F1           0000                    NOP                  
+     243     0F2           0000                    NOP                  
+     244     0F3           0000                    NOP                  
+     245     0F4           206A                    CALL 0x6A            
+     246     0F5           2873                    GOTO 0x73            
+     247     0F6           3000                    MOVLW 0x0            
+     248     0F7           200A                    CALL 0xA             
+     249     0F8           2064                    CALL 0x64            
+     250     0F9           2064                    CALL 0x64            
+     251     0FA           0000                    NOP                  
+     252     0FB           0000                    NOP                  
+     253     0FC           0000                    NOP                  
+     254     0FD           0000                    NOP                  
+     255     0FE           0000                    NOP                  
+     256     0FF           0000                    NOP                  
+     257     100           206A                    CALL 0x6A            
+     258     101           2873                    GOTO 0x73            
+     259     102           3006                    MOVLW 0x6            
+     260     103           200A                    CALL 0xA             
+     261     104           2064                    CALL 0x64            
+     262     105           2064                    CALL 0x64            
+     263     106           0000                    NOP                  
+     264     107           0000                    NOP                  
+     265     108           206A                    CALL 0x6A            
+     266     109           2873                    GOTO 0x73            
+     267     10A           3005                    MOVLW 0x5            
+     268     10B           200A                    CALL 0xA             
+     269     10C           2064                    CALL 0x64            
+     270     10D           2064                    CALL 0x64            
+     271     10E           206A                    CALL 0x6A            
+     272     10F           2873                    GOTO 0x73            
+     273     110           3004                    MOVLW 0x4            
+     274     111           200A                    CALL 0xA             
+     275     112           2064                    CALL 0x64            
+     276     113           206A                    CALL 0x6A            
+     277     114           2873                    GOTO 0x73            
+     278     115           3003                    MOVLW 0x3            
+     279     116           200A                    CALL 0xA             
+     280     117           2064                    CALL 0x64            
+     281     118           0000                    NOP                  
+     282     119           0000                    NOP                  
+     283     11A           0000                    NOP                  
+     284     11B           0000                    NOP                  
+     285     11C           206A                    CALL 0x6A            
+     286     11D           2873                    GOTO 0x73            
+     287     11E           3002                    MOVLW 0x2            
+     288     11F           200A                    CALL 0xA             
+     289     120           2064                    CALL 0x64            
+     290     121           0000                    NOP                  
+     291     122           0000                    NOP                  
+     292     123           0000                    NOP                  
+     293     124           206A                    CALL 0x6A            
+     294     125           2873                    GOTO 0x73            
+     295     126           3001                    MOVLW 0x1            
+     296     127           200A                    CALL 0xA             
+     297     128           2064                    CALL 0x64            
+     298     129           0000                    NOP                  
+     299     12A           0000                    NOP                  
+     300     12B           0000                    NOP                  
+     301     12C           206A                    CALL 0x6A            
+     302     12D           2873                    GOTO 0x73            
+     303     12E           3000                    MOVLW 0x0            
+     304     12F           200A                    CALL 0xA             
+     305     130           2064                    CALL 0x64            
+     306     131           206A                    CALL 0x6A            
+     307     132           2873                    GOTO 0x73            
+     308     133           3FFF                    ADDLW 0xFF           

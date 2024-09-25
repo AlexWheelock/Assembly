@@ -1,0 +1,118 @@
+       Line      Address       Opcode      Label             DisAssy          
+       1     000           2801                    GOTO 0x1                   
+       2     001           1683                    BSF STATUS, 0x5            
+       3     002           1303                    BCF STATUS, 0x6            
+       4     003           1001                    BCF OPTION_REG, 0x0              
+       5     004           1081                    BCF OPTION_REG, 0x1              
+       6     005           1101                    BCF OPTION_REG, 0x2              
+       7     006           1581                    BSF OPTION_REG, 0x3              
+       8     007           1201                    BCF OPTION_REG, 0x4              
+       9     008           1281                    BCF OPTION_REG, 0x5              
+      10     009           1701                    BSF OPTION_REG, 0x6              
+      11     00A           1781                    BSF OPTION_REG, 0x7              
+      12     00B           1283                    BCF STATUS, 0x5            
+      13     00C           1303                    BCF STATUS, 0x6            
+      14     00D           118B                    BCF INTCON, 0x3            
+      15     00E           120B                    BCF INTCON, 0x4            
+      16     00F           128B                    BCF INTCON, 0x5            
+      17     010           170B                    BSF INTCON, 0x6            
+      18     011           178B                    BSF INTCON, 0x7            
+      19     012           1683                    BSF STATUS, 0x5            
+      20     013           1303                    BCF STATUS, 0x6            
+      21     014           100C                    BCF PIE1, 0x0              
+      22     015           108C                    BCF PIE1, 0x1              
+      23     016           110C                    BCF PIE1, 0x2              
+      24     017           118C                    BCF PIE1, 0x3              
+      25     018           120C                    BCF PIE1, 0x4              
+      26     019           128C                    BCF PIE1, 0x5              
+      27     01A           130C                    BCF PIE1, 0x6              
+      28     01B           138C                    BCF PIE1, 0x7              
+      29     01C           1283                    BCF STATUS, 0x5            
+      30     01D           1303                    BCF STATUS, 0x6            
+      31     01E           3000                    MOVLW 0x0                  
+      32     01F           0097                    MOVWF CCP1CON              
+      33     020           1283                    BCF STATUS, 0x5            
+      34     021           1303                    BCF STATUS, 0x6            
+      35     022           0190                    CLRF T1CON                 
+      36     023           1283                    BCF STATUS, 0x5            
+      37     024           1303                    BCF STATUS, 0x6            
+      38     025           0192                    CLRF T2CON                 
+      39     026           1283                    BCF STATUS, 0x5            
+      40     027           1303                    BCF STATUS, 0x6            
+      41     028           0185                    CLRF PORTA                 
+      42     029           1683                    BSF STATUS, 0x5            
+      43     02A           1303                    BCF STATUS, 0x6            
+      44     02B           30FF                    MOVLW 0xFF                 
+      45     02C           0085                    MOVWF PORTA                
+      46     02D           1283                    BCF STATUS, 0x5            
+      47     02E           1303                    BCF STATUS, 0x6            
+      48     02F           0186                    CLRF PORTB                 
+      49     030           1683                    BSF STATUS, 0x5            
+      50     031           1303                    BCF STATUS, 0x6            
+      51     032           30FF                    MOVLW 0xFF                 
+      52     033           0086                    MOVWF TRISB                
+      53     034           1683                    BSF STATUS, 0x5            
+      54     035           1703                    BSF STATUS, 0x6            
+      55     036           3000                    MOVLW 0x0                  
+      56     037           0089                    MOVWF ANSELH                
+      57     038           1283                    BCF STATUS, 0x5            
+      58     039           1303                    BCF STATUS, 0x6            
+      59     03A           0187                    CLRF PORTC                 
+      60     03B           1683                    BSF STATUS, 0x5            
+      61     03C           1303                    BCF STATUS, 0x6            
+      62     03D           3000                    MOVLW 0x0                  
+      63     03E           0087                    MOVWF TRISC                
+      64     03F           2840                    GOTO 0x40                  
+      65     040           1283                    BCF STATUS, 0x5            
+      66     041           1303                    BCF STATUS, 0x6            
+      67     042           30F3                    MOVLW 0xF3                 
+      68     043           00A1                    MOVWF 0x21                 
+      69     044           3000                    MOVLW 0x0                  
+      70     045           00A0                    MOVWF 0x20                 
+      71     046           0000                    NOP                        
+      72     047           0000                    NOP                        
+      73     048           0000                    NOP                        
+      74     049           0000                    NOP                        
+      75     04A           0000                    NOP                        
+      76     04B           0BA0                    DECFSZ 0x20, F             
+      77     04C           2846                    GOTO 0x46                  
+      78     04D           0BA1                    DECFSZ 0x21, F             
+      79     04E           2844                    GOTO 0x44                  
+      80     04F           30E1                    MOVLW 0xE1                 
+      81     050           00A2                    MOVWF 0x22                 
+      82     051           0000                    NOP                        
+      83     052           0000                    NOP                        
+      84     053           0000                    NOP                        
+      85     054           0BA2                    DECFSZ 0x22, F             
+      86     055           2851                    GOTO 0x51                  
+      87     056           0000                    NOP                        
+      88     057           0000                    NOP                        
+      89     058           0000                    NOP                        
+      90     059           0000                    NOP                        
+      91     05A           0000                    NOP                        
+      92     05B           0000                    NOP                        
+      93     05C           0000                    NOP                        
+      94     05D           0000                    NOP                        
+      95     05E           0000                    NOP                        
+      96     05F           0000                    NOP                        
+      97     060           0000                    NOP                        
+      98     061           0000                    NOP                        
+      99     062           0000                    NOP                        
+     100     063           0000                    NOP                        
+     101     064           0000                    NOP                        
+     102     065           0000                    NOP                        
+     103     066           0000                    NOP                        
+     104     067           0000                    NOP                        
+     105     068           0000                    NOP                        
+     106     069           1C07                    BTFSS PORTC, 0x0           
+     107     06A           286F                    GOTO 0x6F                  
+     108     06B           0000                    NOP                        
+     109     06C           3030                    MOVLW 0x30                 
+     110     06D           0087                    MOVWF PORTC                
+     111     06E           2840                    GOTO 0x40                  
+     112     06F           3035                    MOVLW 0x35                 
+     113     070           0087                    MOVWF PORTC                
+     114     071           2840                    GOTO 0x40                  
+     115     072           3400                    RETLW 0x0                  
+     116     073           3400                    RETLW 0x0                  
+     117     074           3FFF                    ADDLW 0xFF                 

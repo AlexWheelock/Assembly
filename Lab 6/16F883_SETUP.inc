@@ -13,9 +13,56 @@
 ;										    *
 ;   Revision History:								    *
 ;										    *
-;   1:	Initialize file for setting up the PIC16F883 micro-controller		    *
+;   1:	Initialize file for setting up the PIC16F883 micro-controller for Lab 6	    *
+;	part 1.			    						    *
 ;										    *
 ;************************************************************************************
+;		
+;===============================================================================================================================*
+;							   PORTA BITMAP								*
+;===============================================================================================================================*		
+;		|		|		|		|		|		|		|		*
+;	7	|	6	|	5	|	4	|	3	|	2	|	1	|	0	*
+;---------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------*	
+;DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	*
+;INPUT		|INPUT		|INPUT		|INPUT		|INPUT		|INPUT		|INPUT		|INPUT		*
+;---------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------*		
+;EXT		|EXT		|UNUSED		|UNUSED		|UNUSED		|UNUSED		|UNUSED		|UNUSED		*
+;OSCILLATOR	|OSCILLATOR	|		|		|		|		|		|		*
+;IN		|IN		|		|		|		|		|		|		*
+;		|		|		|		|		|		|		|		*		
+;-------------------------------------------------------------------------------------------------------------------------------*
+		
+;===============================================================================================================================*
+;							   PORTB BITMAP								*
+;===============================================================================================================================*		
+;		|		|		|		|		|		|		|		*
+;	7	|	6	|	5	|	4	|	3	|	2	|	1	|	0	*
+;---------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------*	
+;DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	*
+;INPUT		|INPUT		|INPUT		|INPUT		|INPUT		|INPUT		|INPUT		|INPUT		*
+;---------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------*		
+;UNUSED		|UNUSED		|UNUSED		|UNUSED		|UNUSED		|UNUSED		|UNUSED		|CONNECTED TO	*
+;		|		|		|		|		|		|		|PUSH BUTTON	*
+;		|		|		|		|		|		|		|(USED FOR INT)	*
+;		|		|		|		|		|		|		|		*		
+;-------------------------------------------------------------------------------------------------------------------------------*
+		
+;===============================================================================================================================*
+;							   PORTC BITMAP								*
+;===============================================================================================================================*		
+;		|		|		|		|		|		|		|		*
+;	7	|	6	|	5	|	4	|	3	|	2	|	1	|	0	*
+;---------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------*	
+;DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	*
+;OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		*
+;---------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------*		
+;UNUSED		|CONNECTED TO	|CONNNECTED TO	|CONNECTED TO	|CONNECTED TO	|CONNECTED TO 	|CONNECTED TO	|CONNECTED TO	*
+;		|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	*
+;		|DISPLAY	|DISPLAY	|DISPLAY	|DISPLAY	|DISPLAY	|DISPLAY	|DISPLAY	*
+;		|(PIN 14)	|(PIN 13)	|(PIN 12)	|(PIN 11)	|(PIN 10)	|(PIN 9)	|(PIN 8)	*		
+;-------------------------------------------------------------------------------------------------------------------------------*
+;
 INITIALIZE_CODE	CODE		
 INITIALIZE		
 ;*** SFR SETUP **********
@@ -36,7 +83,7 @@ INITIALIZE
 ;*** SET INTCON REG: ****
 		
 		BANKSEL INTCON
-		BSF		INTCON, RBIE		;DISABLE PORT B CHANGE INTERUPT 
+		BSF		INTCON, RBIE		;ENABLE PORT B CHANGE INTERUPT 
 		BCF		INTCON, INTE		;DISABLE RB0/INT EXTERNAL INTERUPT
 		BCF		INTCON, TMR0IE		;DISABLE TMR0 INTERUPT (ENABLED IN MAIN PROGRAM)
 		BSF		INTCON, PEIE		;ENABLE PERIPHERAL INTERUPTS
@@ -83,22 +130,22 @@ INITIALIZE
 		BANKSEL PORTB
 		CLRF	PORTB				;INIT PORT B
 		BANKSEL	TRISB
-		MOVLW	H'FF'				;SET PORT B AS INPUT
-		MOVWF	TRISB
+		MOVLW	H'FF'				;/SET PORT B AS INPUT
+		MOVWF	TRISB				;\
 		BANKSEL ANSELH
-		MOVLW	H'00'				;DISABLES ANALOG INPUT TO ENSURE THAT IT IS A DIGITAL INPUT
-		MOVWF	ANSELH
-		BANKSEL	IOCB
-		MOVLW	H'01'
-		MOVWF	IOCB
+		MOVLW	H'00'				;/DISABLES ANALOG INPUT TO ENSURE THAT IT IS A DIGITAL INPUT
+		MOVWF	ANSELH				;\
+		BANKSEL	IOCB				
+		MOVLW	H'01'				;/ENABLE INTERRUPT ON CHANGE FOR RB0
+		MOVWF	IOCB				;\
 		
 ;*** PORT C SETUP **** PORT C USED AS LOGIC OUTPUT TO DRIVE DOT MATRIX
 		
 		BANKSEL PORTC
-		MOVLW	0x01				;SET RC0 
-		MOVWF	PORTC				;INIT PORTC
+		MOVLW	0x00				;/ 
+		MOVWF	PORTC				;\INIT PORTC
 		BANKSEL	TRISC
-		MOVLW	0x00
-		MOVWF	TRISC				;SET PORT C AS OUTPUT
+		MOVLW	0x00				;/
+		MOVWF	TRISC				;\SET PORT C AS OUTPUT
 		
 		RETURN					;Return to .asm file
