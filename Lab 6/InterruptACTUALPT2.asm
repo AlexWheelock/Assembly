@@ -2,7 +2,7 @@
 ;										    *
 ;   Filename:	    InterruptPT2.asm						    *
 ;   Date:	    September 24, 2024						    *
-;   File Version:   1								    *
+;   File Version:   2								    *
 ;   Author:	    Alex Wheelock						    *
 ;   Company:	    Idaho State University					    *
 ;   Description:    Program that sets a dot-matrix display to display a "1",	    *
@@ -24,14 +24,16 @@
 ;	on the output, making the dot-matrix display a 7, then reverting back to a  *
 ;	"1".									    *
 ;										    *	
-;   3:	Adding a push button that displays a "6" on RB1, that can be interrupted by *
-;	the button on RB0, but cannot override the RB0 ISR.			    *
+;   3:	A push button on RB0 causes a "7" to display on a dot-matrix for 2 seconds. *
+;	Another push button on RB1 causes a "6" to display on a dot-matrix for 2    *
+;	seconds. Both have equal priority and cannot interrupt eachother. Display   *
+;	changes to a "1" after the 2 second delay is up.			    *
 ;										    *	
 ;************************************************************************************		
 		
 		#INCLUDE <p16f883.inc>        		; processor specific variable definitions
 		#INCLUDE <16F883_SETUP_PT2.inc>		; Custom setup file for the PIC16F883 micro-controller
-		#INCLUDE <SUBROUTINES.inc>		; File containing all of the used subroutines
+		#INCLUDE <SUBROUTINES2.inc>		; File containing all of the used subroutines
 		LIST      p=16f883		  	; list directive to define processor
 		errorlevel -302,-207,-305,-206,-203	; suppress "not in bank 0" message,  Found label after column 1,
 							; Using default destination of 1 (file),  Found call to macro in column 1
@@ -88,75 +90,33 @@ SETUP
 ;******************************************
 ;INTERRUPT SERVICE ROUTINE
 ;******************************************
-INTERRUPT
-		BANKSEL	PORTC
-		BTFSS	PORTB,RB0			;Test which interrupt is occurring
-		GOTO	SET6				;RB1 is true, skip over if RB0 is true
+INTERRUPT		
 		MOVWF	W_TEMP				;/
 		SWAPF	STATUS,W			;Saves the W & STATUS registers into a temporary location to not interfere with the MAIN code that was interrupted, when resumed
 		MOVWF	STATUS_TEMP			;\
-		BSF	PRIORITY,0
+		BANKSEL	PORTC
+		BTFSC	PORTB,RB0			;Test which interrupt is occurring, starting with RB0
+		GOTO	SET7				;RB1 is true, display "7" on the dot-matrix
+		BTFSC	PORTB,RB1			;Test RB1 
+		GOTO	SET6				;RB1 true, display a "6" on the dot-matrix
+		GOTO	GOBACK				;Neither RB0 nor RB1 are true, reload W & Status registers, and return
+	SET7	
 		MOVLW	0X37				;/Set the output to display a "7"
 		MOVWF	PORTC				;\
 		CALL	DELAY				;Cause a 2 second delay
-		SWAPF	STATUS_TEMP,W			;/
-		MOVWF	STATUS				;Move the previous W & STATUS registers back into the W & STATUS registers
-		SWAPF	W_TEMP,F			;
-		SWAPF	W_TEMP,W			;\
-		BCF	PRIORITY,0
-		BCF	INTCON,RBIF			;Clear RBIF to allow another interrupt to occur, placed at the end to give it priority
-		RETFIE					;Return to last address in the stack, enable interrupts
+		GOTO	GOBACK
 	SET6	
-		BANKSEL	PORTC
-		MOVWF	W_TEMP2				;/
-		SWAPF	STATUS,W			;Saves the W & STATUS registers into a temporary location to not interfere with the MAIN code that was interrupted
-		MOVWF	STATUS_TEMP2			;\
 		MOVLW	0X36				;/Set the output to display a "6"
 		MOVWF	PORTC				;\
 		CALL	DELAY				;Cause a 2 second delay
-		SWAPF	STATUS_TEMP2,W			;/
-		MOVWF	STATUS				;Move the previous stored W & STATUS registers back into the W & STATUS registers before resuming MAIN code
-		SWAPF	W_TEMP2,F			;
-		SWAPF	W_TEMP2,W			;\
-		BCF	INTCON,RBIF			;Clear RBIF to allow another interrupt to occur, placed at the beginning to allow it to be interrupted
-		RETFIE					;Return to last address in the stack, enable interrupts
-	SET7
-		BANKSEL	PORTC
-		MOVWF	W_TEMP				;/
-		SWAPF	STATUS,W			;Saves the W & STATUS registers into a temporary location to not interfere with the MAIN code that was interrupted, when resumed
-		MOVWF	STATUS_TEMP			;\
-		BSF	PRIORITY,0
-		MOVFW	COUNT1
-		MOVWF	COUNT1_TEMP
-		MOVFW	COUNT2
-		MOVWF	COUNT2_TEMP
-		MOVFW	COUNT3
-		MOVWF	COUNT3_TEMP
-		MOVFW	COUNT4
-		MOVWF	COUNT4_TEMP
-		MOVFW	COUNT5
-		MOVWF	COUNT5_TEMP
-		MOVLW	0X37				;/Set the output to display a "7"
-		MOVWF	PORTC				;\
-		CALL	DELAY				;Cause a 2 second delay
-		MOVFW	COUNT1_TEMP
-		MOVWF	COUNT1
-		MOVFW	COUNT2_TEMP
-		MOVWF	COUNT2
-		MOVFW	COUNT3_TEMP
-		MOVWF	COUNT3
-		MOVFW	COUNT4_TEMP
-		MOVWF	COUNT4
-		MOVFW	COUNT5_TEMP
-		MOVWF	COUNT5
+	GOBACK
 		SWAPF	STATUS_TEMP,W			;/
-		MOVWF	STATUS				;Move the previous W & STATUS registers back into the W & STATUS registers
+		MOVWF	STATUS				;Move the previous stored W & STATUS registers back into the W & STATUS registers before resuming MAIN code
 		SWAPF	W_TEMP,F			;
 		SWAPF	W_TEMP,W			;\
-		BCF	PRIORITY,0
-		BCF	INTCON,RBIF
-		RETURN
-		
+		BCF	INTCON,RBIF			;Clear RBIF to allow another interrupt to occur, placed at the end to give it priority
+		RETFIE					;Return to last address in the stack, enable interrupts
+
 ;******************************************
 ;Main Code
 ;******************************************
