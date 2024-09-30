@@ -1,8 +1,8 @@
 ;************************************************************************************
 ;										    *
-;   Filename:	    16F883_SETUP_PT2.inc						    *
+;   Filename:	    16F883_SETUP_PT.inc						    *
 ;   Date:	    September 24, 2024						    *
-;   File Version:   2								    *
+;   File Version:   1								    *
 ;   Author:	    Alex Wheelock						    *
 ;   Company:	    Idaho State University					    *
 ;   Description:    Firmware for setting up a PIC16F883				    *
@@ -13,10 +13,8 @@
 ;										    *
 ;   Revision History:								    *
 ;										    *
-;   1:	Initialize file for setting up the PIC16F883 micro-controller for Lab 6	    *
-;	part 1.									    *
-;										    *
-;   2:	Updated to make RB1 IOC enabled for the second push button for part 2.	    *
+;   1:	Initialize file for setting up the PIC16F883 micro-controller for Lab 7	    *
+;	which simulates a traffic light.					    *
 ;										    *
 ;************************************************************************************
 		
@@ -95,7 +93,7 @@ INITIALIZE
 		
 		BANKSEL PIE1
 		BCF		PIE1, TMR1IE		;DISABLE TMR1 INTERUPT
-		BCF		PIE1, TMR2IE		;DISABLE TMR2 INTERUPT POR PWM
+		BSF		PIE1, TMR2IE		;DISABLE TMR2 INTERUPT POR PWM
 		BCF		PIE1, CCP1IE		;DISABLE CCP1 INTERUPT
 		BCF		PIE1, SSPIE		;DISABLE SSP INTERUPT
 		BCF		PIE1, TXIE		;DISABLE USART TRANSMIT INTERUPT
@@ -112,12 +110,16 @@ INITIALIZE
 ;*** TIMER 1 SETUP *****
 		
 		BANKSEL T1CON
-		CLRF T1CON				;DISABLE TIMER 1
-
+		CLRF	T1CON	
+		
 ;*** TIMER 2 SETUP *****
 
-		BANKSEL T2CON
-		CLRF	T2CON				;DISABLE TIMER 2
+		BANKSEL T2CON				;/
+		MOVLW	0x6A				;Enable Timer 2, set pre-scale to 1:16, post-scale to 1:13
+		MOVWF	T2CON				;\
+		BANKSEL	PR2				;/
+		MOVLW	0x60				;Set PR2 to 156
+		MOVWF	PR2				;\
  
 ;*** PORT A SETUP **** PORT A SET AS LOGIC OUTPUT (NOT USED)
 
@@ -138,16 +140,24 @@ INITIALIZE
 		MOVLW	H'00'				;/DISABLES ANALOG INPUT TO ENSURE THAT IT IS A DIGITAL INPUT
 		MOVWF	ANSELH				;\
 		BANKSEL	IOCB
-		MOVLW	H'03'				;/ENABLES INTERRUPT ON CHANGE FOR RB1:0
+		MOVLW	H'00'				;/ENABLES INTERRUPT ON CHANGE FOR RB1:0
 		MOVWF	IOCB				;\
 		
 ;*** PORT C SETUP **** PORT C USED AS LOGIC OUTPUT TO DRIVE DOT MATRIX
 		
 		BANKSEL PORTC
-		MOVLW	0x00				;/
+		MOVLW	0x21				;/
 		MOVWF	PORTC				;\INIT PORTC
 		BANKSEL	TRISC
 		MOVLW	0x00				;/
 		MOVWF	TRISC				;\SET PORTC ALL AS OUTPUT
+		
+		BANKSEL	T2CON				;/
+		BSF	T2CON,2				;\Turn Timer 2 on
+		BSF	NS_TRUE,0			;\
+		MOVLW	0xC8
+		MOVWF	END_GREEN
+		MOVLW	0xF0
+		MOVWF	END_YELLOW
 		
 		RETURN					;Return to .asm file

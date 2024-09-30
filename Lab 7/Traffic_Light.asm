@@ -1,16 +1,20 @@
 ;************************************************************************************
 ;										    *
-;   Filename:	    InterruptPT2.asm						    *
-;   Date:	    September 24, 2024						    *
-;   File Version:   3								    *
+;   Filename:	    Traffic_Light.asm						    *
+;   Date:	    September 30, 2024						    *
+;   File Version:   2								    *
 ;   Author:	    Alex Wheelock						    *
 ;   Company:	    Idaho State University					    *
-;   Description:    Program that sets a dot-matrix display to display a "1",	    *
-;		    but pressing a button on RB0 causes an interrupt to display	    *
-;		    a "7" for two seconds before resuming the normal operation	    *
-;		    of displaying a "1". RB1 pressed will change cause an interrupt *
-;		    displaying a "6", being able to be interrupted by the RB0 button*
-;		    but cannot override the RB1 button.				    *
+;   Description:    Program that simulates an intersection using LEDs on PORTC.	    *
+;		    One is N/S, the other is E/W, and each push on a button on PORTB*
+;		    indicates a car approaching the intersection from one of the two*
+;		    directions that corresponds with that button.		    *
+;										    *		
+;		    Normal operation is 5 seconds green, 1 second yellow before	    *
+;		    turning red and swapping. If there are cars only in one directon*
+;		    then that light will be green until all cars are through, or    *
+;		    until a car approaches from the other direction, where it will  *
+;		    resume normal operation.					    *
 ;										    *
 ;************************************************************************************
 
@@ -20,18 +24,13 @@
 ;										    *
 ;   1:	Initialize file, and set up the file along with includes		    *
 ;										    *
-;   2:	Setup interrupt when RB0 push button is pressed to cause a 2 second change  * 
-;	on the output, making the dot-matrix display a 7, then reverting back to a  *
-;	"1".									    *
-;										    *	
-;   3:	Adding a push button that displays a "6" on RB1, that can be interrupted by *
-;	the button on RB0, but cannot override the RB0 ISR.			    *
+;   2:	Setup the interrupts for the light, and the timers necessary.		    *
 ;										    *	
 ;************************************************************************************		
 		
 		#INCLUDE <p16f883.inc>        		; processor specific variable definitions
-		#INCLUDE <16F883_SETUP_PT2.inc>		; Custom setup file for the PIC16F883 micro-controller
-		#INCLUDE <SUBROUTINES2.inc>		; File containing all of the used subroutines
+		#INCLUDE <16F883_SETUP.inc>		; Custom setup file for the PIC16F883 micro-controller
+		#INCLUDE <SUBROUTINES.inc>		; File containing all used subroutines
 		LIST      p=16f883		  	; list directive to define processor
 		errorlevel -302,-207,-305,-206,-203	; suppress "not in bank 0" message,  Found label after column 1,
 							; Using default destination of 1 (file),  Found call to macro in column 1
@@ -92,14 +91,12 @@ INTERRUPT
 		MOVWF	W_TEMP				;/
 		SWAPF	STATUS,W			;Saves the W & STATUS registers into a temporary location to not interfere with the MAIN code that was interrupted, when resumed
 		MOVWF	STATUS_TEMP			;\
-		BANKSEL	PORTC
-		BTFSC	PORTB,RB0			;Test which interrupt is occurring, starting with RB0
-		CALL	SAVEDALREADY			;RB0 is true, GOTO SAVEDALREADY	since W & STATUS are already saved
-		BTFSC	PORTB,RB1			;Test RB1 
-		GOTO	SET6				;RB1 true, GOTO SET6
-		GOTO	GOBACK				;Neither RB0 nor RB1 are true, reload W & Status registers, and return
+		BANKSEL	PIR1
+		BTFSC	PIR1,1
+		CALL	TRAFFIC_LIGHT
+		GOTO	GOBACK
 	GOBACK
-		BCF	INTCON,RBIF			;Clear RBIF, allowing interrupts to occur again
+		BCF	PIR1,1				;Clear RBIF, allowing interrupts to occur again
 		SWAPF	STATUS_TEMP,W			;/
 		MOVWF	STATUS				;Move the previous W & STATUS registers back into the W & STATUS registers
 		SWAPF	W_TEMP,F			;
@@ -110,9 +107,7 @@ INTERRUPT
 ;Main Code
 ;******************************************
 MAIN	
-		BANKSEL	PORTC				;
-		MOVLW	0X31				;/Set output to display a "1"
-		MOVWF	PORTC				;\
+		NOP
 		GOTO	MAIN				;Restart back to MAIN
 END
 		
