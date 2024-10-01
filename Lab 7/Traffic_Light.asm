@@ -84,6 +84,10 @@ INTERRUPT
 		SWAPF	STATUS,W			;Saves the W & STATUS registers into a temporary location to not interfere with the MAIN code that was interrupted, when resumed
 		MOVWF	STATUS_TEMP			;\
 		BANKSEL	PIR1
+		BTFSC	PORTB,0
+		INCF	NS_CAR_COUNT
+		BTFSC	PORTB,1
+		INCF	EW_CAR_COUNT
 		BTFSC	PIR1,1
 		CALL	TRAFFIC_LIGHT
 		GOTO	GOBACK
