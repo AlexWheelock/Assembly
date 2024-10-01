@@ -118,7 +118,7 @@ INITIALIZE
 		MOVLW	0x6A				;Enable Timer 2, set pre-scale to 1:16, post-scale to 1:13
 		MOVWF	T2CON				;\
 		BANKSEL	PR2				;/
-		MOVLW	0x60				;Set PR2 to 156
+		MOVLW	0x6F				;Set PR2 to 156
 		MOVWF	PR2				;\
  
 ;*** PORT A SETUP **** PORT A SET AS LOGIC OUTPUT (NOT USED)

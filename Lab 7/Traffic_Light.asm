@@ -53,22 +53,14 @@
 ;Define Variable Registers
 ;******************************************
 
-    W_TEMP	EQU	0X20				;Used to store W upon an interrupt from RB0
-    STATUS_TEMP	EQU	0X21				;Used to store STATUS on an interrupt from RB0
-    COUNT1	EQU	0X22				;/
-    COUNT2	EQU	0X23				;
-    COUNT3	EQU	0X24				;Registers used to set the 2 second delay when the RB0 interrupt occurs
-    COUNT4	EQU	0x25		 		;
-    COUNT5	EQU	0x26				;\
-    COUNT1_TEMP	EQU	0X27		 		;/
-    COUNT2_TEMP	EQU	0X28		 		;
-    COUNT3_TEMP	EQU	0X29		 		;Registers used to set the 2 second delay when the RB0 interrupt occurs
-    COUNT4_TEMP	EQU	0X2A		 		;
-    COUNT5_TEMP	EQU	0X2B		 		;\
-    W_TEMP2	EQU	0X2C				;Used to store W upon an interrupt from RB1
-    STATUS_TEMP2 EQU	0X2D				;Used to store STATUS on an interrupt from RB1
-    PRIORITY	EQU	0X2E
-							;Separate delays because the RB1 interrupt will ruin the delay that the RB0 delay had remaining if interrupted in the middle of the ISR
+    W_TEMP	 EQU  H'0020'
+    STATUS_TEMP	 EQU  H'0021'
+    END_GREEN  	 EQU  H'0022'
+    END_YELLOW	 EQU  H'0023'
+    NS_TRUE	 EQU  H'0024'
+    GREEN	 EQU  H'0025'
+    YELLOW	 EQU  H'0026'
+							
 ;******************************************		
 ;Interrupt Vectors
 ;******************************************
@@ -96,7 +88,7 @@ INTERRUPT
 		CALL	TRAFFIC_LIGHT
 		GOTO	GOBACK
 	GOBACK
-		BCF	PIR1,1				;Clear RBIF, allowing interrupts to occur again
+		BCF	PIR1,1				;Clear TMR2IF, allowing interrupts to occur again
 		SWAPF	STATUS_TEMP,W			;/
 		MOVWF	STATUS				;Move the previous W & STATUS registers back into the W & STATUS registers
 		SWAPF	W_TEMP,F			;
