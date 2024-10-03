@@ -2,7 +2,7 @@
 ;										    *
 ;   Filename:	    Traffic_Light.asm						    *
 ;   Date:	    September 30, 2024						    *
-;   File Version:   2								    *
+;   File Version:   3								    *
 ;   Author:	    Alex Wheelock						    *
 ;   Company:	    Idaho State University					    *
 ;   Description:    Program that simulates an intersection using LEDs on PORTC.	    *
@@ -25,6 +25,9 @@
 ;   1:	Initialize file, and set up the file along with includes		    *
 ;										    *
 ;   2:	Setup the interrupts for the light, and the timers necessary.		    *
+;										    *
+;   3:	Buttons used to simulate cars approaching the traffic light from the N/S    *
+;	and/or E/W added on PORTB.						    *
 ;										    *	
 ;************************************************************************************		
 		
@@ -53,13 +56,13 @@
 ;Define Variable Registers
 ;******************************************
 
-    W_TEMP	 EQU  H'0020'
-    STATUS_TEMP	 EQU  H'0021'
-    END_GREEN  	 EQU  H'0022'
-    END_YELLOW	 EQU  H'0023'
-    NS_TRUE	 EQU  H'0024'
-    GREEN	 EQU  H'0025'
-    YELLOW	 EQU  H'0026'
+W_TEMP		 EQU  0X20				;Used to store the working register upon an interrupt
+STATUS_TEMP	 EQU  0x21				;Used to store the STATUS register upon an interrupt
+END_GREEN  	 EQU  0x22				;Used to track the time remaining of the green light
+END_YELLOW	 EQU  0x23				;Used to track the time remaining of the yellow light
+NS_TRUE		 EQU  0x24				;Used to determine which light is active currently
+NS_CAR		 EQU  0x25				;Used to track if a car is approaching the intersection from the N/S
+EW_CAR		 EQU  0x26				;Used to track if a car is approaching the intersection from the E/W
 							
 ;******************************************		
 ;Interrupt Vectors
@@ -83,21 +86,21 @@ INTERRUPT
 		MOVWF	W_TEMP				;/
 		SWAPF	STATUS,W			;Saves the W & STATUS registers into a temporary location to not interfere with the MAIN code that was interrupted, when resumed
 		MOVWF	STATUS_TEMP			;\
-		BANKSEL	PIR1
-		BTFSC	PORTB,0
-		INCF	NS_CAR_COUNT
-		BTFSC	PORTB,1
-		INCF	EW_CAR_COUNT
-		BTFSC	PIR1,1
-		CALL	TRAFFIC_LIGHT
-		GOTO	GOBACK
+		BANKSEL	PIR1				;
+		BTFSC	PORTB,0				;Determine if the current interrupt is from a car approaching from N/S
+		BSF	NS_CAR,0			;Car is approaching from N/S, set flag
+		BTFSC	PORTB,1				;Determine if the current interrupt is from a car approaching from E/W
+		BSF	EW_CAR,0			;Car is approaching from E/W, set flag
+		BTFSC	PIR1,1				;Determine if the current interrupt from TMR2
+		CALL	TRAFFIC_LIGHT			;Call subroutine to handle the bulk logic for the traffic light
+		GOTO	GOBACK				;
 	GOBACK
 		BCF	PIR1,1				;Clear TMR2IF, allowing interrupts to occur again
 		SWAPF	STATUS_TEMP,W			;/
 		MOVWF	STATUS				;Move the previous W & STATUS registers back into the W & STATUS registers
 		SWAPF	W_TEMP,F			;
 		SWAPF	W_TEMP,W			;\
-		RETFIE
+		RETFIE					;Return to MAIN, Re-enable global interrupt
 		
 ;******************************************
 ;Main Code

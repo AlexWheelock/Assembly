@@ -1,8 +1,8 @@
 ;************************************************************************************
 ;										    *
-;   Filename:	    16F883_SETUP_PT.inc						    *
+;   Filename:	    16F883_SETUP.inc						    *
 ;   Date:	    September 24, 2024						    *
-;   File Version:   1								    *
+;   File Version:   2								    *
 ;   Author:	    Alex Wheelock						    *
 ;   Company:	    Idaho State University					    *
 ;   Description:    Firmware for setting up a PIC16F883				    *
@@ -15,6 +15,9 @@
 ;										    *
 ;   1:	Initialize file for setting up the PIC16F883 micro-controller for Lab 7	    *
 ;	which simulates a traffic light.					    *
+;										    *
+;   2:	File setup for the final working traffic light with for logic supporting    *
+;	cars approaching the light using buttons on RB1:0			    *
 ;										    *
 ;************************************************************************************
 		
@@ -57,10 +60,10 @@
 ;DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	*
 ;OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		*
 ;---------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------*		
-;UNUSED		|CONNECTED TO	|CONNNECTED TO	|CONNECTED TO	|CONNECTED TO	|CONNECTED TO 	|CONNECTED TO	|CONNECTED TO	*
-;		|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	*
-;		|DISPLAY	|DISPLAY	|DISPLAY	|DISPLAY	|DISPLAY	|DISPLAY	|DISPLAY	*
-;		|(PIN 14)	|(PIN 13)	|(PIN 12)	|(PIN 11)	|(PIN 10)	|(PIN 9)	|(PIN 8)	*		
+;UNUSED		|UNUSED		|DRIVES E/W	|DRIVES E/W	|DRIVES E/W	|DRIVES N/S 	|DRIVES N/S	|DRIVES N/S	*
+;		|		|RED LED	|YELLOW LED	|GREEN LED	|RED LED	|YELLOW LED	|GREEN LED	*
+;		|		|		|		|		|		|		|		*
+;		|		|		|		|		|		|		|		*		
 ;-------------------------------------------------------------------------------------------------------------------------------*			
 		
 INITIALIZE_CODE	CODE		
@@ -159,11 +162,8 @@ INITIALIZE
 		MOVWF	END_GREEN
 		MOVLW	0xF0
 		MOVWF	END_YELLOW
-		CLRF	NS_CAR_COUNT
-		CLRF	EW_CAR_COUNT
-		CLRF	APPROACHING_RED
-		CLRF	APPROACHING_GREEN
+		CLRF	NS_CAR
+		CLRF	EW_CAR
 		MOVLW	0x28
-		MOVWF	DEC_CAR_COUNT
 		
 		RETURN					;Return to .asm file
