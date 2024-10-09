@@ -2,7 +2,7 @@
 ;										    *
 ;   Filename:	    ADC.asm							    *
 ;   Date:	    October 4, 2024						    *
-;   File Version:   2								    *
+;   File Version:   3								    *
 ;   Author:	    Alex Wheelock						    *
 ;   Company:	    Idaho State University					    *
 ;   Description:    This program will be used to convert the analog signal coming   *
@@ -20,12 +20,14 @@
 ;										    *
 ;   2:	Setup the file to take the input from the temperature sensor and output the *
 ;	binary temperature value on LEDs on PORTC.				    *
+;										    *
+;   3:	File setup to drive a servo motor on PORTC
 ;										    *	
 ;************************************************************************************		
 		
 		#INCLUDE <p16f883.inc>        		; processor specific variable definitions
-		#INCLUDE <16F883_SETUP.inc>		; Custom setup file for the PIC16F883 micro-controller
-		#INCLUDE <SUBROUTINES.inc>		; File containing all used subroutines
+		#INCLUDE <16F883_SETUP2.inc>		; Custom setup file for the PIC16F883 micro-controller
+		#INCLUDE <SUBROUTINES2.inc>		; File containing all used subroutines
 		LIST      p=16f883		  	; list directive to define processor
 		errorlevel -302,-207,-305,-206,-203	; suppress "not in bank 0" message,  Found label after column 1,
 							; Using default destination of 1 (file),  Found call to macro in column 1
@@ -50,11 +52,7 @@
 
 W_TEMP		 EQU  0X20				;Used to store the working register upon an interrupt
 STATUS_TEMP	 EQU  0x21				;Used to store the STATUS register upon an interrupt
-END_GREEN  	 EQU  0x22				;Used to track the time remaining of the green light
-END_YELLOW	 EQU  0x23				;Used to track the time remaining of the yellow light
-NS_TRUE		 EQU  0x24				;Used to determine which light is active currently
-NS_CAR		 EQU  0x25				;Used to track if a car is approaching the intersection from the N/S
-EW_CAR		 EQU  0x26				;Used to track if a car is approaching the intersection from the E/W
+
 							
 ;******************************************		
 ;Interrupt Vectors
@@ -63,10 +61,11 @@ EW_CAR		 EQU  0x26				;Used to track if a car is approaching the intersection fr
 		GOTO	SETUP				;RESET CONDITION GOTO SETUP
 		ORG	H'004'				;ORGs interrupt location
 		GOTO	INTERRUPT			;Interrupt occurred, carry out ISR
-
+		
 ;******************************************
 ;SETUP ROUTINE
-;******************************************
+;******************************************			
+		
 SETUP
 		CALL	INITIALIZE			;Call setup include file to initialize the PIC
 		GOTO	MAIN				;END OF SETUP ROUTINE
@@ -78,23 +77,39 @@ INTERRUPT
 		MOVWF	W_TEMP				;/
 		SWAPF	STATUS,W			;Saves the W & STATUS registers into a temporary location to not interfere with the MAIN code that was interrupted, when resumed
 		MOVWF	STATUS_TEMP			;\
-		BANKSEL	PIR1				;/
-		BTFSC	PIR1,6				;\Determine if ADIF is set, if not then leave ISR
-		CALL	READADC				;ADC is done, put result onto PORTC LEDs and reset ADC
+		BANKSEL	PIR1				;
+		BTFSS	PIR1,1				;TEST IF TMR2IF IS SET, IF NOT THEN LEAVE ISR, OTHERWISE CONTINUE
+		GOTO	GOBACK				;TMR2IF NOT SET, LEAVE ISR
+		DECFSZ	PERIOD				;DECREMENT PERIOD TO SET 20ms CYCLE TIME ON OUTPUT
+		GOTO	CONTINUE			;STILL IN THE MIDDLE OF A CYCLE, CONTINUE TO CHECK PW TIME REMAINING
+		GOTO	NEW_CYCLE			;PERIOD = 0, RESTART A NEW CYCLE
+	CONTINUE					;
+		BTFSS	PW_TRUE,0			;TEST IF A PULSE WIDTH IS OCCURING, IF NOT THEN LEAVE ISR, OTHERWISE DECREMENT COUNT OF PW REMAINING
+		GOTO	GOBACK				;PW IS NOT ACTIVE, CONTINUE FINISHING THE CYCLE BY LEAVING ISR
+		DECFSZ	PW_COUNT			;PW IS ACTIVE, DECREMENT COUNT. IF COUNT IS UP THEN SET OUTPUT LOW AND CLEAR PW_TRUE
+		GOTO	GOBACK				;PW IS STILL ACTIVE, LEAVE ISR
+		BCF	PW_TRUE,0			;CLEAR PW_TRUE WHEN PW TIME IS UP
+		BCF	PORTA,1				;CLEAR OUTPUT TO SET IT LOW WHEN PW TIME IS UP
 	GOBACK
-		BCF	PIR1,6				;Clear ADIF, allowing interrupts to occur again
+		BCF	PIR1,1				;CLEAR TMR2IF
 		SWAPF	STATUS_TEMP,W			;/
 		MOVWF	STATUS				;Move the previous W & STATUS registers back into the W & STATUS registers
 		SWAPF	W_TEMP,F			;
 		SWAPF	W_TEMP,W			;\
 		RETFIE					;Return to MAIN, Re-enable global interrupt
-		
+
 ;******************************************
 ;Main Code
 ;******************************************
 MAIN	
-		NOP					;Do nothing in MAIN
-		GOTO	MAIN				;Restart back to MAIN
+		BANKSEL	ADCON0				;
+		BTFSC	ADCON0,1			;TEST IF ADC CONVERSION IS DONE
+		GOTO	MAIN				;ADC CONVERSION IS NOT DONE
+		MOVFW	ADRESH	    			;/ADC CONVERSION IS DONE, STORE CURRENT VALUE INTO CURRENTADC REGISTER
+		MOVWF	CURRENTADC  			;\
+		MOVWF	PORTC	    			;DISPLAY CURRENT ADC COUNT ONTO LEDS ON PORTC
+		BSF	ADCON0,1    			;SET GO/DONE TO START ANOTHER ADC CONVERSION
+		GOTO	MAIN	    			;RESTART BY GOING BACK TO MAIN
 END
 		
 ;******************************************		
