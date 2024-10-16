@@ -78,10 +78,9 @@ INTERRUPT
 		SWAPF	STATUS,W			;Saves the W & STATUS registers into a temporary location to not interfere with the MAIN code that was interrupted, when resumed
 		MOVWF	STATUS_TEMP			;\
 		BANKSEL	PIR1				;
-		BTFSC	PIR1,5
-		CALL	TEST_HANDSHAKE
 		BTFSS	PIR1,1				;TEST IF TMR2IF IS SET, IF NOT THEN LEAVE ISR, OTHERWISE CONTINUE
 		GOTO	GOBACK				;TMR2IF NOT SET, LEAVE ISR
+		BSF	PORTA,0
 		DECFSZ	PERIOD				;DECREMENT PERIOD TO SET 20ms CYCLE TIME ON OUTPUT
 		GOTO	CONTINUE			;STILL IN THE MIDDLE OF A CYCLE, CONTINUE TO CHECK PW TIME REMAINING
 		GOTO	NEW_CYCLE			;PERIOD = 0, RESTART A NEW CYCLE
@@ -93,8 +92,8 @@ INTERRUPT
 		BCF	PW_TRUE,0			;CLEAR PW_TRUE WHEN PW TIME IS UP
 		BCF	PORTA,1				;CLEAR OUTPUT TO SET IT LOW WHEN PW TIME IS UP
 	GOBACK
-		BANKSEL	INTCON
-		BCF	INTCON,0			;Clear ADIF, allowing interrupts to occur again
+		BCF	PORTA,0
+		BCF	PIR1,1
 		SWAPF	STATUS_TEMP,W			;/
 		MOVWF	STATUS				;Move the previous W & STATUS registers back into the W & STATUS registers
 		SWAPF	W_TEMP,F			;
@@ -104,8 +103,8 @@ INTERRUPT
 ;******************************************
 ;Main Code
 ;******************************************
-MAIN	
-		GOTO	MAIN	    			;RESTART BY GOING BACK TO MAIN
+MAIN
+		GOTO	MAIN
 END
 		
 ;******************************************		
