@@ -87,10 +87,10 @@ INTERRUPT
 		SWAPF	STATUS,W			;Saves the W & STATUS registers into a temporary location to not interfere with the MAIN code that was interrupted, when resumed
 		MOVWF	STATUS_TEMP			;\
 		BANKSEL	PIR1				;
-
-		BTFSC	PIR1,1				;Determine if the current interrupt from TMR2
-		
+		BTFSS	PIR1,1				;Determine if the current interrupt from TMR2
 		GOTO	GOBACK				;
+		BTFSC	IDLE,0
+		GOTO	TEST_MODE_CHANGE
 	GOBACK
 		BCF	PIR1,1				;Clear TMR2IF, allowing interrupts to occur again
 		SWAPF	STATUS_TEMP,W			;/
@@ -104,7 +104,7 @@ INTERRUPT
 ;******************************************
 MAIN	
 		BANKSEL	PORTB	
-		BTFSC	INPUT_FLAG,0
+		BTFSS	TEST_INPUTS,0
 		GOTO	MAIN
 		
 		MOVLW	H'08'				;
