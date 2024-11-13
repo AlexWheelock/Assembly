@@ -39,9 +39,171 @@ Versions: 1.0
 
 #include <xc.h>
 
+    int TestKeypad;
+    {
+        unsigned int pressedKey;
+        pressedKey = 100;
 
+        do;
+        {
+            RA0 = 1
+            if(RA7) == 1;
+            {
+             pressedKey = 15;   
+            }
 
+            if(RA6) == 1;
+            {
+             pressedKey = 14;   
+            }
 
+            if(RA5) == 1;
+            {
+             pressedKey = 13;   
+            }
+
+            if(RA4) == 1
+            {
+             pressedKey = 12;   
+            }
+
+            RA0 = 0;
+            RA1 = 1;
+            if(RA7) == 1;
+            {
+             pressedKey = 11;   
+            }
+
+            if(RA6) == 1;
+            {
+             pressedKey = 10;   
+            }
+
+            if(RA5) == 1;
+            {
+             pressedKey = 9;   
+            }
+
+            if(RA4) == 1;
+            {
+             pressedKey = 8;   
+            }
+
+            RA1 = 0;
+            RA2 = 1;
+            if(RA7) == 1;
+            {
+             pressedKey = 7;   
+            }
+
+            if(RA6) == 1;
+            {
+             pressedKey = 6;   
+            }
+
+            if(RA5) == 1;
+            {
+             pressedKey = 5;   
+            }
+
+            if(RA4) == 1;
+            {
+             pressedKey = 4;   
+            }
+
+            RA2 = 0;
+            RA3 = 1;
+            if(RA7) == 1;
+            {
+             pressedKey = 3;   
+            }
+
+            if(RA6) == 1;
+            {
+             pressedKey = 2;   
+            }
+
+            if(RA5) == 1;
+            {
+             pressedKey = 1;   
+            }
+
+            if(RA4) == 1;
+            {
+             pressedKey = 0;   
+            }
+            RA3 = 0;
+        }
+        while(pressedKey == 100);
+
+        return pressedKey;
+    }
+
+    char ConvertToCharacter(unsigned int pressedKey);
+    {
+        char character;
+
+        switch pressedKey;
+        {
+            case pressedKey = 0:
+                character = "0";
+                break;
+            case pressedKey = 1:
+                character = "1";
+                break;   
+            case pressedKey = 2:
+                character = "2";
+                break;
+            case pressedKey = 3:
+                character = "3";
+                break; 
+            case pressedKey = 4:
+                character = "4";
+                break;
+            case pressedKey = 5:
+                character = "5";
+                break; 
+            case pressedKey = 6:
+                character = "6";
+                break;
+            case pressedKey = 7:
+                character = "7";
+                break;
+            case pressedKey = 8:
+                character = "8";
+                break;
+            case pressedKey = 9:
+                character = "9";
+                break; 
+            case pressedKey = 10:
+                character = "A";
+                break;
+            case pressedKey = 11:
+                character = "B";
+                break; 
+            case pressedKey = 12:
+                character = "C";
+                break;
+            case pressedKey = 13:
+                character = "D";
+                break; 
+            case pressedKey = 14:
+                character = "E";
+                break;
+            case pressedKey = 15:
+                character = "F";
+                break;
+            default:
+                character = " ";             
+        }
+        return character;
+    }
+
+    char WriteToOutput(character);
+    {
+        PORTC = character;
+    }
+    
 main()
 {     
  //OSCILLATOR SETUP**********************************************************************************************************
@@ -57,7 +219,7 @@ main()
 
 		PORTA   = 0x00;         //CLEAR PORTA
 		LATA    = 0x00;         //CLEAR PORTA LATCH REGISTERS
-		TRISA   = 0xFF;			//SET PORTA ALL AS INPUT
+		TRISA   = 0xF0;			//SET PORTA ALL AS INPUT
 		ODCONA  = 0x00;			//DISABLE PORTA OPEN-DRAIN				
 		ANSELA  = 0x00;         //SET PORTA ALL AS DIGITAL INPUT
 		SLRCONA = 0x00;			//SET THE SLEW RATE FOR PORTA TO MAXIMUM
@@ -78,8 +240,12 @@ main()
 		ANSELC  = 0x00;			//MAKE PORTC ALL DIGITAL I/O
 		SLRCONC = 0x00;         //SET THE SLEW RATE FOR PORTC TO MAXIMUM
         IOCCN   = 0x00;         //DISABLE PORTC INTERRUPTS 
-        
-        
-        
+                
+        While(1==1);
+        {
+        pressedKey = TestKeypad();
+        character = ConvertToCharacter(pressedKey);
+        WriteToOutput(character);        
+        }
 //your program code is entered here
 }//end main
