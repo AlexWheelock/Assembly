@@ -1,4 +1,4 @@
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE  1
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -33,7 +33,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00007 ;  (c) Copyright 1999-2019 Microchip Technology, All rights reserved
                       00008 ;==========================================================================
                       00009 
-                      03020         LIST
+                      03019         LIST
                       00021                 #INCLUDE <16LF1788_SETUP.inc>           ; Custom setup file for the PIC16F883 micro-cont
                             roller
                       00001 ;************************************************************************************
@@ -57,7 +57,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00019 ;       Dot-matrix to display the read/written character on.                        *
                       00020 ;                                                                                   *
                       00021 ;************************************************************************************
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE  2
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -116,7 +116,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00048 ;(LAST COLUMN)  |(THIRD COLUMN) |(SECOND COLUMN)|(FIRST COLUMN) |(BOTTOM ROW)   |(THIRD ROW)    |(SECOND
                              ROW)   |(FIRST ROW)    *
                       00049 ;               |               |               |               |               |               |       
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE  3
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -175,7 +175,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00081  
                       00082                 
                       00083 ;*** SET OPTION_REG: ****
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE  4
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -234,7 +234,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0021   0020           00122                 BANKSEL     PIR2
 0022   0192           00123                 CLRF        PIR2                        ;CLEAR ALL PIR2 INTERUPT FLAGS
 0023   0020           00124                 BANKSEL     PIR3
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE  5
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -293,7 +293,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 003E   018C           00168                 CLRF        LATA
 003F   0021           00169                 BANKSEL     TRISA
 0040   30FF           00170                 MOVLW       0xFF
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE  6
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -332,52 +332,64 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0054   018D           00193                 CLRF        SLRCONB                     ;SET THE SLEW RATE FOR PORT B TO MAXIMUM
 0055   0027           00194                 BANKSEL     IOCBN
-0056   301F           00195                 MOVLW       0x1F
+0056   300F           00195                 MOVLW       0x0F
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0057   0095           00196                 MOVWF       IOCBN
-                      00197                 
-                      00198 ;*** PORT C SETUP **** 
-                      00199                 
-0058   0020           00200                 BANKSEL     PORTC
-0059   018E           00201                 CLRF        PORTC               
-005A   0022           00202                 BANKSEL     LATC
+0058   0027           00197                 BANKSEL     IOCBP
+0059   300F           00198                 MOVLW       0x0F
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-005B   018E           00203                 CLRF        LATC
-005C   0021           00204                 BANKSEL     TRISC
-005D   3000           00205                 MOVLW       0x00                                
+005A   0094           00199                 MOVWF       IOCBP
+005B   0027           00200                 BANKSEL     IOCBN
+005C   300E           00201                 MOVLW       0x0E
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-005E   008E           00206                 MOVWF       TRISC                       ;SET PORTC ALL AS INPUTS
-005F   0025           00207                 BANKSEL     ODCONC
+005D   0095           00202                 MOVWF       IOCBN
+005E   0027           00203                 BANKSEL     INLVLB
+005F   3000           00204                 MOVLW       0x00
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0060   018E           00208                 CLRF        ODCONC                      ;DISABLE PORTC OPEN-DRAIN
-0061   0023           00209                 BANKSEL     ANSELC
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE  7
+0060   008D           00205                 MOVWF       INLVLB          
+                      00206                 
+                      00207 ;*** PORT C SETUP **** 
+                      00208                 
+0061   0020           00209                 BANKSEL     PORTC
+0062   018E           00210                 CLRF        PORTC               
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0062   018E           00210                 CLRF        ANSELC                      ;MAKE PORTC ALL DIGITAL I/O
-0063   0026           00211                 BANKSEL     SLRCONC
-                      00212                 ;MOVLW      0xFF
-                      00213                 ;MOVWF      SLRCONC
+0063   0022           00211                 BANKSEL     LATC
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0064   018E           00214                 CLRF        SLRCONC                     ;SET THE SLEW RATE FOR PORT C TO MAXIMUM
-0065   0027           00215                 BANKSEL     INLVLA
+0064   018E           00212                 CLRF        LATC
+0065   0021           00213                 BANKSEL     TRISC
+0066   3000           00214                 MOVLW       0x00                                
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0066   018C           00216                 CLRF        INLVLA
-                      00217                 
-                      00218 ;*** BOOT CODE ****
-                      00219                             
-0067   100B           00220                 BCF         INTCON,0
-0068   0020           00221                 BANKSEL     T1CON
-0069   1418           00222                 BSF         T1CON,0
-006A   0020           00223                 BANKSEL     T2CON
-006B   151C           00224                 BSF         T2CON, 2                    ;ENABLE TIMER 2
-                      00225                 
+0067   008E           00215                 MOVWF       TRISC                       ;SET PORTC ALL AS INPUTS
+0068   0025           00216                 BANKSEL     ODCONC
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0069   018E           00217                 CLRF        ODCONC                      ;DISABLE PORTC OPEN-DRAIN
+006A   0023           00218                 BANKSEL     ANSELC
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+006B   018E           00219                 CLRF        ANSELC                      ;MAKE PORTC ALL DIGITAL I/O
+006C   0026           00220                 BANKSEL     SLRCONC
+                      00221                 ;MOVLW      0xFF
+                      00222                 ;MOVWF      SLRCONC
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+006D   018E           00223                 CLRF        SLRCONC                     ;SET THE SLEW RATE FOR PORT C TO MAXIMUM
+006E   0027           00224                 BANKSEL     INLVLA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+006F   018C           00225                 CLRF        INLVLA
                       00226                 
-006C   0008           00227                 RETURN                                  ;RETURN TO .asm FILE
+                      00227 ;*** BOOT CODE ****
+                      00228                             
+0070   100B           00229                 BCF         INTCON,0
+0071   0020           00230                 BANKSEL     T1CON
+0072   1418           00231                 BSF         T1CON,0
+0073   0020           00232                 BANKSEL     T2CON
+0074   151C           00233                 BSF         T2CON, 2                    ;ENABLE TIMER 2
+                      00234                 
+                      00235                 
+0075   0008           00236                 RETURN                                  ;RETURN TO .asm FILE
                       00022                 #INCLUDE <SUBROUTINES.inc>              ; File containing all used subroutines
                       00001 ;************************************************************************************
                       00002 ;                                                                                   *
@@ -399,143 +411,168 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00018 ;   1:  Initialize file, and set up the file along with includes                    *
                       00019 ;                                                                                   *
                       00020 ;   2:  Added Subroutines to get EEPROM write/read and displaying it on a dot-matrix*
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                       00021 ;       working.                                                                    *
                       00022 ;                                                                                   *
                       00023 ;************************************************************************************           
                       00024             
                       00025 SUBROUTINES_CODE CODE
-                      00026  
-Warning[207]: Found label after column 1. (TEST_ACTIVE_FIRING)
-0000                  00027     TEST_ACTIVE_FIRING
+                      00026   
+Warning[207]: Found label after column 1. (FIRE_CONTINUOUS)
+0000                  00027     FIRE_CONTINUOUS
 0000   0020           00028                 BANKSEL     PORTB
-0001   140E           00029                 BSF         PORTC,0
-0002   1823           00030                 BTFSC       SEMI_ACTIVE,0
-0003   2???           00031                 GOTO        FINISH_SEMI
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE  8
+0001   1C0D           00029                 BTFSS       PORTB,0
+0002   2???           00030                 GOTO        STOP_FIRING
+0003   0021           00031                 BANKSEL     TRISC
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0004   190E           00032                 BTFSC       TRISC,2
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0005   110E           00033                 BCF         TRISC,2
+0006   2???           00034                 GOTO        GOBACK
+                      00035                 
+Warning[207]: Found label after column 1. (STOP_FIRING)
+0007                  00036     STOP_FIRING
+0007   0021           00037                 BANKSEL     TRISC
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0008   1D0E           00038                 BTFSS       TRISC,2
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0009   150E           00039                 BSF         TRISC,2
+000A   2???           00040                 GOTO        GOBACK
+                      00041  
+Warning[207]: Found label after column 1. (FIRE_SEMI)
+000B                  00042     FIRE_SEMI
+000B   0027           00043                 BANKSEL     IOCBF
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000C   1C16           00044                 BTFSS       IOCBF,0
+000D   2???           00045                 GOTO        GOBACK
+000E   0020           00046                 BANKSEL     PORTB
+000F   1C0D           00047                 BTFSS       PORTB,0
+0010   2???           00048                 GOTO        STOP_FIRING 
+0011   0021           00049                 BANKSEL     TRISC
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0012   110E           00050                 BCF         TRISC,2
+0013   0020           00051                 BANKSEL     PORTC
+0014   158E           00052                 BSF         PORTC,3
+0015   0020           00053                 BANKSEL     TMR1L
+0016   0196           00054                 CLRF        TMR1L
+0017   0197           00055                 CLRF        TMR1H
+                      00056                 
+0018   0020           00057                 BANKSEL     PIR1
+0019   1011           00058                 BCF         PIR1,0
+Warning[207]: Found label after column 1. (POLL_TMR1_SEMI)
+001A                  00059         POLL_TMR1_SEMI  
+001A   1C11           00060                 BTFSS       PIR1,0
+001B   2???           00061                 GOTO        POLL_TMR1_SEMI      
+001C   0020           00062                 BANKSEL     PORTC
+001D   118E           00063                 BCF         PORTC,3
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0004   1821           00032                 BTFSC       BURST_ACTIVE,0
-0005   2???           00033                 GOTO        CONTINUE_BURST
-0006   2???           00034                 GOTO        TEST_MODE
-                      00035  
-                      00036  
-Warning[207]: Found label after column 1. (FIRE_CONTINUOUS)
-0007                  00037     FIRE_CONTINUOUS
-0007   0020           00038                 BANKSEL     PORTB
-0008   1C0D           00039                 BTFSS       PORTB,0
-0009   2???           00040                 GOTO        STOP_FIRING
-000A   0021           00041                 BANKSEL     TRISC
+001E   2???           00064                 GOTO        STOP_FIRING         
+                      00065                                 
+Warning[207]: Found label after column 1. (FIRE_BURST)
+001F                  00066     FIRE_BURST
+001F   0027           00067                 BANKSEL     IOCBF
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-000B   190E           00042                 BTFSC       TRISC,2
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-000C   110E           00043                 BCF         TRISC,2
-000D   2???           00044                 GOTO        GOBACK
-                      00045                 
-Warning[207]: Found label after column 1. (STOP_FIRING)
-000E                  00046     STOP_FIRING
-000E   0021           00047                 BANKSEL     TRISC
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-000F   1D0E           00048                 BTFSS       TRISC,2
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0010   150E           00049                 BSF         TRISC,2
-0011   2???           00050                 GOTO        GOBACK
-                      00051  
-Warning[207]: Found label after column 1. (FIRE_SEMI)
-0012                  00052     FIRE_SEMI
-0012   0027           00053                 BANKSEL     IOCBF
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0013   1C16           00054                 BTFSS       IOCBF,0
-0014   2???           00055                 GOTO        STOP_FIRING
-0015   0020           00056                 BANKSEL     PORTB
-0016   1C0D           00057                 BTFSS       PORTB,0
-0017   2???           00058                 GOTO        STOP_FIRING 
-0018   0021           00059                 BANKSEL     TRISC
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0019   110E           00060                 BCF         TRISC,2
-001A   0020           00061                 BANKSEL     T1CON
-001B   1018           00062                 BCF         T1CON, 0
-001C   0020           00063                 BANKSEL     TMR1L
-001D   0196           00064                 CLRF        TMR1L
-001E   0197           00065                 CLRF        TMR1H
-001F   1011           00066                 BCF         PIR1,0
-                      00067                 ;BSF        SEMI_ACTIVE,0
-0020   0020           00068                 BANKSEL     T1CON
-0021   1418           00069                 BSF         T1CON, 0
-0022   0020           00070                 BANKSEL     PIR1
-0023   1C11           00071                 BTFSS       PIR1,0
-0024   2???           00072                 GOTO        $-1
+0020   1C16           00068                 BTFSS       IOCBF,0
+0021   2???           00069                 GOTO        GOBACK
+0022   0020           00070                 BANKSEL     PORTB
+0023   1C0D           00071                 BTFSS       PORTB,0
+0024   2???           00072                 GOTO        STOP_FIRING 
 0025   0021           00073                 BANKSEL     TRISC
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0026   150E           00074                 BSF         TRISC,2
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE  9
+0026   110E           00074                 BCF         TRISC,2
+0027   0020           00075                 BANKSEL     TMR1L
+0028   0196           00076                 CLRF        TMR1L
+0029   0197           00077                 CLRF        TMR1H
+002A   0020           00078                 BANKSEL     PIR1
+002B   1011           00079                 BCF         PIR1,0
+Warning[207]: Found label after column 1. (POLL_TMR1_BURST1)
+002C                  00080         POLL_TMR1_BURST1
+002C   1C11           00081                 BTFSS       PIR1,0
+002D   2???           00082                 GOTO        POLL_TMR1_BURST1
+002E   0021           00083                 BANKSEL     TRISC
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+002F   150E           00084                 BSF         TRISC,2
+0030   0020           00085                 BANKSEL     PIR1
+0031   1011           00086                 BCF         PIR1,0
+Warning[207]: Found label after column 1. (POLL_TMR1_BURST2)
+0032                  00087         POLL_TMR1_BURST2
+0032   1C11           00088                 BTFSS       PIR1,0
+0033   2???           00089                 GOTO        POLL_TMR1_BURST2
+0034   0021           00090                 BANKSEL     TRISC
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0035   110E           00091                 BCF         TRISC,2
+0036   0020           00092                 BANKSEL     PIR1
+0037   1011           00093                 BCF         PIR1,0
+Warning[207]: Found label after column 1. (POLL_TMR1_BURST3)
+0038                  00094         POLL_TMR1_BURST3
+0038   1C11           00095                 BTFSS       PIR1,0
+0039   2???           00096                 GOTO        POLL_TMR1_BURST3
+003A   0021           00097                 BANKSEL     TRISC
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+003B   150E           00098                 BSF         TRISC,2
+003C   0020           00099                 BANKSEL     PIR1
+003D   1011           00100                 BCF         PIR1,0
+Warning[207]: Found label after column 1. (POLL_TMR1_BURST4)
+003E                  00101         POLL_TMR1_BURST4
+003E   1C11           00102                 BTFSS       PIR1,0
+003F   2???           00103                 GOTO        POLL_TMR1_BURST4
+0040   0021           00104                 BANKSEL     TRISC
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0041   110E           00105                 BCF         TRISC,2
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0027   2???           00075                 GOTO        GOBACK
-                      00076                 
-Warning[207]: Found label after column 1. (FINISH_SEMI)
-0028                  00077     FINISH_SEMI
-0028   1023           00078                 BCF         SEMI_ACTIVE,0
-0029   2???           00079                 GOTO        STOP_FIRING
-                      00080                 
-Warning[207]: Found label after column 1. (FIRE_BURST)
-002A                  00081     FIRE_BURST
-002A   0027           00082                 BANKSEL     IOCBF
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-002B   1C16           00083                 BTFSS       IOCBF,0
-002C   2???           00084                 GOTO        GOBACK
-002D   0020           00085                 BANKSEL     PORTB
-002E   1C0D           00086                 BTFSS       PORTB,0
-002F   2???           00087                 GOTO        STOP_FIRING
-0030   2???           00088                 GOTO        STOP_FIRING
-                      00089                 
-                      00090                 
-                      00091                 
-Warning[207]: Found label after column 1. (CONTINUE_BURST)
-0031                  00092     CONTINUE_BURST      
-0031   2???           00093                 GOTO        STOP_FIRING
-                      00094     
-                      00095     
+0042   0020           00106                 BANKSEL     PIR1
+0043   1011           00107                 BCF         PIR1,0
+Warning[207]: Found label after column 1. (POLL_TMR1_BURST5)
+0044                  00108         POLL_TMR1_BURST5
+0044   1C11           00109                 BTFSS       PIR1,0
+0045   2???           00110                 GOTO        POLL_TMR1_BURST5            
+0046   2???           00111                 GOTO        STOP_FIRING
+                      00112                 
+                      00113     
 Warning[207]: Found label after column 1. (SET_38KHZ)
-0032                  00096     SET_38KHZ
-0032   0025           00097                 BANKSEL     CCPR1L
-0033   3013           00098                 MOVLW       0x13
+0047                  00114     SET_38KHZ
+0047   0025           00115                 BANKSEL     CCPR1L
+0048   3013           00116                 MOVLW       0x13
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0034   0091           00099                 MOVWF       CCPR1L              
-0035   0020           00100                 BANKSEL     PR2                         
-0036   3019           00101                 MOVLW       0x19                        ;SET PR2 TO 25 FOR 38kHz PERIOD
-0037   009B           00102                 MOVWF       PR2 
-0038   0020           00103                 BANKSEL     TMR2
-0039   019A           00104                 CLRF        TMR2
-003A   2???           00105                 GOTO        TEST_TMR1
+0049   0091           00117                 MOVWF       CCPR1L              
+004A   0020           00118                 BANKSEL     PR2                         
+004B   3019           00119                 MOVLW       0x19                        ;SET PR2 TO 25 FOR 38kHz PERIOD
+004C   009B           00120                 MOVWF       PR2 
+004D   0020           00121                 BANKSEL     TMR2
+004E   019A           00122                 CLRF        TMR2
+004F   2???           00123                 GOTO        TEST_TMR1
 Warning[207]: Found label after column 1. (SET_56KHZ)
-003B                  00106     SET_56KHZ
-003B   0025           00107                 BANKSEL     CCPR1L
-003C   300D           00108                 MOVLW       0x0D
+0050                  00124     SET_56KHZ
+0050   0025           00125                 BANKSEL     CCPR1L
+0051   300D           00126                 MOVLW       0x0D
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-003D   0091           00109                 MOVWF       CCPR1L              
-003E   0020           00110                 BANKSEL     PR2                         
-003F   3011           00111                 MOVLW       0x11                        ;SET PR2 TO 17 FOR 56kHz PERIOD
-0040   009B           00112                 MOVWF       PR2 
-0041   0020           00113                 BANKSEL     TMR2
-0042   019A           00114                 CLRF        TMR2
-0043   2???           00115                 GOTO        TEST_TMR1
-                      00116                 
-                      00117 
-                      00118     
-                      00119     
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 10
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                      00120                 
+0052   0091           00127                 MOVWF       CCPR1L              
+0053   0020           00128                 BANKSEL     PR2                         
+0054   3011           00129                 MOVLW       0x11                        ;SET PR2 TO 17 FOR 56kHz PERIOD
+0055   009B           00130                 MOVWF       PR2 
+0056   0020           00131                 BANKSEL     TMR2
+0057   019A           00132                 CLRF        TMR2
+0058   2???           00133                 GOTO        TEST_TMR1
+                      00134                 
+                      00135 
+                      00136     
+                      00137     
+                      00138                 
                       00023                 LIST      p=16lf1788                    ; list directive to define processor
                       00024                 errorlevel -302,-207,-305,-206,-203     ; suppress "not in bank 0" message,  Found label
                              after column 1,
@@ -551,6 +588,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 8008   1FFF           00032  __CONFIG _CONFIG2, _WRT_OFF & _PLLEN_ON & _STVREN_ON & _BORV_LO & _LPBOR_OFF & _LVP_OFF
                       00033 
                       00034 
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                       00035 
                       00036 ;******************************************             
                       00037 ;Define Constants
@@ -584,44 +627,47 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00065 ;INTERRUPT SERVICE ROUTINE
                       00066 ;******************************************
 0007                  00067 INTERRUPT       
-0007   0020           00068                 BANKSEL     PORTB
-0008   188D           00069                 BTFSC       PORTB,1
-0009   2???           00070                 GOTO        SET_56KHZ                   ;RB1 IS HIGH, SET PWM FREQUENCY TO 56kHz
-000A   2???           00071                 GOTO        SET_38KHZ                   ;RB0 IS LOW, SET PWM FREQUENCY TO 38kHz
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 11
+0007   0027           00068                 BANKSEL     IOCBF
+0008   1C96           00069                 BTFSS       IOCBF,1
+0009   2???           00070                 GOTO        TEST_TMR1
+000A   0020           00071                 BANKSEL     PORTB               
+000B   188D           00072                 BTFSC       PORTB,1
+000C   2???           00073                 GOTO        SET_56KHZ                   ;RB1 IS HIGH, SET PWM FREQUENCY TO 56kHz
+000D   2???           00074                 GOTO        SET_38KHZ                   ;RB0 IS LOW, SET PWM FREQUENCY TO 38kHz
+000E                  00075         TEST_TMR1
+                      00076                 ;BANKSEL            PIR1
+                      00077                 ;BTFSC      PIR1,0
+                      00078                 ;GOTO       TEST_ACTIVE_FIRING
+000E                  00079         TEST_MODE       
+000E   0020           00080                 BANKSEL     PORTB               
+000F   190D           00081                 BTFSC       PORTB,2
+0010   2???           00082                 GOTO        FIRE_CONTINUOUS
+0011   198D           00083                 BTFSC       PORTB,3
+0012   2???           00084                 GOTO        FIRE_BURST
+0013   2???           00085                 GOTO        FIRE_SEMI
+0014                  00086         GOBACK
+0014   0027           00087                 BANKSEL     IOCBF
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 12
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-000B                  00072         TEST_TMR1
-000B   0020           00073                 BANKSEL     PIR1
-000C   1811           00074                 BTFSC       PIR1,0
-000D   2???           00075                 GOTO        TEST_ACTIVE_FIRING
-000E                  00076         TEST_MODE       
-000E   0020           00077                 BANKSEL     PORTB               
-000F   190D           00078                 BTFSC       PORTB,2
-0010   2???           00079                 GOTO        FIRE_CONTINUOUS
-0011   198D           00080                 BTFSC       PORTB,3
-0012   2???           00081                 GOTO        FIRE_BURST
-0013   2???           00082                 GOTO        FIRE_SEMI
-0014                  00083         GOBACK
-0014   0027           00084                 BANKSEL     IOCBF
-0015   0196           00085                 CLRF        IOCBF                       ;CLEAR PORTB IOC FLAGS
-0016   0020           00086                 BANKSEL     PIR1
-0017   1011           00087                 BCF         PIR1,0                      ;CLEAR TMR1IF
-0018   100E           00088                 BCF         PORTC,0
-0019   100B           00089                 BCF         INTCON,IOCIF                ;CLEAR IOCIF
-001A   0009           00090                 RETFIE                                  ;RETURN TO MAIN, RE-ENABLE GIE
-                      00091                 
-                      00092 ;******************************************
-                      00093 ;Main Code
-                      00094 ;******************************************
-001B                  00095 MAIN    
-001B   2???           00096                 GOTO        MAIN
+0015   0196           00088                 CLRF        IOCBF                       ;CLEAR PORTB IOC FLAGS
+0016   0020           00089                 BANKSEL     PIR1
+0017   1011           00090                 BCF         PIR1,0                      ;CLEAR TMR1IF
+0018   100E           00091                 BCF         PORTC,0
+0019   100B           00092                 BCF         INTCON,IOCIF                ;CLEAR IOCIF
+001A   0009           00093                 RETFIE                                  ;RETURN TO MAIN, RE-ENABLE GIE
+                      00094                 
+                      00095 ;******************************************
+                      00096 ;Main Code
+                      00097 ;******************************************
+001B                  00098 MAIN    
+001B   2???           00099                 GOTO        MAIN
 Warning[205]: Found directive in column 1. (END)
-09A4 1FFF             00097 END
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 12
+09A4 1FFF             00100 END
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 13
 
 
 SYMBOL TABLE
@@ -680,7 +726,7 @@ ANSB6                             00000006
 ANSC0                             00000000
 ANSC1                             00000001
 ANSC2                             00000002
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 13
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 14
 
 
 SYMBOL TABLE
@@ -727,7 +773,6 @@ BUF4                              00000004
 BUF5                              00000005
 BUF6                              00000006
 BUF7                              00000007
-BURST_ACTIVE                      00000021
 BURST_STAGE                       00000022
 C                                 00000000
 C1HYS                             00000001
@@ -739,13 +784,13 @@ C1NCH0                            00000000
 C1NCH1                            00000001
 C1NCH2                            00000002
 C1OE                              00000005
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 14
+C1ON                              00000007
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 15
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-C1ON                              00000007
 C1OUT                             00000006
 C1PCH0                            00000003
 C1PCH1                            00000004
@@ -798,13 +843,13 @@ C4INTN                            00000006
 C4INTP                            00000007
 C4NCH0                            00000000
 C4NCH1                            00000001
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 15
+C4NCH2                            00000002
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 16
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-C4NCH2                            00000002
 C4OE                              00000005
 C4ON                              00000007
 C4OUT                             00000006
@@ -857,13 +902,13 @@ CHS2                              00000004
 CHS3                              00000005
 CHS4                              00000006
 CHSN0                             00000000
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 16
+CHSN1                             00000001
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 17
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-CHSN1                             00000001
 CHSN2                             00000002
 CHSN3                             00000003
 CKE                               00000006
@@ -886,7 +931,6 @@ CM3CON1                           0000011F
 CM4CON0                           0000011A
 CM4CON1                           0000011B
 CMOUT                             00000115
-CONTINUE_BURST                    00000031
 CREN                              00000004
 CSRC                              00000007
 C_SHAD                            00000000
@@ -916,14 +960,14 @@ DAC3CON0                          00000593
 DAC3CON1                          00000594
 DAC3EN                            00000007
 DAC3OE1                           00000005
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 17
+DAC3OE2                           00000004
+DAC3REF                           00000594
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 18
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-DAC3OE2                           00000004
-DAC3REF                           00000594
 DAC4CON0                          00000595
 DAC4CON1                          00000596
 DAC4EN                            00000007
@@ -969,21 +1013,20 @@ EEPGD                             00000007
 EN                                00000007
 F                                 00000001
 FERR                              00000002
-FINISH_SEMI                       00000028
-FIRE_BURST                        0000002A
-FIRE_CONTINUOUS                   00000007
-FIRE_SEMI                         00000012
+FIRE_BURST                        0000001F
+FIRE_CONTINUOUS                   00000000
+FIRE_SEMI                         0000000B
 FOSC                              D'4000'
 FREE                              00000004
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 18
+FSR0                              00000004
+FSR0H                             00000005
+FSR0H_SHAD                        00000FE9
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 19
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-FSR0                              00000004
-FSR0H                             00000005
-FSR0H_SHAD                        00000FE9
 FSR0L                             00000004
 FSR0L_SHAD                        00000FE8
 FSR1                              00000006
@@ -1034,15 +1077,15 @@ INLVLC6                           00000006
 INLVLC7                           00000007
 INLVLE                            00000390
 INLVLE3                           00000003
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 19
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 20
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-INTCON                            0000000B
-INTE                              00000004
-INTEDG                            00000006
 INTERRUPT                         00000007
 INTF                              00000001
 IOCAF                             00000393
@@ -1093,15 +1136,15 @@ IOCBN7                            00000007
 IOCBP                             00000394
 IOCBP0                            00000000
 IOCBP1                            00000001
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 20
+IOCBP2                            00000002
+IOCBP3                            00000003
+IOCBP4                            00000004
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 21
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-IOCBP2                            00000002
-IOCBP3                            00000003
-IOCBP4                            00000004
 IOCBP5                            00000005
 IOCBP6                            00000006
 IOCBP7                            00000007
@@ -1152,15 +1195,15 @@ LATA3                             00000003
 LATA4                             00000004
 LATA5                             00000005
 LATA6                             00000006
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 21
+LATA7                             00000007
+LATB                              0000010D
+LATB0                             00000000
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 22
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-LATA7                             00000007
-LATB                              0000010D
-LATB0                             00000000
 LATB1                             00000001
 LATB2                             00000002
 LATB3                             00000003
@@ -1211,15 +1254,15 @@ ODCONA4                           00000004
 ODCONA5                           00000005
 ODCONA6                           00000006
 ODCONA7                           00000007
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 22
+ODCONB                            0000028D
+ODCONB0                           00000000
+ODCONB1                           00000001
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 23
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-ODCONB                            0000028D
-ODCONB0                           00000000
-ODCONB1                           00000001
 ODCONB2                           00000002
 ODCONB3                           00000003
 ODCONB4                           00000004
@@ -1270,15 +1313,15 @@ P1ASDSC2                          00000002
 P1ASDSC3                          00000003
 P1ASDSC4                          00000004
 P1ASDSIN                          00000007
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 23
+P1ASE                             00000007
+P1CPRE0                           00000004
+P1CPRE1                           00000005
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 24
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-P1ASE                             00000007
-P1CPRE0                           00000004
-P1CPRE1                           00000005
 P1CSRC0                           00000000
 P1CSRC1                           00000001
 P1DBFE                            00000005
@@ -1329,15 +1372,15 @@ P1POLB                            00000001
 P1POLC                            00000002
 P1POLD                            00000003
 P1POLE                            00000004
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 24
+P1POLF                            00000005
+P1PRPOL                           00000006
+P1PRSC1                           00000001
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 25
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-P1POLF                            00000005
-P1PRPOL                           00000006
-P1PRSC1                           00000001
 P1PRSC2                           00000002
 P1PRSC3                           00000003
 P1PRSC4                           00000004
@@ -1388,15 +1431,15 @@ P2DBRE                            00000004
 P2DCPOL                           00000005
 P2DCSC1                           00000001
 P2DCSC2                           00000002
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 25
+P2DCSC3                           00000003
+P2DCSC4                           00000004
+P2DCSIN                           00000007
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 26
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-P2DCSC3                           00000003
-P2DCSC4                           00000004
-P2DCSIN                           00000007
 P2DCST                            00000000
 P2FEBM0                           00000004
 P2FEBM1                           00000005
@@ -1447,15 +1490,15 @@ P2REBSIN                          00000007
 P2SSYNC                           00000007
 P2STRA                            00000000
 P2STRB                            00000001
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 26
+P2SYNC0                           00000000
+P2SYNC1                           00000001
+P2SYNC2                           00000002
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 27
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-P2SYNC0                           00000000
-P2SYNC1                           00000001
-P2SYNC2                           00000002
 P2TDCIE                           00000005
 P2TDCIF                           00000001
 P2TOVIE                           00000007
@@ -1506,15 +1549,15 @@ P3MODE1                           00000001
 P3MODE2                           00000002
 P3MODE3                           00000003
 P3MSRC0                           00000000
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 27
+P3MSRC1                           00000001
+P3MSRC2                           00000002
+P3MSRC3                           00000003
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 28
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-P3MSRC1                           00000001
-P3MSRC2                           00000002
-P3MSRC3                           00000003
 P3OEA                             00000000
 P3OEB                             00000001
 P3PHSC1                           00000001
@@ -1565,15 +1608,15 @@ P4ASDSC3                          00000003
 P4ASDSC4                          00000004
 P4ASDSIN                          00000007
 P4ASE                             00000007
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 28
+P4CPRE0                           00000004
+P4CPRE1                           00000005
+P4CSRC0                           00000000
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 29
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-P4CPRE0                           00000004
-P4CPRE1                           00000005
-P4CSRC0                           00000000
 P4CSRC1                           00000001
 P4DBFE                            00000005
 P4DBRE                            00000004
@@ -1624,15 +1667,15 @@ P4PRSC4                           00000004
 P4PRSIN                           00000007
 P4PRST                            00000000
 P4REBM0                           00000000
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 29
+P4REBM1                           00000001
+P4REBSC1                          00000001
+P4REBSC2                          00000002
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 30
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-P4REBM1                           00000001
-P4REBSC1                          00000001
-P4REBSC2                          00000002
 P4REBSC3                          00000003
 P4REBSC4                          00000004
 P4REBSIN                          00000007
@@ -1670,6 +1713,12 @@ PIR3                              00000013
 PIR4                              00000014
 PLLR                              00000006
 PMSC3TIE                          00000006
+POLL_TMR1_BURST1                  0000002C
+POLL_TMR1_BURST2                  00000032
+POLL_TMR1_BURST3                  00000038
+POLL_TMR1_BURST4                  0000003E
+POLL_TMR1_BURST5                  00000044
+POLL_TMR1_SEMI                    0000001A
 PORTA                             0000000C
 PORTB                             0000000D
 PORTC                             0000000E
@@ -1680,15 +1729,15 @@ PS1                               00000001
 PS2                               00000002
 PSA                               00000003
 PSMC1ASDC                         00000E9D
-PSMC1ASDL                         00000E9E
-PSMC1ASDS                         00000E9F
-PSMC1BLKF                         00000EAC
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 30
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 31
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PSMC1ASDL                         00000E9E
+PSMC1ASDS                         00000E9F
+PSMC1BLKF                         00000EAC
 PSMC1BLKF0                        00000000
 PSMC1BLKF1                        00000001
 PSMC1BLKF2                        00000002
@@ -1739,15 +1788,15 @@ PSMC1DC15                         00000007
 PSMC1DC2                          00000002
 PSMC1DC3                          00000003
 PSMC1DC4                          00000004
-PSMC1DC5                          00000005
-PSMC1DC6                          00000006
-PSMC1DC7                          00000007
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 31
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 32
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PSMC1DC5                          00000005
+PSMC1DC6                          00000006
+PSMC1DC7                          00000007
 PSMC1DC8                          00000000
 PSMC1DC9                          00000001
 PSMC1DCH                          00000EA4
@@ -1798,15 +1847,15 @@ PSMC1PR2                          00000002
 PSMC1PR3                          00000003
 PSMC1PR4                          00000004
 PSMC1PR5                          00000005
-PSMC1PR6                          00000006
-PSMC1PR7                          00000007
-PSMC1PR8                          00000000
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 32
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 33
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PSMC1PR6                          00000006
+PSMC1PR7                          00000007
+PSMC1PR8                          00000000
 PSMC1PR9                          00000001
 PSMC1PRH                          00000EA6
 PSMC1PRL                          00000EA5
@@ -1857,15 +1906,15 @@ PSMC2BLKR2                        00000002
 PSMC2BLKR3                        00000003
 PSMC2BLKR4                        00000004
 PSMC2BLKR5                        00000005
-PSMC2BLKR6                        00000006
-PSMC2BLKR7                        00000007
-PSMC2BLNK                         00000EB7
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 33
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 34
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PSMC2BLKR6                        00000006
+PSMC2BLKR7                        00000007
+PSMC2BLNK                         00000EB7
 PSMC2CLK                          00000EB4
 PSMC2CON                          00000EB1
 PSMC2DBF                          00000ECA
@@ -1916,15 +1965,15 @@ PSMC2FFA3                         00000003
 PSMC2INT                          00000EC0
 PSMC2LD                           00000006
 PSMC2MDL                          00000EB2
-PSMC2OEN                          00000EB5
-PSMC2PH                           00000EC1
-PSMC2PH0                          00000000
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 34
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 35
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PSMC2OEN                          00000EB5
+PSMC2PH                           00000EC1
+PSMC2PH0                          00000000
 PSMC2PH1                          00000001
 PSMC2PH10                         00000002
 PSMC2PH11                         00000003
@@ -1975,15 +2024,15 @@ PSMC2TIF                          00000005
 PSMC2TMR                          00000EC7
 PSMC2TMR0                         00000000
 PSMC2TMR1                         00000001
-PSMC2TMR10                        00000002
-PSMC2TMR11                        00000003
-PSMC2TMR12                        00000004
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 35
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 36
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PSMC2TMR10                        00000002
+PSMC2TMR11                        00000003
+PSMC2TMR12                        00000004
 PSMC2TMR13                        00000005
 PSMC2TMR14                        00000006
 PSMC2TMR15                        00000007
@@ -2034,15 +2083,15 @@ PSMC3DBR                          00000EE9
 PSMC3DBR0                         00000000
 PSMC3DBR1                         00000001
 PSMC3DBR2                         00000002
-PSMC3DBR3                         00000003
-PSMC3DBR4                         00000004
-PSMC3DBR5                         00000005
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 36
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 37
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PSMC3DBR3                         00000003
+PSMC3DBR4                         00000004
+PSMC3DBR5                         00000005
 PSMC3DBR6                         00000006
 PSMC3DBR7                         00000007
 PSMC3DC                           00000EE3
@@ -2093,15 +2142,15 @@ PSMC3PH6                          00000006
 PSMC3PH7                          00000007
 PSMC3PH8                          00000000
 PSMC3PH9                          00000001
-PSMC3PHH                          00000EE2
-PSMC3PHL                          00000EE1
-PSMC3PHS                          00000EDA
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 37
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 38
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PSMC3PHH                          00000EE2
+PSMC3PHL                          00000EE1
+PSMC3PHS                          00000EDA
 PSMC3POL                          00000ED6
 PSMC3PR                           00000EE5
 PSMC3PR0                          00000000
@@ -2152,15 +2201,15 @@ PSMC3TMRH                         00000EE8
 PSMC3TMRL                         00000EE7
 PSMC4ASDC                         00000F1D
 PSMC4ASDL                         00000F1E
-PSMC4ASDS                         00000F1F
-PSMC4BLKF                         00000F2C
-PSMC4BLKF0                        00000000
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 38
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 39
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PSMC4ASDS                         00000F1F
+PSMC4BLKF                         00000F2C
+PSMC4BLKF0                        00000000
 PSMC4BLKF1                        00000001
 PSMC4BLKF2                        00000002
 PSMC4BLKF3                        00000003
@@ -2211,15 +2260,15 @@ PSMC4DC2                          00000002
 PSMC4DC3                          00000003
 PSMC4DC4                          00000004
 PSMC4DC5                          00000005
-PSMC4DC6                          00000006
-PSMC4DC7                          00000007
-PSMC4DC8                          00000000
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 39
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 40
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PSMC4DC6                          00000006
+PSMC4DC7                          00000007
+PSMC4DC8                          00000000
 PSMC4DC9                          00000001
 PSMC4DCH                          00000F24
 PSMC4DCL                          00000F23
@@ -2270,15 +2319,15 @@ PSMC4PR3                          00000003
 PSMC4PR4                          00000004
 PSMC4PR5                          00000005
 PSMC4PR6                          00000006
-PSMC4PR7                          00000007
-PSMC4PR8                          00000000
-PSMC4PR9                          00000001
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 40
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 41
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PSMC4PR7                          00000007
+PSMC4PR8                          00000000
+PSMC4PR9                          00000001
 PSMC4PRH                          00000F26
 PSMC4PRL                          00000F25
 PSMC4PRS                          00000F1C
@@ -2329,15 +2378,15 @@ RC0                               00000000
 RC1                               00000001
 RC1REG                            00000199
 RC1STA                            0000019D
-RC2                               00000002
-RC3                               00000003
-RC4                               00000004
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 41
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 42
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
 RC5                               00000005
 RC6                               00000006
 RC7                               00000007
@@ -2367,12 +2416,11 @@ SCS1                              00000001
 SDAHT                             00000003
 SDISEL                            00000003
 SDOSEL                            00000005
-SEMI_ACTIVE                       00000023
 SEN                               00000000
 SENDB                             00000003
 SETUP                             00000005
-SET_38KHZ                         00000032
-SET_56KHZ                         0000003B
+SET_38KHZ                         00000047
+SET_56KHZ                         00000050
 SLRCONA                           0000030C
 SLRCONA0                          00000000
 SLRCONA1                          00000001
@@ -2389,14 +2437,14 @@ SLRCONB2                          00000002
 SLRCONB3                          00000003
 SLRCONB4                          00000004
 SLRCONB5                          00000005
-SLRCONB6                          00000006
-SLRCONB7                          00000007
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 42
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 43
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+SLRCONB6                          00000006
+SLRCONB7                          00000007
 SLRCONC                           0000030E
 SLRCONC0                          00000000
 SLRCONC1                          00000001
@@ -2448,14 +2496,14 @@ SSP1MSK0                          00000000
 SSP1MSK1                          00000001
 SSP1MSK2                          00000002
 SSP1MSK3                          00000003
-SSP1MSK4                          00000004
-SSP1MSK5                          00000005
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 43
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 44
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+SSP1MSK4                          00000004
+SSP1MSK5                          00000005
 SSP1MSK6                          00000006
 SSP1MSK7                          00000007
 SSP1STAT                          00000214
@@ -2478,7 +2526,7 @@ STATUS_SHAD                       00000FE4
 STKOVF                            00000007
 STKPTR                            00000FED
 STKUNF                            00000006
-STOP_FIRING                       0000000E
+STOP_FIRING                       00000007
 SWDTEN                            00000000
 SYNC                              00000004
 T0CS                              00000005
@@ -2505,16 +2553,15 @@ T2OUTPS0                          00000003
 T2OUTPS1                          00000004
 T2OUTPS2                          00000005
 T2OUTPS3                          00000006
-TEST_ACTIVE_FIRING                00000000
 TEST_MODE                         0000000E
-TEST_TMR1                         0000000B
-TMR0                              00000015
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 44
+TEST_TMR1                         0000000E
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 45
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+TMR0                              00000015
 TMR0CS                            00000005
 TMR0IE                            00000005
 TMR0IF                            00000002
@@ -2567,13 +2614,13 @@ TRISC4                            00000004
 TRISC5                            00000005
 TRISC6                            00000006
 TRISC7                            00000007
-TRISE                             00000090
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 45
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 46
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+TRISE                             00000090
 TRISE3                            00000003
 TRMT                              00000001
 TSEN                              00000005
@@ -2626,13 +2673,13 @@ WPUB7                             00000007
 WPUC                              0000020E
 WPUC0                             00000000
 WPUC1                             00000001
-WPUC2                             00000002
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 46
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 47
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+WPUC2                             00000002
 WPUC3                             00000003
 WPUC4                             00000004
 WPUC5                             00000005
@@ -2685,19 +2732,18 @@ _LVP_OFF                          00001FFF
 _LVP_ON                           00003FFF
 _MCLRE_OFF                        00003FBF
 _MCLRE_ON                         00003FFF
-_PLLEN_OFF                        00003EFF
-MPASM 5.86                   PROJECT_GUN.ASM   11-12-2024  15:20:07         PAGE 47
+MPASM 5.86                   PROJECT_GUN.ASM   11-13-2024  13:57:18         PAGE 48
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_PLLEN_OFF                        00003EFF
 _PLLEN_ON                         00003FFF
 _PWRTE_OFF                        00003FFF
 _PWRTE_ON                         00003FDF
 _STVREN_OFF                       00003DFF
 _STVREN_ON                        00003FFF
-_SUBROUTINES_CODE_0024            00000024
 _WDTE_NSLEEP                      00003FF7
 _WDTE_OFF                         00003FE7
 _WDTE_ON                          00003FFF
@@ -2709,7 +2755,7 @@ _WRT_OFF                          00003FFF
 __16LF1788                        00000001
 
 Errors   :     0
-Warnings :    10 reported,     3 suppressed
-Messages :    46 reported,     1 suppressed
+Warnings :    13 reported,     3 suppressed
+Messages :    53 reported,     2 suppressed
 
 

@@ -39,98 +39,98 @@ Versions: 1.0
 
 #include <xc.h>
 
-    int TestKeypad;
+    unsigned int TestKeypad()
     {
         unsigned int pressedKey;
         pressedKey = 100;
 
-        do;
+        do
         {
-            RA0 = 1
+            RA0 = 1;
             if(RA7) == 1;
             {
-             pressedKey = 15;   
+                pressedKey = 15;   
             }
 
             if(RA6) == 1;
             {
-             pressedKey = 14;   
+                pressedKey = 14;   
             }
 
             if(RA5) == 1;
             {
-             pressedKey = 13;   
+                pressedKey = 13;   
             }
 
-            if(RA4) == 1
+            if(RA4) == 1;
             {
-             pressedKey = 12;   
+                pressedKey = 12;   
             }
 
             RA0 = 0;
             RA1 = 1;
             if(RA7) == 1;
             {
-             pressedKey = 11;   
+                pressedKey = 11;   
             }
 
             if(RA6) == 1;
             {
-             pressedKey = 10;   
+                pressedKey = 10;   
             }
 
             if(RA5) == 1;
             {
-             pressedKey = 9;   
+                pressedKey = 9;   
             }
 
             if(RA4) == 1;
             {
-             pressedKey = 8;   
+                pressedKey = 8;   
             }
 
             RA1 = 0;
             RA2 = 1;
             if(RA7) == 1;
             {
-             pressedKey = 7;   
+                pressedKey = 7;   
             }
 
             if(RA6) == 1;
             {
-             pressedKey = 6;   
+                pressedKey = 6;   
             }
 
             if(RA5) == 1;
             {
-             pressedKey = 5;   
+                pressedKey = 5;   
             }
 
             if(RA4) == 1;
             {
-             pressedKey = 4;   
+                pressedKey = 4;   
             }
 
             RA2 = 0;
             RA3 = 1;
             if(RA7) == 1;
             {
-             pressedKey = 3;   
+                pressedKey = 3;   
             }
 
-            if(RA6) == 1;
+            if(RA6) = 1;
             {
-             pressedKey = 2;   
+                pressedKey = 2;   
             }
 
-            if(RA5) == 1;
+            if(RA5) = 1;
             {
-             pressedKey = 1;   
+                pressedKey = 1;   
             }
 
-            if(RA4) == 1;
+            if RA4 == 1;
             {
-             pressedKey = 0;   
+                pressedKey = 0;   
             }
             RA3 = 0;
         }
@@ -139,58 +139,58 @@ Versions: 1.0
         return pressedKey;
     }
 
-    char ConvertToCharacter(unsigned int pressedKey);
+    char _ConvertToCharacter(unsigned int pressedKey)
     {
         char character;
 
-        switch pressedKey;
+        switch(pressedKey)
         {
-            case pressedKey = 0:
+            case 0:
                 character = "0";
                 break;
-            case pressedKey = 1:
+            case 1:
                 character = "1";
                 break;   
-            case pressedKey = 2:
+            case 2:
                 character = "2";
                 break;
-            case pressedKey = 3:
+            case 3:
                 character = "3";
                 break; 
-            case pressedKey = 4:
+            case 4:
                 character = "4";
                 break;
-            case pressedKey = 5:
+            case 5:
                 character = "5";
                 break; 
-            case pressedKey = 6:
+            case 6:
                 character = "6";
                 break;
-            case pressedKey = 7:
+            case 7:
                 character = "7";
                 break;
-            case pressedKey = 8:
+            case 8:
                 character = "8";
                 break;
-            case pressedKey = 9:
+            case 9:
                 character = "9";
                 break; 
-            case pressedKey = 10:
+            case 10:
                 character = "A";
                 break;
-            case pressedKey = 11:
+            case 11:
                 character = "B";
                 break; 
-            case pressedKey = 12:
+            case 12:
                 character = "C";
                 break;
-            case pressedKey = 13:
+            case 13:
                 character = "D";
                 break; 
-            case pressedKey = 14:
+            case 14:
                 character = "E";
                 break;
-            case pressedKey = 15:
+            case 15:
                 character = "F";
                 break;
             default:
@@ -199,12 +199,12 @@ Versions: 1.0
         return character;
     }
 
-    char WriteToOutput(character);
+    void WriteToOutput(char character)
     {
         PORTC = character;
     }
     
-main()
+void main(void)
 {     
  //OSCILLATOR SETUP**********************************************************************************************************
     
@@ -241,11 +241,14 @@ main()
 		SLRCONC = 0x00;         //SET THE SLEW RATE FOR PORTC TO MAXIMUM
         IOCCN   = 0x00;         //DISABLE PORTC INTERRUPTS 
                 
-        While(1==1);
-        {
-        pressedKey = TestKeypad();
-        character = ConvertToCharacter(pressedKey);
-        WriteToOutput(character);        
-        }
+        char character;
+        unsigned int pressedKey;
+        
+        while(1==1)
+            {
+            pressedKey = TestKeypad();
+            character = _ConvertToCharacter(pressedKey);
+            WriteToOutput(character);        
+            }
 //your program code is entered here
 }//end main
