@@ -1,12 +1,11 @@
 ;************************************************************************************
 ;										    *
 ;   Filename:	    16F883_SETUP.inc						    *
-;   Date:	    October 24, 2024						    *
-;   File Version:   1								    *
+;   Date:	    October 4, 2024						    *
+;   File Version:   2								    *
 ;   Author:	    Alex Wheelock						    *
 ;   Company:	    Idaho State University					    *
-;   Description:    Firmware for setting up a PIC16F883	for Lab 10, to read/write to*
-;		    the PIC EEPROM.
+;   Description:    Firmware for setting up a PIC16F883				    *
 ;										    *
 ;************************************************************************************
 
@@ -14,9 +13,11 @@
 ;										    *
 ;   Revision History:								    *
 ;										    *
-;   1:	Initialize file for setting up the PIC16F883 micro-controller for Lab 10 to *
-;	Read/Write to EEPROM of the PIC, using a keypad as an input, and a	    *
-;	Dot-matrix to display the read/written character on.			    *
+;   1:	Initialize file for setting up the PIC16F883 micro-controller for Lab 8	    *
+;	for A/D conversion.		    					    *
+;										    *
+;   2:	Setup file for the PIC to control a servo motor in increments, using TMR2   *
+;	for timing.								    *
 ;										    *
 ;************************************************************************************
 		
@@ -29,9 +30,9 @@
 ;DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	*
 ;INPUT		|INPUT		|INPUT		|INPUT		|INPUT		|INPUT		|INPUT		|INPUT		*
 ;---------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------*		
-;EXT		|EXT		|UNUSED		|UNUSED		|UNUSED		|USED FOR 	|USED FOR	|USED FOR	*
-;OSCILLATOR	|OSCILLATOR	|		|		|		|THE STOP 	|THE PLAY	|THE RECORD	*
-;IN		|IN		|		|		|		|BUTTON INPUT	|BUTTON INPUT	|BUTTON INPUT	*
+;EXT		|EXT		|UNUSED		|UNUSED		|UNUSED		|UNUSED		|USED FOR SERVO	|UNUSED		*
+;OSCILLATOR	|OSCILLATOR	|		|		|		|		|CONTROL SIGNAL	|		*
+;IN		|IN		|		|		|		|		|OUTPUT		|		*
 ;		|		|		|		|		|		|		|		*		
 ;-------------------------------------------------------------------------------------------------------------------------------*
 		
@@ -41,12 +42,12 @@
 ;		|		|		|		|		|		|		|		*
 ;	7	|	6	|	5	|	4	|	3	|	2	|	1	|	0	*
 ;---------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------*	
-;DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	*
-;INPUT		|INPUT		|INPUT		|INPUT		|OUTPUT		|OUTPUT		|INPUT		|INPUT		*
+;DIGITAL	|DIGITAL	|ANALOG		|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	*
+;INPUT		|INPUT		|INPUT		|INPUT		|INPUT		|INPUT		|INPUT		|INPUT		*
 ;---------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------*		
-;KEYPAD INPUT	|KEYPAD INPUT	|KEYPAD INPUT	|KEYPAD INPUT	|KEYPAD OUTPUT	|KEYPAD OUTPUT	|KEYPAD OUTPUT	|KEYPAD OUTPUT	*
-;(LAST COLUMN)	|(THIRD COLUMN)	|(SECOND COLUMN)|(FIRST	COLUMN)	|(BOTTOM ROW)	|(THIRD ROW)	|(SECOND ROW)	|(FIRST ROW)	*
-;		|		|		|		|		|		|		|		*
+;UNUSED		|UNUSED		|TAKES ANALOG	|UNUSED		|UNUSED		|UNUSED		|UNUSED		|UNUSED		*
+;		|		|INPUT FROM THE	|		|		|		|		|		*
+;		|		|POTENTIOMETER	|		|		|		|		|		*
 ;		|		|		|		|		|		|		|		*		
 ;-------------------------------------------------------------------------------------------------------------------------------*
 		
@@ -59,10 +60,10 @@
 ;DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	|DIGITAL	*
 ;OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		|OUTPUT		*
 ;---------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------*		
-;UNUSED		|CONNECTED TO 	|CONNECTED TO	|CONNECTED TO	|CONNECTED TO	|CONNECTED TO	|CONNECTED TO	|CONNECTED TO	*
-;		|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	|DOT-MATRIX	*
-;		|DISPLAY	|DISPLAY	|DISPLAY	|DISPLAY	|DISPLAY	|DISPLAY	|DISPLAY	*
-;		|(PIN 14)	|(PIN 13)	|(PIN 12)	|(PIN 11)	|(PIN 10)	|(PIN 9)	|(PIN 8)	*		
+;DRIVES BIT-7	|DRIVES BIT-6	|DRIVES BIT-5	|DRIVES BIT-4	|DRIVES BIT-3	|DRIVES BIT-2 	|DRIVES BIT-1	|DRIVES BIT-0	*
+;LED		|LED		|LED    	|LED		|LED		|LED		|LED		|LED		*
+;		|		|		|		|		|		|		|		*
+;		|		|		|		|		|		|		|		*		
 ;-------------------------------------------------------------------------------------------------------------------------------*			
 		
 INITIALIZE_CODE	CODE		
@@ -80,12 +81,12 @@ INITIALIZE
 		BCF		OPTION_REG, T0SE	;TMR0 EDGE SET RISING
 		BCF		OPTION_REG, T0CS	;TMR0 CLOCK SOURCE SET TO INTERNAL
 		BSF		OPTION_REG, INTEDG	;RB0/INT SET TO RISING EDGE
-		BSF		OPTION_REG, 7		;PORTB PULLUP ENABLED
+		BCF		OPTION_REG, 7		;PORTB PULLUP ENABLED
 		
 ;*** SET INTCON REG: ****
 		
 		BANKSEL INTCON
-		BSF		INTCON, RBIE		;ENABLE PORT B CHANGE INTERUPT 
+		BCF		INTCON, RBIE		;ENABLE PORT B CHANGE INTERUPT 
 		BCF		INTCON, INTE		;DISABLE RB0/INT EXTERNAL INTERUPT
 		BCF		INTCON, TMR0IE		;DISABLE TMR0 INTERUPT (ENABLED IN MAIN PROGRAM)
 		BSF		INTCON, PEIE		;ENABLE PERIPHERAL INTERUPTS
@@ -97,10 +98,10 @@ INITIALIZE
 		BCF		PIE1, TMR1IE		;DISABLE TMR1 INTERUPT
 		BSF		PIE1, TMR2IE		;ENABLE TMR2 INTERUPT POR PWM
 		BCF		PIE1, CCP1IE		;DISABLE CCP1 INTERUPT
-		BCF		PIE1, SSPIE		;DISABLE SSP INTERUPT
+		BSF		PIE1, SSPIE		;DISABLE SSP INTERUPT
 		BCF		PIE1, TXIE		;DISABLE USART TRANSMIT INTERUPT
-		BCF		PIE1, RCIE		;DISABLE USART RECIEVE INTERUPT
-		BCF		PIE1, ADIE		;DISABLE A/D INTERUPT
+		BSF		PIE1, RCIE		;DISABLE USART RECIEVE INTERUPT
+		BSF		PIE1, ADIE		;DISABLE A/D INTERUPT
 		BCF		PIE1, 7			;DISABLE PSP INTERUPT
 		
 ;*** SET CCP1CON REG: **
@@ -111,60 +112,83 @@ INITIALIZE
 
 ;*** TIMER 1 SETUP *****
 		
-		BANKSEL T1CON				;/DISABLE TMR1
-		CLRF	T1CON				;\
+		BANKSEL T1CON				;
+		CLRF	T1CON				;DISABLE TMR1
 		
 ;*** TIMER 2 SETUP *****
 
 		BANKSEL T2CON				;/
-		MOVLW	0x12				;Enable Timer 2, set pre-scale to 1:16, post-scale to 1:3
-		MOVWF	T2CON				;\
-		BANKSEL	PR2				;/
-		MOVLW	0xD0				;Set PR2 to 208 for 10ms interrupt intervals
+		CLRF	T2CON				;
+		BANKSEL	PR2				;SETUP TMR2 FOR 125us INTERRUPT INTERVALS
+		MOVLW	0x63				;
 		MOVWF	PR2				;\
- 
+		
 ;*** PORT A SETUP **** PORT A SET AS LOGIC OUTPUT (NOT USED)
 
 		BANKSEL PORTA
-		CLRF	PORTA				;SET PORTA TO 00h
+		CLRF	PORTA				;INIT PORTA
 		BANKSEL	TRISA
-		MOVLW	H'FF'				;/SET PORTA ALL AS INPUT
+		MOVLW	H'FC'				;/SET RA7:2,0 AS INPUTS, RA1 AS OUTPUT
 		MOVWF	TRISA				;\
-		BANKSEL	ANSEL				;/SET PORTA ALL AS DIGITAL INPUT
-		CLRF	ANSEL				;\
+		BANKSEL	ANSEL
+		CLRF	ANSEL
+		
 		
 ;*** PORT B SETUP **** PORT B USED AS LOGIC INPUT
 		
 		BANKSEL PORTB
 		CLRF	PORTB				;INIT PORT B
 		BANKSEL	TRISB
-		MOVLW	H'F0'				;/SET PORTB RB7:4 AS INPUTS, RB3:1 AS OUTPUTS
+		MOVLW	H'FF'				;/SET PORTB RB7:0 as inputs
 		MOVWF	TRISB				;\
 		BANKSEL ANSELH
-		MOVLW	H'00'				;/DISABLE ANALOG INPUT FOR PORTB
+		MOVLW	H'20'				;/ENABLES RB5 AS ANALOG INPUT, LEAVES THE REST AS DIGITAL INPUTS
 		MOVWF	ANSELH				;\
 		BANKSEL	IOCB
-		MOVLW	H'00'				;/DISABLES INTERRUPT ON CHANGE FOR RB7:0
+		MOVLW	H'00'				;/DISABLES PORTB IOC
 		MOVWF	IOCB				;\
 		
 ;*** PORT C SETUP **** PORT C USED AS LOGIC OUTPUT TO DRIVE DOT MATRIX
 		
 		BANKSEL PORTC
-		MOVLW	0x53				;/SET DISPLAY TO S UPON STARTUP
-		MOVWF	PORTC				;\
+		CLRF	PORTC				;\INIT PORTC
 		BANKSEL	TRISC
-		MOVLW	0x00				;/
+		MOVLW	0x18				;/
 		MOVWF	TRISC				;\SET PORTC ALL AS OUTPUT
 		
-		BANKSEL	T2CON
-		CLRF	CURRENT_REGISTER		;SET DEFAULT REGISTER TO 0
-		BCF	TEST_INPUTS,0			;CLEAR TEST_INPUTS
-		BSF	IDLE,0				;SET IDLE
-		MOVLW	0x64				;/SET IDLE_COUNT FOR 1 SECOND PULSES
-		MOVWF	IDLE_COUNT			;\    
-		BCF	RECORD_MODE,0			;CLEAR RECORD_MODE
-		BCF	PLAY_MODE,0			;CLEAR PLAY_MODE
-		BSF	T2CON,2				;\Turn Timer 2 on
+;*** I2C SETUP ****
 		
+		BANKSEL	SSPCON
+		CLRF	SSPCON
+		MOVLW	0x16				;ENABLE CLOCK STRETCH, AND SET TO I2C SLAVE MODE
+		MOVWF	SSPCON
+		BANKSEL	SSPCON2
+		CLRF	SSPCON2
+		BANKSEL	SSPADD
+		MOVLW	0x40
+		MOVWF	SSPADD
+				
+;*** BOOT SEQUENCE ****
+		
+		BANKSEL	PORTA
+		MOVLW	0x05
+		MOVWF	PW1_COUNT
+		MOVWF	PW2_COUNT
+		MOVWF	PW3_COUNT
+		MOVWF	CURRENT_PW1
+		MOVWF	CURRENT_PW2
+		MOVWF	CURRENT_PW3
+		BSF	PW1_TRUE,0
+		BSF	PW2_TRUE,0
+		BSF	PW3_TRUE,0
+		BSF	PORTC,5
+		BSF	PORTC,6
+		BSF	PORTC,7
+		MOVLW	0xC8				;/SET THE PERIOD OF THE SERVO SIGNAL TO 20ms
+		MOVWF	PERIOD				;\
+		BANKSEL	T2CON				;/
+		BSF	T2CON,2				;\Turn Timer 2 on
+		BANKSEL	SSPCON
+		BSF	SSPCON,5			;ENABLE I2C PORTS
 		
 		RETURN					;Return to .asm file
