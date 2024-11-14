@@ -1,66 +1,70 @@
+Message[302] ..\16LF1788_SETUP.INC 73 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16LF1788_SETUP.INC 75 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 77 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 84 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 85 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16LF1788_SETUP.INC 86 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16LF1788_SETUP.INC 87 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16LF1788_SETUP.INC 88 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16LF1788_SETUP.INC 89 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16LF1788_SETUP.INC 90 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16LF1788_SETUP.INC 91 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 92 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 93 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 110 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 112 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 114 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 116 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 132 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 135 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 139 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 160 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 161 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 105 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 107 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 109 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 111 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 127 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 130 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 134 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 155 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 156 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 163 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 166 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16LF1788_SETUP.INC 168 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 171 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 173 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 175 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 177 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 170 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 172 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 179 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 182 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16LF1788_SETUP.INC 184 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 187 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 189 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 186 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 188 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16LF1788_SETUP.INC 191 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 193 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 194 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16LF1788_SETUP.INC 196 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 199 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 202 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 205 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 203 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 206 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 208 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 210 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16LF1788_SETUP.INC 212 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 215 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 217 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 219 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 223 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16LF1788_SETUP.INC 225 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[207] ..\SUBROUTINES.INC 27 : Found label after column 1. (FIRE_CONTINUOUS)
-Message[302] ..\SUBROUTINES.INC 32 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16LF1788_SETUP.INC 222 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 28 : Found label after column 1. (FIRE_CONTINUOUS)
 Message[302] ..\SUBROUTINES.INC 33 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[207] ..\SUBROUTINES.INC 36 : Found label after column 1. (STOP_FIRING)
+Warning[207] ..\SUBROUTINES.INC 37 : Found label after column 1. (FIRE)
 Message[302] ..\SUBROUTINES.INC 38 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\SUBROUTINES.INC 39 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[207] ..\SUBROUTINES.INC 42 : Found label after column 1. (FIRE_SEMI)
-Message[302] ..\SUBROUTINES.INC 44 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\SUBROUTINES.INC 50 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[207] ..\SUBROUTINES.INC 59 : Found label after column 1. (POLL_TMR1_SEMI)
-Warning[207] ..\SUBROUTINES.INC 66 : Found label after column 1. (FIRE_BURST)
-Message[302] ..\SUBROUTINES.INC 68 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\SUBROUTINES.INC 74 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[207] ..\SUBROUTINES.INC 80 : Found label after column 1. (POLL_TMR1_BURST1)
-Message[302] ..\SUBROUTINES.INC 84 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[207] ..\SUBROUTINES.INC 87 : Found label after column 1. (POLL_TMR1_BURST2)
+Warning[207] ..\SUBROUTINES.INC 42 : Found label after column 1. (_RESET)
+Message[302] ..\SUBROUTINES.INC 43 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 47 : Found label after column 1. (CONTINUOUS_CHECK_TIMER)
+Warning[207] ..\SUBROUTINES.INC 49 : Found label after column 1. (POLL_TMR1_CONTINUOUS)
+Warning[207] ..\SUBROUTINES.INC 54 : Found label after column 1. (STOP_FIRING)
+Message[302] ..\SUBROUTINES.INC 56 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\SUBROUTINES.INC 57 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 62 : Found label after column 1. (FIRE_SEMI)
+Message[302] ..\SUBROUTINES.INC 64 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\SUBROUTINES.INC 70 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 76 : Found label after column 1. (POLL_TMR1_SEMI)
+Warning[207] ..\SUBROUTINES.INC 83 : Found label after column 1. (FIRE_BURST)
+Message[302] ..\SUBROUTINES.INC 85 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\SUBROUTINES.INC 91 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[207] ..\SUBROUTINES.INC 94 : Found label after column 1. (POLL_TMR1_BURST3)
-Message[302] ..\SUBROUTINES.INC 98 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[207] ..\SUBROUTINES.INC 101 : Found label after column 1. (POLL_TMR1_BURST4)
-Message[302] ..\SUBROUTINES.INC 105 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[207] ..\SUBROUTINES.INC 108 : Found label after column 1. (POLL_TMR1_BURST5)
-Warning[207] ..\SUBROUTINES.INC 114 : Found label after column 1. (SET_38KHZ)
+Warning[207] ..\SUBROUTINES.INC 97 : Found label after column 1. (POLL_TMR1_BURST1)
+Message[302] ..\SUBROUTINES.INC 101 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 105 : Found label after column 1. (POLL_TMR1_BURST2)
+Message[302] ..\SUBROUTINES.INC 109 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 113 : Found label after column 1. (POLL_TMR1_BURST3)
 Message[302] ..\SUBROUTINES.INC 117 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[207] ..\SUBROUTINES.INC 124 : Found label after column 1. (SET_56KHZ)
-Message[302] ..\SUBROUTINES.INC 127 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[205] ..\PROJECT_GUN.ASM 100 : Found directive in column 1. (END)
+Warning[207] ..\SUBROUTINES.INC 121 : Found label after column 1. (POLL_TMR1_BURST4)
+Message[302] ..\SUBROUTINES.INC 125 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 129 : Found label after column 1. (POLL_TMR1_BURST5)
+Warning[207] ..\SUBROUTINES.INC 136 : Found label after column 1. (SET_38KHZ)
+Message[302] ..\SUBROUTINES.INC 139 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 146 : Found label after column 1. (SET_56KHZ)
+Message[302] ..\SUBROUTINES.INC 149 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] ..\PROJECT_GUN.ASM 90 : Found directive in column 1. (END)

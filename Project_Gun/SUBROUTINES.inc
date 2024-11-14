@@ -1,13 +1,16 @@
 ;************************************************************************************
 ;										    *
-;   Filename:	    SUBROUTINES.asm						    *
-;   Date:	    October 24, 2024						    *
-;   File Version:   2								    *
+;   Filename:	    SUBROUTINES.inc						    *
+;   Date:	    November 5, 2024						    *
+;   File Version:   1								    *
 ;   Author:	    Alex Wheelock						    *
 ;   Company:	    Idaho State University					    *
-;   Description:    Contains all subroutines needed for Lab 10. Being able to use a *
-;		    Keypad to write ASCII character codes into the PIC EEPROM, then *
-;		    displaying it onto a dot-matrix.				    *
+;   Description:    Contains all subroutines needed for the Laser Shooting Game     *
+;		    project. Subroutines include the ability to swap between the    *
+;		    two player PWM frequencies of 56kHz and 38kHz, and the ability  *
+;		    to shoot in three different modes (single-shot, burst,	    *
+;		    & continuous), to move a solenoid and shoot	the laser with the  *
+;		    press of a button.						    *
 ;										    *
 ;************************************************************************************
 
@@ -15,10 +18,8 @@
 ;										    *
 ;   Revision History:								    *
 ;										    *
-;   1:	Initialize file, and set up the file along with includes		    *
-;										    *
-;   2:	Added Subroutines to get EEPROM write/read and displaying it on a dot-matrix*
-;	working.								    *
+;   1:	Initialize file, get everything working the way that I thought it should    *
+;	work.									    *								    *
 ;										    *
 ;************************************************************************************		
 	    
@@ -26,111 +27,132 @@ SUBROUTINES_CODE CODE
   
     FIRE_CONTINUOUS
 		BANKSEL	    PORTB
-		BTFSS	    PORTB,0
-		GOTO	    STOP_FIRING
+		BTFSS	    PORTB,0			;TEST IF THE TRIGGER IS BEING HELD DOWN
+		GOTO	    STOP_FIRING			;TRIGGER IS NOT BEING HELD DOWN, STOP FIRING
 		BANKSEL	    TRISC
-		BTFSC	    TRISC,2
-		BCF	    TRISC,2
-		GOTO	    GOBACK
+		BTFSC	    TRISC,2			;TEST IF OUTPUT DRIVER FOR PWM IS SET OR NOT (FOR ALTERNATING BETWEEN SET/RESET)
+		GOTO	    FIRE			;OUTPUT DRIVER WAS NOT ENABLED, ENABLE IT
+		GOTO	    _RESET			;OUTPUT DRIVER WAS ENABLED, DISABLE IT
+			
+	FIRE	
+		BCF	    TRISC,2			;ENABLE OUTPUT DRIVER FOR PWM
+		BANKSEL	    PORTC
+		BSF	    PORTC,3			;ENERGIZE THE SOLENOID
+		GOTO	    CONTINUOUS_CHECK_TIMER	;POLL TIMER 1 FOR TIMING
+	_RESET
+		BSF	    TRISC,2			;DISABLE OUTPUT DRIVER FOR PWM
+		BANKSEL	    PORTC
+		BCF	    PORTC,3			;DE-ENERGIZE THE SOLENOID
+		GOTO	    CONTINUOUS_CHECK_TIMER
+	CONTINUOUS_CHECK_TIMER
+		BCF	    PIR1,0			;CLEAR TMR1IF
+	POLL_TMR1_CONTINUOUS
+		BTFSS	    PIR1,0			;POLL TMR1IF UNTIL SET, THEN CONTINUE THE CYCLE
+		GOTO	    POLL_TMR1_CONTINUOUS	;TMR1 NOT DONE
+		GOTO	    FIRE_CONTINUOUS		;TMR1 DONE, REPEAT CYCLE
 		
     STOP_FIRING
-		BANKSEL	    TRISC
-		BTFSS	    TRISC,2
-		BSF	    TRISC,2
-		GOTO	    GOBACK
+		BANKSEL	    TRISC	
+		BTFSS	    TRISC,2			;DETERMINE IF PWM OUTPUT DRIVER IS ALREADY DISABLED
+		BSF	    TRISC,2			;OUTPUT DRIVER NOT DISABLED, DISABLE OUTPUT DRIVER
+		BANKSEL	    PORTC
+		BCF	    PORTC,3			;NO MATTER WHAT, VERIFY THAT THE SOLENOID IS DE-ENERGIZED
+		GOTO	    GOBACK			;LEAVE ISR
  
     FIRE_SEMI
 		BANKSEL	    IOCBF
-		BTFSS	    IOCBF,0
-		GOTO	    GOBACK
+		BTFSS	    IOCBF,0			;DETERMINE IF A TRIGGER PRESS WAS RECORDED
+		GOTO	    GOBACK			;DO NOTHING IF NO TRIGGER PRESS
 		BANKSEL	    PORTB
-		BTFSS	    PORTB,0
-		GOTO	    STOP_FIRING	
+		BTFSS	    PORTB,0			;VERIFY THAT THE BUTTON WAS PRESSED, AND THAT THE INTERRUPT WAS NOT FROM A TRIGGER RELEASE
+		GOTO	    STOP_FIRING			;TRIGGER WAS BEING RELEASED FOR THE INTERRUPT, CANCEL EVERYTHING
 		BANKSEL	    TRISC
-		BCF	    TRISC,2
+		BCF	    TRISC,2			;ENABLE OUTPUT DRIVER
 		BANKSEL	    PORTC
-		BSF	    PORTC,3
-		BANKSEL	    TMR1L
-		CLRF	    TMR1L
-		CLRF	    TMR1H
-		
-		BANKSEL	    PIR1
-		BCF	    PIR1,0
+		BSF	    PORTC,3			;ENERGIZE SOLENOID
+		CLRF	    TMR1L			;/RESET TMR1 FOR FULL TIMING
+		CLRF	    TMR1H			;\
+		BCF	    PIR1,0			;CLEAR TMR1IF
 	POLL_TMR1_SEMI	
-		BTFSS	    PIR1,0
-		GOTO	    POLL_TMR1_SEMI	
+		BTFSS	    PIR1,0			;POLL TMR1IF UNTIL COMPLETE
+		GOTO	    POLL_TMR1_SEMI		;TMR1 NOT DONE
 		BANKSEL	    PORTC
-		BCF	    PORTC,3
-		GOTO	    STOP_FIRING		
+		BCF	    PORTC,3			;TMR1 DONE, DE-ENERGIZE SOLENOID
+		GOTO	    STOP_FIRING			;STOP FIRING
 				
     FIRE_BURST
 		BANKSEL	    IOCBF
-		BTFSS	    IOCBF,0
-		GOTO	    GOBACK
+		BTFSS	    IOCBF,0			;DETERMINE IF A TRIGGER PRESS WAS RECORDED
+		GOTO	    GOBACK			;DO NOTHING IF NO TRIGGER PRESS
 		BANKSEL	    PORTB
-		BTFSS	    PORTB,0
-		GOTO	    STOP_FIRING	
+		BTFSS	    PORTB,0			;VERIFY THAT THE BUTTON WAS PRESSED, AND THAT THE INTERRUPT WAS NOT FROM A TRIGGER RELEASE
+		GOTO	    STOP_FIRING			;TRIGGER WAS BEING RELEASED FOR THE INTERRUPT, CANCEL EVERYTHING	
 		BANKSEL	    TRISC
-		BCF	    TRISC,2
-		BANKSEL	    TMR1L
-		CLRF	    TMR1L
-		CLRF	    TMR1H
-		BANKSEL	    PIR1
-		BCF	    PIR1,0
+		BCF	    TRISC,2			;ENABLE OUTPUT DRIVER FOR PWM
+		BANKSEL	    PORTC
+		BSF	    PORTC,3			;ENERGIZE THE SOLENOID
+		CLRF	    TMR1L			;/RESET TMR1 FOR FULL TIMING
+		CLRF	    TMR1H			;\
+		BCF	    PIR1,0			;CLEAR TMR1IF
 	POLL_TMR1_BURST1
-		BTFSS	    PIR1,0
-		GOTO	    POLL_TMR1_BURST1
-		BANKSEL	    TRISC
-		BSF	    TRISC,2
-		BANKSEL	    PIR1
-		BCF	    PIR1,0
+		BTFSS	    PIR1,0			;POLL TMR1
+		GOTO	    POLL_TMR1_BURST1		;TMR1 NOT DONE
+		BANKSEL	    TRISC		
+		BSF	    TRISC,2			;TMR1 IS DONE, DISABLE PWM OUTPUT DRIVER FOR RESET
+		BANKSEL	    PORTC
+		BCF	    PORTC,3			;DE-ENERGIZE SOLENOID
+		BCF	    PIR1,0			;CLEAR TMR1IF
 	POLL_TMR1_BURST2
-		BTFSS	    PIR1,0
+		BTFSS	    PIR1,0			;POLL TMR1
 		GOTO	    POLL_TMR1_BURST2
 		BANKSEL	    TRISC
-		BCF	    TRISC,2
-		BANKSEL	    PIR1
-		BCF	    PIR1,0
+		BCF	    TRISC,2			;ENABLE OUTPUT DRIVER FOR PWM (SECOND SHOT)
+		BANKSEL	    PORTC
+		BSF	    PORTC,3			;ENERGIZE THE SOLENOID
+		BCF	    PIR1,0			;CLEAR TMR1IF
 	POLL_TMR1_BURST3
-		BTFSS	    PIR1,0
+		BTFSS	    PIR1,0			;POLL TMR1
 		GOTO	    POLL_TMR1_BURST3
 		BANKSEL	    TRISC
-		BSF	    TRISC,2
-		BANKSEL	    PIR1
-		BCF	    PIR1,0
+		BSF	    TRISC,2			;TMR1 IS DONE, DISABLE PWM OUTPUT DRIVER FOR RESET
+		BANKSEL	    PORTC
+		BCF	    PORTC,3			;DE-ENERGIZE SOLENOID
+		BCF	    PIR1,0			;CLEAR TMR1IF
 	POLL_TMR1_BURST4
-		BTFSS	    PIR1,0
+		BTFSS	    PIR1,0			;POLL TMR1
 		GOTO	    POLL_TMR1_BURST4
 		BANKSEL	    TRISC
-		BCF	    TRISC,2
-		BANKSEL	    PIR1
-		BCF	    PIR1,0
+		BCF	    TRISC,2			;ENABLE OUTPUT DRIVER FOR PWM (THIRD/FINAL SHOT)
+		BANKSEL	    PORTC
+		BSF	    PORTC,3			;ENERGIZE THE SOLENOID
+		BCF	    PIR1,0			;CLEAR TMR1IF
 	POLL_TMR1_BURST5
-		BTFSS	    PIR1,0
-		GOTO	    POLL_TMR1_BURST5		
+		BTFSS	    PIR1,0			;POLL TMR1
+		GOTO	    POLL_TMR1_BURST5	
+		BCF	    PORTC,3			;DE-ENERGIZE SOLENOID
 		GOTO	    STOP_FIRING
 		
     
     SET_38KHZ
 		BANKSEL	    CCPR1L
-		MOVLW	    0x13
+		MOVLW	    0x13			;SET PW TIME FOR 90%DC
 		MOVWF	    CCPR1L		
 		BANKSEL	    PR2				
 		MOVLW	    0x19			;SET PR2 TO 25 FOR 38kHz PERIOD
 		MOVWF	    PR2	
 		BANKSEL	    TMR2
-		CLRF	    TMR2
-		GOTO	    TEST_TMR1
+		CLRF	    TMR2			;RESET TMR2
+		GOTO	    TEST_MODE
     SET_56KHZ
 		BANKSEL	    CCPR1L
-		MOVLW	    0x0D
+		MOVLW	    0x0D			;SET PW TIME FOR 90%DC
 		MOVWF	    CCPR1L		
 		BANKSEL	    PR2				
 		MOVLW	    0x11			;SET PR2 TO 17 FOR 56kHz PERIOD
 		MOVWF	    PR2	
 		BANKSEL	    TMR2
-		CLRF	    TMR2
-		GOTO	    TEST_TMR1
+		CLRF	    TMR2			;RESET TMR2
+		GOTO	    TEST_MODE
 		
 
     

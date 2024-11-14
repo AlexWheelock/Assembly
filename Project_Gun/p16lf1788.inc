@@ -80,9 +80,6 @@ TMR2             EQU  H'001A'
 PR2              EQU  H'001B'
 T2CON            EQU  H'001C'
 
-BURST_STAGE	 EQU  H'0022'			;REGISTER USED TO INDICATE WHAT POINT OF THE BURST WE ARE AT, USING BITS 0-4
-
-
 ;-----Bank1------------------
 TRISA            EQU  H'008C'
 TRISB            EQU  H'008D'

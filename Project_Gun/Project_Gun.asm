@@ -5,7 +5,16 @@
 ;   File Version:   1								    *
 ;   Author:	    Alex Wheelock						    *
 ;   Company:	    Idaho State University					    *
-;   Description:    
+;   Description:    Assembly file for Laser Shooting Game gun. A gun that can fire  *
+;		    a laser at two frequencies (38kHz & 56kHz), with firing mode    *
+;		    select (single-shot, three round burst, continuous). Different  *
+;		    frequencies will be used to determine between player 1 (38kHz)  *
+;		    and 2 (56kHz) for scoring. Gun will use 12V (with solenoid), or *
+;		    5V (without solenoid).					    *
+;										    *
+;		    Uses CCP1 (RC2) for laser PWM, RC3 for solenoid control. RB0 for*
+;		    trigger, RB1 for frequency select and RB3:2 used to select from *
+;		    the firing modes.						    *
 ;										    *
 ;************************************************************************************
 
@@ -13,7 +22,8 @@
 ;										    *
 ;   Revision History:								    *
 ;										    *
-;   1:	  *
+;   1:	  Got everything for the gun working the way that I think it should with    *
+;	  base features.
 ;										    *	
 ;************************************************************************************		
 		
@@ -32,71 +42,51 @@
  __CONFIG _CONFIG2, _WRT_OFF & _PLLEN_ON & _STVREN_ON & _BORV_LO & _LPBOR_OFF & _LVP_OFF
 
 
-
-;******************************************		
-;Define Constants
-;******************************************
-
-#Define		FOSC		D'4000'			;Oscillator Clock in KHz This must be filled
-
-;******************************************		
-;Define Variable Registers
-;******************************************
-
- 
-
-							
+		
 ;******************************************		
 ;Interrupt Vectors
 ;******************************************
-		ORG	    H'000'			;ORGs beginning of code
-		GOTO	    SETUP			;RESET CONDITION GOTO SETUP
-		ORG	    H'004'			;ORGs interrupt location
-		GOTO	    INTERRUPT			;Interrupt occurred, carry out ISR
+		ORG	    H'000'			;BEGINNING OF CODE
+		GOTO	    SETUP			;
+		ORG	    H'004'			;INTERRUPT LOCATION
+		GOTO	    INTERRUPT			;INTERRUPT OCCURRED, RUN THROUGH ISR
 
 ;******************************************
 ;SETUP ROUTINE
 ;******************************************
 SETUP
-		CALL	    INITIALIZE			;Call setup include file to initialize the PIC
-		GOTO	    MAIN			;END OF SETUP ROUTINE
+		CALL	    INITIALIZE			;CALL SETUP INCLUDE FILE TO INITIALIZE PIC
+		GOTO	    MAIN			;START MAIN CODE
 		
 ;******************************************
 ;INTERRUPT SERVICE ROUTINE
 ;******************************************
 INTERRUPT	
-		BANKSEL	    IOCBF
-		BTFSS	    IOCBF,1
-		GOTO	    TEST_TMR1
 		BANKSEL	    PORTB		
-		BTFSC	    PORTB,1
+		BTFSC	    PORTB,1			;TEST FREQUENCY SELECT SWITCH
 		GOTO	    SET_56KHZ			;RB1 IS HIGH, SET PWM FREQUENCY TO 56kHz
-		GOTO	    SET_38KHZ			;RB0 IS LOW, SET PWM FREQUENCY TO 38kHz
-	TEST_TMR1
-		;BANKSEL	    PIR1
-		;BTFSC	    PIR1,0
-		;GOTO	    TEST_ACTIVE_FIRING
+		GOTO	    SET_38KHZ			;RB1 IS LOW, SET PWM FREQUENCY TO 38kHz
+		
 	TEST_MODE	
 		BANKSEL	    PORTB		
-		BTFSC	    PORTB,2
-		GOTO	    FIRE_CONTINUOUS
-		BTFSC	    PORTB,3
-		GOTO	    FIRE_BURST
-		GOTO	    FIRE_SEMI
+		BTFSC	    PORTB,2			;DETERMINE IF IN CONTINUOUS/FULL-AUTO MODE
+		GOTO	    FIRE_CONTINUOUS		;GUN IS IN CONTINOUS/FULL-AUTO MODE, CHECK IF READY TO FIRE
+		BTFSC	    PORTB,3			;GUN IS NOT IN CONTINUOUS/FULL-AUTO MODE, TEST IF IT IS IN BURST-FIRE MODE
+		GOTO	    FIRE_BURST			;GUN IS IN BURST-FIRE MODE, CHECK IF READY TO FIRE
+		GOTO	    FIRE_SEMI			;GUN IS NOT IN CONTINUOUS OR BURST-FIRE MODE, DEFAULT TO SEMI-AUTO MODE, TEST IF READY TO FIRE
 	GOBACK
 		BANKSEL	    IOCBF
 		CLRF	    IOCBF			;CLEAR PORTB IOC FLAGS
+		BCF	    INTCON,IOCIF		;CLEAR IOCIF
 		BANKSEL	    PIR1
 		BCF	    PIR1,0			;CLEAR TMR1IF
-		BCF	    PORTC,0
-		BCF	    INTCON,IOCIF		;CLEAR IOCIF
 		RETFIE					;RETURN TO MAIN, RE-ENABLE GIE
 		
 ;******************************************
 ;Main Code
 ;******************************************
 MAIN	
-		GOTO	    MAIN
+		GOTO	    MAIN			;ENDLESS LOOP, NOTHING HAPPENS (WAITING FOR INTERRUPT)
 END
 		
 ;******************************************		
