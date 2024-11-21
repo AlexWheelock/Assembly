@@ -60,9 +60,10 @@ SETUP
 INTERRUPT
 		BANKSEL	    PIR1
 		BTFSC	    PIR1,5
-		CALL	    RECEIVE_BYTE
+		GOTO	    RECEIVE_BYTE
 		BTFSC	    PIR1,1
 		GOTO	    TRANSMIT_STUFF
+		;GOTO	    TEST_CONTINUE
 	GOBACK
 		BANKSEL	    PIR1
 		BCF	    PIR1,5			;Clear RCIF
@@ -73,14 +74,6 @@ INTERRUPT
 ;Main Code
 ;******************************************
 MAIN	
-		BANKSEL	    RCSTA
-		BTFSC	    RCSTA,2
-		GOTO	    FRAMING_ERROR
-		GOTO	    MAIN
-		
-	FRAMING_ERROR
-		BANKSEL	    PORTA
-		BSF	    PORTA,2
 		GOTO	    MAIN
 END
 		

@@ -1,14 +1,14 @@
 MPLINK 5.09, LINKER
-Linker Map File - Created Wed Nov 20 14:30:12 2024
+Linker Map File - Created Wed Nov 20 22:29:43 2024
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
                 ---------  ---------  ---------  ---------  ---------
                    .org_0       code   0x000000    program   0x000002
                    .cinit    romdata   0x000001    program   0x000004
-                   .org_1       code   0x000004    program   0x000026
-          INITIALIZE_CODE       code   0x000017    program   0x0000fc
-         SUBROUTINES_CODE       code   0x000095    program   0x0000f2
+                   .org_1       code   0x000004    program   0x00001a
+          INITIALIZE_CODE       code   0x000011    program   0x000108
+         SUBROUTINES_CODE       code   0x000095    program   0x0000ec
 .config_8007_BUILD/DEFAULT/PRODUCTION/_EXT/14       code   0x008007    program   0x000002
 .config_8008_BUILD/DEFAULT/PRODUCTION/_EXT/14       code   0x008008    program   0x000002
 
@@ -18,39 +18,33 @@ Linker Map File - Created Wed Nov 20 14:30:12 2024
                                Start         End      
                            ---------   ---------      
                             0x000000    0x000002      
-                            0x000004    0x00010d      
+                            0x000004    0x00010a      
                             0x008007    0x008008      
-            271 out of 16647 program addresses used, program memory utilization is 1%
+            268 out of 16647 program addresses used, program memory utilization is 1%
 
 
 
                               Symbols - Sorted by Name
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-                    ABORT   0x0000b1    program     static ..\SUBROUTINES.inc       
-               DRIVE_BACK   0x0000c5    program     static ..\SUBROUTINES.inc       
-            DRIVE_FORWARD   0x0000bf    program     static ..\SUBROUTINES.inc       
-            FRAMING_ERROR   0x000014    program     static ..\CRAP.asm              
+                    ABORT   0x0000a2    program     static ..\SUBROUTINES.inc       
+                BIT_6_SET   0x0000fc    program     static ..\SUBROUTINES.inc       
+                 CONTINUE   0x000103    program     static ..\SUBROUTINES.inc       
+               DRIVE_BACK   0x0000b9    program     static ..\SUBROUTINES.inc       
+            DRIVE_FORWARD   0x0000ad    program     static ..\SUBROUTINES.inc       
                    GOBACK   0x00000c    program     static ..\CRAP.asm              
-               INITIALIZE   0x000017    program     static ..\16F1788_SETUP.inc     
+               INITIALIZE   0x000011    program     static ..\16F1788_SETUP.inc     
                 INTERRUPT   0x000007    program     static ..\CRAP.asm              
                      MAIN   0x000010    program     static ..\CRAP.asm              
              RECEIVE_BYTE   0x000099    program     static ..\SUBROUTINES.inc       
                     SETUP   0x000005    program     static ..\CRAP.asm              
-                 SET_ARMS   0x0000dc    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE1   0x0000df    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE2   0x0000f3    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE3   0x0000f6    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE4   0x0000f9    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE5   0x0000ff    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE6   0x000102    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE7   0x000105    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE8   0x000108    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE9   0x00010b    program     static ..\SUBROUTINES.inc       
-            TEST_CONTINUE   0x0000de    program     static ..\SUBROUTINES.inc       
-              TOGGLE_ARMS   0x0000d7    program     static ..\SUBROUTINES.inc       
+                 SET_ARMS   0x0000e2    program     static ..\SUBROUTINES.inc       
+               TEST_BYTE1   0x0000e4    program     static ..\SUBROUTINES.inc       
+               TEST_BYTE2   0x0000f7    program     static ..\SUBROUTINES.inc       
+            TEST_CONTINUE   0x000106    program     static ..\SUBROUTINES.inc       
+              TOGGLE_ARMS   0x0000dd    program     static ..\SUBROUTINES.inc       
            TRANSMIT_STUFF   0x000095    program     static ..\SUBROUTINES.inc       
-                TURN_LEFT   0x0000cb    program     static ..\SUBROUTINES.inc       
+                TURN_LEFT   0x0000c5    program     static ..\SUBROUTINES.inc       
                TURN_RIGHT   0x0000d1    program     static ..\SUBROUTINES.inc       
 
 
@@ -62,26 +56,20 @@ Linker Map File - Created Wed Nov 20 14:30:12 2024
                 INTERRUPT   0x000007    program     static ..\CRAP.asm              
                    GOBACK   0x00000c    program     static ..\CRAP.asm              
                      MAIN   0x000010    program     static ..\CRAP.asm              
-            FRAMING_ERROR   0x000014    program     static ..\CRAP.asm              
-               INITIALIZE   0x000017    program     static ..\16F1788_SETUP.inc     
+               INITIALIZE   0x000011    program     static ..\16F1788_SETUP.inc     
            TRANSMIT_STUFF   0x000095    program     static ..\SUBROUTINES.inc       
              RECEIVE_BYTE   0x000099    program     static ..\SUBROUTINES.inc       
-                    ABORT   0x0000b1    program     static ..\SUBROUTINES.inc       
-            DRIVE_FORWARD   0x0000bf    program     static ..\SUBROUTINES.inc       
-               DRIVE_BACK   0x0000c5    program     static ..\SUBROUTINES.inc       
-                TURN_LEFT   0x0000cb    program     static ..\SUBROUTINES.inc       
+                    ABORT   0x0000a2    program     static ..\SUBROUTINES.inc       
+            DRIVE_FORWARD   0x0000ad    program     static ..\SUBROUTINES.inc       
+               DRIVE_BACK   0x0000b9    program     static ..\SUBROUTINES.inc       
+                TURN_LEFT   0x0000c5    program     static ..\SUBROUTINES.inc       
                TURN_RIGHT   0x0000d1    program     static ..\SUBROUTINES.inc       
-              TOGGLE_ARMS   0x0000d7    program     static ..\SUBROUTINES.inc       
-                 SET_ARMS   0x0000dc    program     static ..\SUBROUTINES.inc       
-            TEST_CONTINUE   0x0000de    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE1   0x0000df    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE2   0x0000f3    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE3   0x0000f6    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE4   0x0000f9    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE5   0x0000ff    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE6   0x000102    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE7   0x000105    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE8   0x000108    program     static ..\SUBROUTINES.inc       
-               TEST_BYTE9   0x00010b    program     static ..\SUBROUTINES.inc       
+              TOGGLE_ARMS   0x0000dd    program     static ..\SUBROUTINES.inc       
+                 SET_ARMS   0x0000e2    program     static ..\SUBROUTINES.inc       
+               TEST_BYTE1   0x0000e4    program     static ..\SUBROUTINES.inc       
+               TEST_BYTE2   0x0000f7    program     static ..\SUBROUTINES.inc       
+                BIT_6_SET   0x0000fc    program     static ..\SUBROUTINES.inc       
+                 CONTINUE   0x000103    program     static ..\SUBROUTINES.inc       
+            TEST_CONTINUE   0x000106    program     static ..\SUBROUTINES.inc       
 
 
