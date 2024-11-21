@@ -1,4 +1,4 @@
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE  1
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -33,7 +33,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00007 ;  (c) Copyright 1999-2019 Microchip Technology, All rights reserved
                       00008 ;==========================================================================
                       00009 
-                      03044         LIST
+                      03029         LIST
                       00021                 #INCLUDE <16F1788_SETUP.inc>            ; Custom setup file for the PIC16F883 micro-cont
                             roller
                       00001 ;************************************************************************************
@@ -57,7 +57,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00019 ;************************************************************************************
                       00020                 
                       00021 ;=======================================================================================================
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE  2
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -116,7 +116,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00047 ;               |               |               |               |MODE SELECT    |FULL-AUTO MODE |SELECT 
                             SWITCH  |               *
                       00048 ;               |               |               |               |               |SELECT         |       
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE  3
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -175,7 +175,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00081 ;*** SET OPTION_REG: ****
                       00082                 
 0005   0021           00083                 BANKSEL     OPTION_REG
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE  4
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -201,7 +201,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00093 ;*** SET INTCON REG: ****
                       00094                 
 000E   0020           00095                 BANKSEL INTCON
-000F   118B           00096                 BCF         INTCON, IOCIE               ;ENABLE IOC INTERUPT
+000F   158B           00096                 BSF         INTCON, IOCIE               ;ENABLE IOC INTERUPT
 0010   120B           00097                 BCF         INTCON, INTE                ;DISABLE INT EXTERNAL INTERUPT
 0011   170B           00098                 BSF         INTCON, PEIE                ;ENABLE PERIPHERAL INTERUPTS
 0012   178B           00099                 BSF         INTCON, GIE                 ;ENABLE ALL UNMASKED INTERUPTS
@@ -209,7 +209,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00101 ;*** SET PIE1-4 REG: *****
                       00102                 
 0013   0021           00103                 BANKSEL     PIE1
-0014   3022           00104                 MOVLW       0x22
+0014   3001           00104                 MOVLW       0x01
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0015   0091           00105                 MOVWF       PIE1                        ;DISABLE ALL PIE1 INTERUPTS
 0016   0021           00106                 BANKSEL     PIE2
@@ -234,7 +234,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0023   0194           00122                 CLRF        PIR4                        ;CLEAR ALL PIR4 INTERUPT FLAGS
                       00123                 
                       00124 ;*** SET CCP1CON REG: **
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE  5
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -293,7 +293,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0040   008C           00167                 MOVWF       TRISA                       ;SET PORTA ALL AS INPUT
 0041   0025           00168                 BANKSEL     ODCONA
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE  6
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -329,94 +329,95 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0053   018D           00189                 CLRF        SLRCONB                     ;SET THE SLEW RATE FOR PORT B TO MAXIMUM
 0054   0027           00190                 BANKSEL     IOCBP
+0055   301F           00191                 MOVLW       0x1F
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0055   0194           00191                 CLRF        IOCBP
-0056   0027           00192                 BANKSEL     IOCBN
+0056   0094           00192                 MOVWF       IOCBP
+0057   0027           00193                 BANKSEL     IOCBN
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0057   0195           00193                 CLRF        IOCBN
-0058   0027           00194                 BANKSEL     INLVLB
+0058   0195           00194                 CLRF        IOCBN
+0059   0027           00195                 BANKSEL     INLVLB
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0059   018D           00195                 CLRF        INLVLB                      ;SET PORTB INPUT THRESHOLD TO TTL (IGNORED NOISE
+005A   018D           00196                 CLRF        INLVLB                      ;SET PORTB INPUT THRESHOLD TO TTL (IGNORED NOISE
                              BETTER FOR TRIGGER INPUT)                  
-                      00196                 
-                      00197 ;*** PORT C SETUP **** 
-                      00198                 
-005A   0020           00199                 BANKSEL     PORTC
-005B   018E           00200                 CLRF        PORTC                       ;CLEAR PORTC
-005C   0022           00201                 BANKSEL     LATC
+                      00197                 
+                      00198 ;*** PORT C SETUP **** 
+                      00199                 
+005B   0020           00200                 BANKSEL     PORTC
+005C   018E           00201                 CLRF        PORTC                       ;CLEAR PORTC
+005D   0022           00202                 BANKSEL     LATC
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-005D   018E           00202                 CLRF        LATC                        ;CLEAR LATC
-005E   0021           00203                 BANKSEL     TRISC
-005F   3000           00204                 MOVLW       0x00                                
+005E   018E           00203                 CLRF        LATC                        ;CLEAR LATC
+005F   0021           00204                 BANKSEL     TRISC
+0060   3000           00205                 MOVLW       0x00                                
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0060   008E           00205                 MOVWF       TRISC                       ;SET PORTC ALL AS OUTPUTS
-0061   0025           00206                 BANKSEL     ODCONC
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE  7
+0061   008E           00206                 MOVWF       TRISC                       ;SET PORTC ALL AS OUTPUTS
+0062   0025           00207                 BANKSEL     ODCONC
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0062   018E           00207                 CLRF        ODCONC                      ;DISABLE PORTC OPEN-DRAIN
-0063   0023           00208                 BANKSEL     ANSELC
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0064   018E           00209                 CLRF        ANSELC                      ;MAKE PORTC ALL DIGITAL I/O
-0065   0026           00210                 BANKSEL     SLRCONC
+0063   018E           00208                 CLRF        ODCONC                      ;DISABLE PORTC OPEN-DRAIN
+0064   0023           00209                 BANKSEL     ANSELC
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0066   018E           00211                 CLRF        SLRCONC                     ;SET THE SLEW RATE FOR PORT C TO MAXIMUM
-                      00212                 
+0065   018E           00210                 CLRF        ANSELC                      ;MAKE PORTC ALL DIGITAL I/O
+0066   0026           00211                 BANKSEL     SLRCONC
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0067   018E           00212                 CLRF        SLRCONC                     ;SET THE SLEW RATE FOR PORT C TO MAXIMUM
                       00213                 
-                      00214 ;*** UART RECEIVE SETUP ****
-                      00215                         
-0067   0023           00216                 BANKSEL SP1BRGH
+                      00214                 
+                      00215 ;*** UART RECEIVE SETUP ****
+                      00216                         
+0068   0023           00217                 BANKSEL     SP1BRGH
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0068   019C           00217                 CLRF    SP1BRGH
-0069   0023           00218                 BANKSEL SP1BRGL
-006A   300C           00219                 MOVLW   0x0C
+0069   019C           00218                 CLRF        SP1BRGH
+006A   0023           00219                 BANKSEL     SP1BRGL
+006B   3019           00220                 MOVLW       0x19
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-006B   009B           00220                 MOVWF   SP1BRGL
-006C   0023           00221                 BANKSEL BAUD1CON
-006D   3008           00222                 MOVLW   0x08
+006C   009B           00221                 MOVWF       SP1BRGL
+006D   0023           00222                 BANKSEL     BAUD1CON
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-006E   009F           00223                 MOVWF   BAUD1CON
-006F   0023           00224                 BANKSEL TX1STA
-0070   3004           00225                 MOVLW   0x04
+006E   019F           00223                 CLRF        BAUD1CON
+006F   0023           00224                 BANKSEL     TX1STA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0071   009E           00226                 MOVWF   TX1STA
-0072   0023           00227                 BANKSEL RC1STA
+0070   019E           00225                 CLRF        TX1STA
+0071   0023           00226                 BANKSEL     RC1STA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0073   019D           00228                 CLRF    RC1STA
-                      00229                 
-                      00230 ;*** BOOT CODE ****
-                      00231                             
-0074   0020           00232                 BANKSEL     T2CON
-0075   151C           00233                 BSF         T2CON,2                     ;ENABLE TIMER 2
-0076   0023           00234                 BANKSEL TX1STA
+0072   019D           00227                 CLRF        RC1STA
+                      00228                 
+                      00229 ;*** BOOT CODE ****
+                      00230                             
+0073   0020           00231                 BANKSEL     T2CON
+0074   151C           00232                 BSF         T2CON,2                     ;ENABLE TIMER 2
+0075   0020           00233                 BANKSEL     T1CON
+0076   1418           00234                 BSF         T1CON,0
+0077   0023           00235                 BANKSEL     TX1STA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0077   169E           00235                 BSF     TX1STA,5
-0078   0023           00236                 BANKSEL RC1STA
+0078   169E           00236                 BSF         TX1STA,5
+0079   0023           00237                 BANKSEL     RC1STA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0079   161D           00237                 BSF     RC1STA,4
+007A   161D           00238                 BSF         RC1STA,4
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-007A   179D           00238                 BSF     RC1STA,7
-007B   0020           00239                 BANKSEL PIR1
-007C   1291           00240                 BCF     PIR1,5
-                      00241                 
+007B   179D           00239                 BSF         RC1STA,7
+007C   0020           00240                 BANKSEL     PIR1
+007D   1291           00241                 BCF         PIR1,5
                       00242                 
-007D   0008           00243                 RETURN                                  ;RETURN TO .asm FILE
+                      00243                 
+007E   0008           00244                 RETURN                                  ;RETURN TO .asm FILE
                       00022                 #INCLUDE <SUBROUTINES.inc>              ; File containing all used subroutines
                       00001 ;************************************************************************************
                       00002 ;                                                                                   *
                       00003 ;   Filename:       SUBROUTINES.asm                                                 *
                       00004 ;   Date:           October 24, 2024                                                *
-                      00005 ;   File Version:   2                                                               *
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE  8
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                      00005 ;   File Version:   2                                                               *
                       00006 ;   Author:         Alex Wheelock                                                   *
                       00007 ;   Company:        Idaho State University                                          *
                       00008 ;   Description:    Contains all subroutines needed for Lab 10. Being able to use a *
@@ -438,195 +439,126 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00024             
                       00025 SUBROUTINES_CODE CODE
                       00026  
-0000                  00027 TRANSMIT_STUFF
+0000                  00027 TRANSMIT_HANDSHAKE
 0000   0023           00028         BANKSEL     TX1REG
-0001   30AA           00029         MOVLW       0xAA
+0001   3021           00029         MOVLW       0x21
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0002   009A           00030         MOVWF       TX1REG
-0003   2???           00031         GOTO        GOBACK
-                      00032  
-0004                  00033 RECEIVE_BYTE
-0004   0023           00034         BANKSEL     RC1REG
+0003   0008           00031         RETURN
+                      00032         
+0004                  00033 TRANSMIT_FORWARD
+0004   2???           00034         CALL        TRANSMIT_HANDSHAKE
+0005   0023           00035         BANKSEL     TX1STA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0005   0819           00035         MOVFW       RC1REG
-0006   0020           00036         BANKSEL     PORTA
-0007   00AC           00037         MOVWF       RECEIVED_BYTE
-0008   158C           00038         BSF         PORTA,3
-0009   1828           00039         BTFSC       BYTE9_RECEIVED,0
-000A   2???           00040         GOTO        TEST_CONTINUE
-000B   1827           00041         BTFSC       BYTE8_RECEIVED,0
-000C   2???           00042         GOTO        TEST_BYTE9
-000D   1826           00043         BTFSC       BYTE7_RECEIVED,0
-000E   2???           00044         GOTO        TEST_BYTE8
-000F   1825           00045         BTFSC       BYTE6_RECEIVED,0
-0010   2???           00046         GOTO        TEST_BYTE7
-0011   1824           00047         BTFSC       BYTE5_RECEIVED,0
-0012   2???           00048         GOTO        TEST_BYTE6
-0013   1823           00049         BTFSC       BYTE4_RECEIVED,0
-0014   2???           00050         GOTO        TEST_BYTE5
-0015   1822           00051         BTFSC       BYTE3_RECEIVED,0
-0016   2???           00052         GOTO        TEST_BYTE4
-0017   1821           00053         BTFSC       BYTE2_RECEIVED,0
-0018   2???           00054         GOTO        TEST_BYTE3
-0019   1820           00055         BTFSC       BYTE1_RECEIVED,0
-001A   2???           00056         GOTO        TEST_BYTE2
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE  9
+0006   1C9E           00036         BTFSS       TX1STA,1
+0007   2???           00037         GOTO        $-1
+0008   0023           00038         BANKSEL     TX1REG
+0009   3046           00039         MOVLW       0x46
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000A   009A           00040         MOVWF       TX1REG
+000B   0020           00041         BANKSEL     PORTA
+000C   1420           00042         BSF         VALID_INPUT,0
+000D   2???           00043         GOTO        GOBACK
+                      00044 
+                      00045         
+000E                  00046 TRANSMIT_BACKWARD
+000E   2???           00047         CALL        TRANSMIT_HANDSHAKE
+000F   0023           00048         BANKSEL     TX1STA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0010   1C9E           00049         BTFSS       TX1STA,1
+0011   2???           00050         GOTO        $-1
+0012   0023           00051         BANKSEL     TX1REG
+0013   3042           00052         MOVLW       0x42
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-001B   2???           00057         GOTO        TEST_BYTE1
+0014   009A           00053         MOVWF       TX1REG
+0015   0020           00054         BANKSEL     PORTA
+0016   1420           00055         BSF         VALID_INPUT,0
+0017   2???           00056         GOTO        GOBACK      
+                      00057         
                       00058         
-001C                  00059 ABORT
-001C   01A0           00060         CLRF        BYTE1_RECEIVED
-001D   01A1           00061         CLRF        BYTE2_RECEIVED
-001E   01A2           00062         CLRF        BYTE3_RECEIVED
-001F   01A3           00063         CLRF        BYTE4_RECEIVED
-0020   01A4           00064         CLRF        BYTE5_RECEIVED
-0021   01A5           00065         CLRF        BYTE6_RECEIVED
-0022   01A6           00066         CLRF        BYTE7_RECEIVED
-0023   01A7           00067         CLRF        BYTE8_RECEIVED
-0024   01A8           00068         CLRF        BYTE9_RECEIVED
-0025   01A9           00069         CLRF        BYTE10_RECEIVED
-0026   01AA           00070         CLRF        BYTE11_RECEIVED
-0027   01AB           00071         CLRF        BYTE12_RECEIVED
-0028   160C           00072         BSF         PORTA,4
-0029   0008           00073         RETURN
-                      00074         
-002A                  00075 DRIVE_FORWARD
-002A   0020           00076         BANKSEL     PORTA
-002B   140C           00077         BSF         PORTA,0
-002C   108C           00078         BCF         PORTA,1
-002D   110C           00079         BCF         PORTA,2
-002E   118C           00080         BCF         PORTA,3
-002F   0008           00081         RETURN  
-                      00082         
-0030                  00083 DRIVE_BACK
-0030   0020           00084         BANKSEL     PORTA
-0031   100C           00085         BCF         PORTA,0
-0032   148C           00086         BSF         PORTA,1
-0033   110C           00087         BCF         PORTA,2
-0034   118C           00088         BCF         PORTA,3
-0035   0008           00089         RETURN  
-                      00090         
-0036                  00091 TURN_LEFT
-0036   0020           00092         BANKSEL     PORTA
-0037   100C           00093         BCF         PORTA,0
-0038   108C           00094         BCF         PORTA,1
-0039   150C           00095         BSF         PORTA,2
-003A   118C           00096         BCF         PORTA,3
-003B   0008           00097         RETURN  
-                      00098         
-003C                  00099 TURN_RIGHT
-003C   0020           00100         BANKSEL     PORTA
-003D   100C           00101         BCF         PORTA,0
-003E   108C           00102         BCF         PORTA,1
-003F   110C           00103         BCF         PORTA,2
-0040   158C           00104         BSF         PORTA,3
-0041   0008           00105         RETURN
-                      00106         
-0042                  00107 TOGGLE_ARMS
-0042   0020           00108         BANKSEL     PORTA
-0043   1E0C           00109         BTFSS       PORTA,4
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 10
+0018                  00059 TRANSMIT_LEFT
+0018   2???           00060         CALL        TRANSMIT_HANDSHAKE
+0019   0023           00061         BANKSEL     TX1STA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+001A   1C9E           00062         BTFSS       TX1STA,1
+001B   2???           00063         GOTO        $-1
+001C   0023           00064         BANKSEL     TX1REG
+001D   304C           00065         MOVLW       0x4C
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+001E   009A           00066         MOVWF       TX1REG
+001F   0020           00067         BANKSEL     PORTA
+0020   1420           00068         BSF         VALID_INPUT,0
+0021   2???           00069         GOTO        GOBACK
+                      00070         
+                      00071         
+0022                  00072 TRANSMIT_RIGHT
+0022   2???           00073         CALL        TRANSMIT_HANDSHAKE
+0023   0023           00074         BANKSEL     TX1STA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0024   1C9E           00075         BTFSS       TX1STA,1
+0025   2???           00076         GOTO        $-1
+0026   0023           00077         BANKSEL     TX1REG
+0027   3052           00078         MOVLW       0x52
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0028   009A           00079         MOVWF       TX1REG
+0029   0020           00080         BANKSEL     PORTA
+002A   1420           00081         BSF         VALID_INPUT,0
+002B   2???           00082         GOTO        GOBACK
+                      00083         
+                      00084 
+002C                  00085 TOGGLE_ARMS
+002C   2???           00086         CALL        TRANSMIT_HANDSHAKE
+002D   0023           00087         BANKSEL     TX1STA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+002E   1C9E           00088         BTFSS       TX1STA,1
+002F   2???           00089         GOTO        $-1
+0030   0023           00090         BANKSEL     TX1REG
+0031   303E           00091         MOVLW       0x3E
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0032   009A           00092         MOVWF       TX1REG
+0033   0020           00093         BANKSEL     PORTA
+0034   1420           00094         BSF         VALID_INPUT,0
+0035   2???           00095         GOTO        GOBACK
+                      00096         
+0036                  00097 TEST_CONTINUE
+0036   180D           00098         BTFSC       PORTB,0
+0037   2???           00099         GOTO        STILL_VALID_INPUT
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0044   2???           00110         GOTO        SET_ARMS
-0045   120C           00111         BCF         PORTA,4
-0046   0008           00112         RETURN
-Warning[207]: Found label after column 1. (SET_ARMS)
-0047                  00113     SET_ARMS
-0047   160C           00114         BSF         PORTA,4
-0048   0008           00115         RETURN
-                      00116         
-0049                  00117 TEST_CONTINUE
-0049   2???           00118         GOTO        ABORT
+0038   188D           00100         BTFSC       PORTB,1
+0039   2???           00101         GOTO        STILL_VALID_INPUT
+003A   190D           00102         BTFSC       PORTB,2
+003B   2???           00103         GOTO        STILL_VALID_INPUT
+003C   198D           00104         BTFSC       PORTB,3
+003D   2???           00105         GOTO        STILL_VALID_INPUT
+003E   2???           00106         GOTO        GOBACK
+Warning[207]: Found label after column 1. (STILL_VALID_INPUT)
+003F                  00107     STILL_VALID_INPUT
+003F   2???           00108         CALL        TRANSMIT_HANDSHAKE
+0040   0023           00109         BANKSEL     TX1STA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0041   1C9E           00110         BTFSS       TX1STA,1
+0042   2???           00111         GOTO        $-1
+0043   0023           00112         BANKSEL     TX1REG
+0044   3058           00113         MOVLW       0x58
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0045   009A           00114         MOVWF       TX1REG
+0046   0020           00115         BANKSEL     PORTA
+0047   1020           00116         BCF         VALID_INPUT,0
+0048   2???           00117         GOTO        GOBACK
+                      00118         
                       00119         
                       00120         
-004A                  00121 TEST_BYTE1
-004A   0020           00122         BANKSEL     PORTA
-004B   00AC           00123         MOVWF       RECEIVED_BYTE
-004C   1FAC           00124         BTFSS       RECEIVED_BYTE,7
-004D   2???           00125         GOTO        ABORT
-004E   1B2C           00126         BTFSC       RECEIVED_BYTE,6
-004F   2???           00127         GOTO        ABORT
-0050   1EAC           00128         BTFSS       RECEIVED_BYTE,5
-0051   2???           00129         GOTO        ABORT
-0052   1A2C           00130         BTFSC       RECEIVED_BYTE,4
-0053   2???           00131         GOTO        ABORT
-0054   1DAC           00132         BTFSS       RECEIVED_BYTE,3
-0055   2???           00133         GOTO        ABORT
-0056   192C           00134         BTFSC       RECEIVED_BYTE,2
-0057   2???           00135         GOTO        ABORT
-0058   1CAC           00136         BTFSS       RECEIVED_BYTE,1
-0059   2???           00137         GOTO        ABORT
-005A   182C           00138         BTFSC       RECEIVED_BYTE,0
-005B   2???           00139         GOTO        ABORT
-005C   1420           00140         BSF         BYTE1_RECEIVED,0
-                      00141         ;BSF        PORTA,3
-005D   0008           00142         RETURN
-005E                  00143 TEST_BYTE2
-005E   0020           00144         BANKSEL     PORTA
-                      00145         ;MOVWF      RECEIVED_BYTE
-                      00146         ;BTFSC      RECEIVED_BYTE,7
-                      00147         ;GOTO       ABORT
-                      00148         ;BTFSS      RECEIVED_BYTE,6
-                      00149         ;GOTO       ABORT
-                      00150         ;BTFSC      RECEIVED_BYTE,5
-                      00151         ;GOTO       ABORT
-                      00152         ;BTFSS      RECEIVED_BYTE,4
-                      00153         ;GOTO       ABORT
-                      00154         ;BTFSC      RECEIVED_BYTE,3
-                      00155         ;GOTO       ABORT
-                      00156         ;BTFSS      RECEIVED_BYTE,2
-                      00157         ;GOTO       ABORT
-                      00158         ;BTFSC      RECEIVED_BYTE,1
-                      00159         ;GOTO       ABORT
-                      00160         ;BTFSS      RECEIVED_BYTE,0
-                      00161         ;GOTO       ABORT
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 11
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-005F   1421           00162         BSF         BYTE2_RECEIVED,0
-0060   0008           00163         RETURN
-0061                  00164 TEST_BYTE3
-0061   0020           00165         BANKSEL     PORTA
-0062   1422           00166         BSF         BYTE3_RECEIVED,0
-0063   0008           00167         RETURN
-0064                  00168 TEST_BYTE4
-0064   0020           00169         BANKSEL     PORTA
-0065   1423           00170         BSF         BYTE4_RECEIVED,0
-0066   192C           00171         BTFSC       RECEIVED_BYTE,2
-0067   2???           00172         GOTO        DRIVE_FORWARD
-0068   2???           00173         GOTO        DRIVE_BACK
-0069   0008           00174         RETURN
-006A                  00175 TEST_BYTE5
-006A   0020           00176         BANKSEL     PORTA
-006B   1424           00177         BSF         BYTE5_RECEIVED,0
-006C   0008           00178         RETURN
-006D                  00179 TEST_BYTE6
-006D   0020           00180         BANKSEL     PORTA
-006E   1425           00181         BSF         BYTE6_RECEIVED,0
-006F   0008           00182         RETURN
-0070                  00183 TEST_BYTE7
-0070   0020           00184         BANKSEL     PORTA
-0071   1426           00185         BSF         BYTE7_RECEIVED,0
-0072   0008           00186         RETURN
-0073                  00187 TEST_BYTE8
-0073   0020           00188         BANKSEL     PORTA
-0074   1427           00189         BSF         BYTE8_RECEIVED,0
-0075   0008           00190         RETURN
-0076                  00191 TEST_BYTE9
-0076   0020           00192         BANKSEL     PORTA
-0077   1428           00193         BSF         BYTE9_RECEIVED,0
-0078   0008           00194         RETURN
                       00023                 LIST      p=16f1788                     ; list directive to define processor
                       00024                 errorlevel -302,-207,-305,-206,-203     ; suppress "not in bank 0" message,  Found label
                              after column 1,
@@ -647,12 +579,6 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00037 ;Define Variable Registers
                       00038 ;******************************************
                       00039 
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 12
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                       00040 
                       00041                                                         
                       00042 ;******************************************             
@@ -662,6 +588,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0000   2???           00046                 GOTO        SETUP                       ;RESET CONDITION GOTO SETUP
                       00047                 ORG         H'004'                      ;ORGs interrupt location
 0004   2???           00048                 GOTO        INTERRUPT                   ;Interrupt occurred, carry out ISR
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                       00049 
                       00050 ;******************************************
                       00051 ;SETUP ROUTINE
@@ -675,32 +607,39 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00059 ;******************************************
 0007                  00060 INTERRUPT
 0007   0020           00061                 BANKSEL     PIR1
-0008   1A91           00062                 BTFSC       PIR1,5
-0009   2???           00063                 CALL        RECEIVE_BYTE
-000A   1891           00064                 BTFSC       PIR1,1
-000B   2???           00065                 GOTO        TRANSMIT_STUFF
-000C                  00066         GOBACK
-000C   0020           00067                 BANKSEL     PIR1
-000D   1291           00068                 BCF         PIR1,5                      ;Clear RCIF
-000E   1091           00069                 BCF         PIR1,1
-000F   0009           00070                 RETFIE                                  ;Return to MAIN, Re-enable global interrupt
-                      00071                 
-                      00072 ;******************************************
-                      00073 ;Main Code
-                      00074 ;******************************************
-0010                  00075 MAIN    
-0010   0023           00076                 BANKSEL     RCSTA
-0011   191D           00077                 BTFSC       RCSTA,2
-0012   2???           00078                 GOTO        FRAMING_ERROR
-0013   2???           00079                 GOTO        MAIN
-                      00080                 
-0014                  00081         FRAMING_ERROR
-0014   0020           00082                 BANKSEL     PORTA
-0015   150C           00083                 BSF         PORTA,2
-0016   2???           00084                 GOTO        MAIN
+0008   1C20           00062                 BTFSS       VALID_INPUT,0
+0009   2???           00063                 GOTO        TEST_INPUTS
+000A   1811           00064                 BTFSC       PIR1,0
+000B   2???           00065                 GOTO        TEST_CONTINUE
+000C   2???           00066                 GOTO        GOBACK
+000D                  00067         TEST_INPUTS
+000D   0020           00068                 BANKSEL     PORTB
+000E   180D           00069                 BTFSC       PORTB,0
+000F   2???           00070                 GOTO        TRANSMIT_FORWARD
+0010   188D           00071                 BTFSC       PORTB,1
+0011   2???           00072                 GOTO        TRANSMIT_BACKWARD
+0012   190D           00073                 BTFSC       PORTB,2
+0013   2???           00074                 GOTO        TRANSMIT_LEFT
+0014   198D           00075                 BTFSC       PORTB,3
+0015   2???           00076                 GOTO        TRANSMIT_RIGHT
+0016   1A0D           00077                 BTFSC       PORTB,4
+0017   2???           00078                 GOTO        TOGGLE_ARMS
+0018                  00079         GOBACK
+0018   0027           00080                 BANKSEL     IOCBF
+0019   0196           00081                 CLRF        IOCBF                       ;CLEAR PORTB IOC FLAGS
+001A   100B           00082                 BCF         INTCON,IOCIF                ;CLEAR IOCIF
+001B   0020           00083                 BANKSEL     PIR1
+001C   1011           00084                 BCF         PIR1,0                      ;CLEAR TMR1IF
+001D   0009           00085                 RETFIE                                  ;Return to MAIN, Re-enable global interrupt
+                      00086                 
+                      00087 ;******************************************
+                      00088 ;Main Code
+                      00089 ;******************************************
+001E                  00090 MAIN    
+001E   2???           00091                 GOTO        MAIN
 Warning[205]: Found directive in column 1. (END)
-09A4 1FFF             00085 END
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 13
+09A4 1FFF             00092 END
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 12
 
 
 SYMBOL TABLE
@@ -708,7 +647,6 @@ SYMBOL TABLE
 
 ABDEN                             00000000
 ABDOVF                            00000007
-ABORT                             0000001C
 ACKDT                             00000005
 ACKEN                             00000004
 ACKSTAT                           00000006
@@ -759,13 +697,13 @@ ANSB5                             00000005
 ANSB6                             00000006
 ANSC0                             00000000
 ANSC1                             00000001
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 14
+ANSC2                             00000002
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 13
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-ANSC2                             00000002
 ANSC3                             00000003
 ANSC4                             00000004
 ANSC5                             00000005
@@ -807,25 +745,6 @@ BUF4                              00000004
 BUF5                              00000005
 BUF6                              00000006
 BUF7                              00000007
-BYTE10_RECEIVED                   00000029
-BYTE11_RECEIVED                   0000002A
-BYTE12_RECEIVED                   0000002B
-BYTE1_RECEIVED                    00000020
-BYTE2_RECEIVED                    00000021
-BYTE3_RECEIVED                    00000022
-BYTE4_RECEIVED                    00000023
-BYTE5_RECEIVED                    00000024
-BYTE6_RECEIVED                    00000025
-BYTE7_EQUALS_75                   0000002D
-BYTE7_RECEIVED                    00000026
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 15
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
-BYTE8_RECEIVED                    00000027
-BYTE9_RECEIVED                    00000028
 C                                 00000000
 C1HYS                             00000001
 C1IE                              00000005
@@ -838,6 +757,12 @@ C1NCH2                            00000002
 C1OE                              00000005
 C1ON                              00000007
 C1OUT                             00000006
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 14
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 C1PCH0                            00000003
 C1PCH1                            00000004
 C1PCH2                            00000005
@@ -877,12 +802,6 @@ C3ON                              00000007
 C3OUT                             00000006
 C3PCH0                            00000003
 C3PCH1                            00000004
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 16
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 C3PCH2                            00000005
 C3POL                             00000004
 C3SP                              00000002
@@ -897,6 +816,12 @@ C4NCH0                            00000000
 C4NCH1                            00000001
 C4NCH2                            00000002
 C4OE                              00000005
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 C4ON                              00000007
 C4OUT                             00000006
 C4PCH0                            00000003
@@ -936,12 +861,6 @@ CCPR1L                            00000291
 CCPR2                             00000298
 CCPR2H                            00000299
 CCPR2L                            00000298
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 17
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 CCPR3                             00000311
 CCPR3H                            00000312
 CCPR3L                            00000311
@@ -956,6 +875,12 @@ CHS4                              00000006
 CHSN0                             00000000
 CHSN1                             00000001
 CHSN2                             00000002
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 CHSN3                             00000003
 CKE                               00000006
 CKP                               00000004
@@ -995,12 +920,6 @@ DAC1R3                            00000003
 DAC1R4                            00000004
 DAC1R5                            00000005
 DAC1R6                            00000006
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 18
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 DAC1R7                            00000007
 DAC2CON0                          00000591
 DAC2CON1                          00000592
@@ -1015,6 +934,12 @@ DAC3OE1                           00000005
 DAC3OE2                           00000004
 DAC3REF                           00000594
 DAC4CON0                          00000595
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 DAC4CON1                          00000596
 DAC4EN                            00000007
 DAC4OE1                           00000005
@@ -1044,8 +969,6 @@ DC3B1                             00000005
 DC_SHAD                           00000001
 DHEN                              00000000
 DONE                              00000001
-DRIVE_BACK                        00000030
-DRIVE_FORWARD                     0000002A
 D_NOT_A                           00000005
 EEADR                             00000191
 EEADRH                            00000192
@@ -1054,12 +977,6 @@ EECON1                            00000195
 EECON2                            00000196
 EEDAT                             00000193
 EEDATH                            00000194
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 19
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 EEDATL                            00000193
 EEIE                              00000004
 EEIF                              00000004
@@ -1067,7 +984,6 @@ EEPGD                             00000007
 EN                                00000007
 F                                 00000001
 FERR                              00000002
-FRAMING_ERROR                     00000014
 FREE                              00000004
 FSR0                              00000004
 FSR0H                             00000005
@@ -1077,6 +993,12 @@ FSR0L_SHAD                        00000FE8
 FSR1                              00000006
 FSR1H                             00000007
 FSR1H_SHAD                        00000FEB
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 FSR1L                             00000006
 FSR1L_SHAD                        00000FEA
 FVRCON                            00000117
@@ -1085,7 +1007,7 @@ FVRRDY                            00000006
 GCEN                              00000007
 GIE                               00000007
 GO                                00000001
-GOBACK                            0000000C
+GOBACK                            00000018
 GO_NOT_DONE                       00000001
 HFIOFL                            00000003
 HFIOFR                            00000004
@@ -1113,12 +1035,6 @@ INLVLB6                           00000006
 INLVLB7                           00000007
 INLVLC                            0000038E
 INLVLC0                           00000000
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 20
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 INLVLC1                           00000001
 INLVLC2                           00000002
 INLVLC3                           00000003
@@ -1136,6 +1052,12 @@ INTF                              00000001
 IOCAF                             00000393
 IOCAF0                            00000000
 IOCAF1                            00000001
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 19
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 IOCAF2                            00000002
 IOCAF3                            00000003
 IOCAF4                            00000004
@@ -1172,12 +1094,6 @@ IOCBF7                            00000007
 IOCBN                             00000395
 IOCBN0                            00000000
 IOCBN1                            00000001
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 21
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 IOCBN2                            00000002
 IOCBN3                            00000003
 IOCBN4                            00000004
@@ -1195,6 +1111,12 @@ IOCBP6                            00000006
 IOCBP7                            00000007
 IOCCF                             00000399
 IOCCF0                            00000000
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 20
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 IOCCF1                            00000001
 IOCCF2                            00000002
 IOCCF3                            00000003
@@ -1231,12 +1153,6 @@ IOCIF                             00000000
 IRCF0                             00000003
 IRCF1                             00000004
 IRCF2                             00000005
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 22
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 IRCF3                             00000006
 LATA                              0000010C
 LATA0                             00000000
@@ -1254,6 +1170,12 @@ LATB2                             00000002
 LATB3                             00000003
 LATB4                             00000004
 LATB5                             00000005
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 21
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 LATB6                             00000006
 LATB7                             00000007
 LATC                              0000010E
@@ -1267,7 +1189,7 @@ LATC6                             00000006
 LATC7                             00000007
 LFIOFR                            00000001
 LWLO                              00000005
-MAIN                              00000010
+MAIN                              0000001E
 MC1OUT                            00000000
 MC2OUT                            00000001
 MC3OUT                            00000002
@@ -1290,12 +1212,6 @@ NOT_RWDT                          00000004
 NOT_T1SYNC                        00000002
 NOT_TO                            00000004
 NOT_WPUEN                         00000007
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 23
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 ODCONA                            0000028C
 ODCONA0                           00000000
 ODCONA1                           00000001
@@ -1313,6 +1229,12 @@ ODCONB3                           00000003
 ODCONB4                           00000004
 ODCONB5                           00000005
 ODCONB6                           00000006
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 22
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 ODCONB7                           00000007
 ODCONC                            0000028E
 ODCONC0                           00000000
@@ -1349,12 +1271,6 @@ P1ASDEN                           00000006
 P1ASDLA                           00000000
 P1ASDLB                           00000001
 P1ASDLC                           00000002
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 24
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 P1ASDLD                           00000003
 P1ASDLE                           00000004
 P1ASDLF                           00000005
@@ -1372,6 +1288,12 @@ P1CSRC1                           00000001
 P1DBFE                            00000005
 P1DBRE                            00000004
 P1DCPOL                           00000005
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 23
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 P1DCSC1                           00000001
 P1DCSC2                           00000002
 P1DCSC3                           00000003
@@ -1408,12 +1330,6 @@ P1OEF                             00000005
 P1PHSC1                           00000001
 P1PHSC2                           00000002
 P1PHSC3                           00000003
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 25
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 P1PHSC4                           00000004
 P1PHSIN                           00000007
 P1PHST                            00000000
@@ -1431,6 +1347,12 @@ P1PRSC3                           00000003
 P1PRSC4                           00000004
 P1PRSIN                           00000007
 P1PRST                            00000000
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 24
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 P1REBM0                           00000000
 P1REBM1                           00000001
 P1REBSC1                          00000001
@@ -1467,12 +1389,6 @@ P2ASDSC3                          00000003
 P2ASDSC4                          00000004
 P2ASDSIN                          00000007
 P2ASE                             00000007
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 26
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 P2CPRE0                           00000004
 P2CPRE1                           00000005
 P2CSRC0                           00000000
@@ -1490,6 +1406,12 @@ P2FEBM0                           00000004
 P2FEBM1                           00000005
 P2FEBSC1                          00000001
 P2FEBSC2                          00000002
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 25
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 P2FEBSC3                          00000003
 P2FEBSC4                          00000004
 P2FEBSIN                          00000007
@@ -1526,12 +1448,6 @@ P2PRSC4                           00000004
 P2PRSIN                           00000007
 P2PRST                            00000000
 P2REBM0                           00000000
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 27
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 P2REBM1                           00000001
 P2REBSC1                          00000001
 P2REBSC2                          00000002
@@ -1549,6 +1465,12 @@ P2TDCIF                           00000001
 P2TOVIE                           00000007
 P2TOVIF                           00000003
 P2TPHIE                           00000006
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 26
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 P2TPHIF                           00000002
 P2TPRIE                           00000004
 P2TPRIF                           00000000
@@ -1585,12 +1507,6 @@ P3FEBSC4                          00000004
 P3FEBSIN                          00000007
 P3HSMEN                           00000000
 P3INPOL                           00000006
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 28
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 P3LSMEN                           00000001
 P3MDLBIT                          00000005
 P3MDLEN                           00000007
@@ -1608,6 +1524,12 @@ P3OEB                             00000001
 P3PHSC1                           00000001
 P3PHSC2                           00000002
 P3PHSC3                           00000003
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 27
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 P3PHSC4                           00000004
 P3PHSIN                           00000007
 P3PHST                            00000000
@@ -1644,12 +1566,6 @@ P3TPRIE                           00000004
 P3TPRIF                           00000000
 P4ARSEN                           00000005
 P4ASDEN                           00000006
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 29
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 P4ASDLA                           00000000
 P4ASDLB                           00000001
 P4ASDOV                           00000000
@@ -1667,6 +1583,12 @@ P4DBFE                            00000005
 P4DBRE                            00000004
 P4DCPOL                           00000005
 P4DCSC1                           00000001
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 28
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 P4DCSC2                           00000002
 P4DCSC3                           00000003
 P4DCSC4                           00000004
@@ -1703,12 +1625,6 @@ P4PHSIN                           00000007
 P4PHST                            00000000
 P4POFST                           00000007
 P4POLA                            00000000
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 30
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 P4POLB                            00000001
 P4PRPOL                           00000006
 P4PRSC1                           00000001
@@ -1726,6 +1642,12 @@ P4REBSC4                          00000004
 P4REBSIN                          00000007
 P4SSYNC                           00000007
 P4STRA                            00000000
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 29
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 P4STRB                            00000001
 P4SYNC0                           00000000
 P4SYNC1                           00000001
@@ -1762,12 +1684,6 @@ PORTA                             0000000C
 PORTB                             0000000D
 PORTC                             0000000E
 PORTE                             00000010
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 31
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PR2                               0000001B
 PS0                               00000000
 PS1                               00000001
@@ -1785,6 +1701,12 @@ PSMC1BLKF4                        00000004
 PSMC1BLKF5                        00000005
 PSMC1BLKF6                        00000006
 PSMC1BLKF7                        00000007
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 30
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC1BLKR                         00000EAB
 PSMC1BLKR0                        00000000
 PSMC1BLKR1                        00000001
@@ -1821,12 +1743,6 @@ PSMC1DC1                          00000001
 PSMC1DC10                         00000002
 PSMC1DC11                         00000003
 PSMC1DC12                         00000004
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 32
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC1DC13                         00000005
 PSMC1DC14                         00000006
 PSMC1DC15                         00000007
@@ -1844,6 +1760,12 @@ PSMC1DCS                          00000E9B
 PSMC1EN                           00000007
 PSMC1FEBS                         00000E99
 PSMC1FFA                          00000EAD
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 31
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC1FFA0                         00000000
 PSMC1FFA1                         00000001
 PSMC1FFA2                         00000002
@@ -1880,12 +1802,6 @@ PSMC1PR10                         00000002
 PSMC1PR11                         00000003
 PSMC1PR12                         00000004
 PSMC1PR13                         00000005
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 33
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC1PR14                         00000006
 PSMC1PR15                         00000007
 PSMC1PR2                          00000002
@@ -1903,6 +1819,12 @@ PSMC1REBS                         00000E98
 PSMC1SIE                          00000000
 PSMC1SIF                          00000000
 PSMC1STR0                         00000EAE
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 32
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC1STR1                         00000EAF
 PSMC1SYNC                         00000E93
 PSMC1TIE                          00000004
@@ -1939,12 +1861,6 @@ PSMC2BLKF5                        00000005
 PSMC2BLKF6                        00000006
 PSMC2BLKF7                        00000007
 PSMC2BLKR                         00000ECB
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 34
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC2BLKR0                        00000000
 PSMC2BLKR1                        00000001
 PSMC2BLKR2                        00000002
@@ -1962,6 +1878,12 @@ PSMC2DBF1                         00000001
 PSMC2DBF2                         00000002
 PSMC2DBF3                         00000003
 PSMC2DBF4                         00000004
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 33
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC2DBF5                         00000005
 PSMC2DBF6                         00000006
 PSMC2DBF7                         00000007
@@ -1998,12 +1920,6 @@ PSMC2EN                           00000007
 PSMC2FEBS                         00000EB9
 PSMC2FFA                          00000ECD
 PSMC2FFA0                         00000000
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 35
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC2FFA1                         00000001
 PSMC2FFA2                         00000002
 PSMC2FFA3                         00000003
@@ -2021,6 +1937,12 @@ PSMC2PH13                         00000005
 PSMC2PH14                         00000006
 PSMC2PH15                         00000007
 PSMC2PH2                          00000002
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 34
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC2PH3                          00000003
 PSMC2PH4                          00000004
 PSMC2PH5                          00000005
@@ -2057,12 +1979,6 @@ PSMC2SIE                          00000001
 PSMC2SIF                          00000001
 PSMC2STR0                         00000ECE
 PSMC2STR1                         00000ECF
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 36
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC2SYNC                         00000EB3
 PSMC2TIE                          00000005
 PSMC2TIF                          00000005
@@ -2080,6 +1996,12 @@ PSMC2TMR3                         00000003
 PSMC2TMR4                         00000004
 PSMC2TMR5                         00000005
 PSMC2TMR6                         00000006
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 35
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC2TMR7                         00000007
 PSMC2TMR8                         00000000
 PSMC2TMR9                         00000001
@@ -2116,12 +2038,6 @@ PSMC3DBF2                         00000002
 PSMC3DBF3                         00000003
 PSMC3DBF4                         00000004
 PSMC3DBF5                         00000005
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 37
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC3DBF6                         00000006
 PSMC3DBF7                         00000007
 PSMC3DBR                          00000EE9
@@ -2139,6 +2055,12 @@ PSMC3DC1                          00000001
 PSMC3DC10                         00000002
 PSMC3DC11                         00000003
 PSMC3DC12                         00000004
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 36
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC3DC13                         00000005
 PSMC3DC14                         00000006
 PSMC3DC15                         00000007
@@ -2175,12 +2097,6 @@ PSMC3PH14                         00000006
 PSMC3PH15                         00000007
 PSMC3PH2                          00000002
 PSMC3PH3                          00000003
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 38
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC3PH4                          00000004
 PSMC3PH5                          00000005
 PSMC3PH6                          00000006
@@ -2198,6 +2114,12 @@ PSMC3PR10                         00000002
 PSMC3PR11                         00000003
 PSMC3PR12                         00000004
 PSMC3PR13                         00000005
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 37
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC3PR14                         00000006
 PSMC3PR15                         00000007
 PSMC3PR2                          00000002
@@ -2234,12 +2156,6 @@ PSMC3TMR4                         00000004
 PSMC3TMR5                         00000005
 PSMC3TMR6                         00000006
 PSMC3TMR7                         00000007
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 39
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC3TMR8                         00000000
 PSMC3TMR9                         00000001
 PSMC3TMRH                         00000EE8
@@ -2257,6 +2173,12 @@ PSMC4BLKF5                        00000005
 PSMC4BLKF6                        00000006
 PSMC4BLKF7                        00000007
 PSMC4BLKR                         00000F2B
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 38
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC4BLKR0                        00000000
 PSMC4BLKR1                        00000001
 PSMC4BLKR2                        00000002
@@ -2293,12 +2215,6 @@ PSMC4DC10                         00000002
 PSMC4DC11                         00000003
 PSMC4DC12                         00000004
 PSMC4DC13                         00000005
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 40
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC4DC14                         00000006
 PSMC4DC15                         00000007
 PSMC4DC2                          00000002
@@ -2316,6 +2232,12 @@ PSMC4EN                           00000007
 PSMC4FEBS                         00000F19
 PSMC4FFA                          00000F2D
 PSMC4FFA0                         00000000
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 39
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC4FFA1                         00000001
 PSMC4FFA2                         00000002
 PSMC4FFA3                         00000003
@@ -2352,12 +2274,6 @@ PSMC4PR11                         00000003
 PSMC4PR12                         00000004
 PSMC4PR13                         00000005
 PSMC4PR14                         00000006
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 41
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC4PR15                         00000007
 PSMC4PR2                          00000002
 PSMC4PR3                          00000003
@@ -2375,6 +2291,12 @@ PSMC4SIE                          00000003
 PSMC4SIF                          00000003
 PSMC4STR0                         00000F2E
 PSMC4STR1                         00000F2F
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 40
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC4SYNC                         00000F13
 PSMC4TIE                          00000007
 PSMC4TIF                          00000007
@@ -2411,12 +2333,6 @@ RB2                               00000002
 RB3                               00000003
 RB4                               00000004
 RB5                               00000005
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 42
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 RB6                               00000006
 RB7                               00000007
 RC0                               00000000
@@ -2434,13 +2350,17 @@ RCIDL                             00000006
 RCIE                              00000005
 RCIF                              00000005
 RCREG                             00000199
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 41
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 RCREG1                            00000199
 RCSTA                             0000019D
 RCSTA1                            0000019D
 RD                                00000000
 RE3                               00000003
-RECEIVED_BYTE                     0000002C
-RECEIVE_BYTE                      00000004
 RSEN                              00000001
 RX9                               00000006
 RX9D                              00000000
@@ -2460,7 +2380,6 @@ SDOSEL                            00000005
 SEN                               00000000
 SENDB                             00000003
 SETUP                             00000005
-SET_ARMS                          00000047
 SLRCONA                           0000030C
 SLRCONA0                          00000000
 SLRCONA1                          00000001
@@ -2470,12 +2389,6 @@ SLRCONA4                          00000004
 SLRCONA5                          00000005
 SLRCONA6                          00000006
 SLRCONA7                          00000007
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 43
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 SLRCONB                           0000030D
 SLRCONB0                          00000000
 SLRCONB1                          00000001
@@ -2496,6 +2409,12 @@ SLRCONC6                          00000006
 SLRCONC7                          00000007
 SMP                               00000007
 SP                                00000006
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 42
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 SP1BRG                            0000019B
 SP1BRGH                           0000019C
 SP1BRGL                           0000019B
@@ -2529,12 +2448,6 @@ SSP1CON                           00000215
 SSP1CON1                          00000215
 SSP1CON2                          00000216
 SSP1CON3                          00000217
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 44
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 SSP1IE                            00000003
 SSP1IF                            00000003
 SSP1MSK                           00000213
@@ -2555,6 +2468,12 @@ SSPCON2                           00000216
 SSPCON3                           00000217
 SSPEN                             00000005
 SSPM0                             00000000
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 43
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 SSPM1                             00000001
 SSPM2                             00000002
 SSPM3                             00000003
@@ -2563,6 +2482,7 @@ SSPOV                             00000006
 SSPSTAT                           00000214
 STATUS                            00000003
 STATUS_SHAD                       00000FE4
+STILL_VALID_INPUT                 0000003F
 STKOVF                            00000007
 STKPTR                            00000FED
 STKUNF                            00000006
@@ -2588,26 +2508,12 @@ T1OSCR                            00000007
 T2CKPS0                           00000000
 T2CKPS1                           00000001
 T2CON                             0000001C
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 45
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 T2OUTPS0                          00000003
 T2OUTPS1                          00000004
 T2OUTPS2                          00000005
 T2OUTPS3                          00000006
-TEST_BYTE1                        0000004A
-TEST_BYTE2                        0000005E
-TEST_BYTE3                        00000061
-TEST_BYTE4                        00000064
-TEST_BYTE5                        0000006A
-TEST_BYTE6                        0000006D
-TEST_BYTE7                        00000070
-TEST_BYTE8                        00000073
-TEST_BYTE9                        00000076
-TEST_CONTINUE                     00000049
+TEST_CONTINUE                     00000036
+TEST_INPUTS                       0000000D
 TMR0                              00000015
 TMR0CS                            00000005
 TMR0IE                            00000005
@@ -2621,6 +2527,12 @@ TMR1GIE                           00000007
 TMR1GIF                           00000007
 TMR1H                             00000017
 TMR1IE                            00000000
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 44
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 TMR1IF                            00000000
 TMR1L                             00000016
 TMR1ON                            00000000
@@ -2628,10 +2540,14 @@ TMR2                              0000001A
 TMR2IE                            00000001
 TMR2IF                            00000001
 TMR2ON                            00000002
-TOGGLE_ARMS                       00000042
+TOGGLE_ARMS                       0000002C
 TOSH                              00000FEF
 TOSL                              00000FEE
-TRANSMIT_STUFF                    00000000
+TRANSMIT_BACKWARD                 0000000E
+TRANSMIT_FORWARD                  00000004
+TRANSMIT_HANDSHAKE                00000000
+TRANSMIT_LEFT                     00000018
+TRANSMIT_RIGHT                    00000022
 TRIGSEL0                          00000004
 TRIGSEL1                          00000005
 TRIGSEL2                          00000006
@@ -2647,12 +2563,6 @@ TRISA6                            00000006
 TRISA7                            00000007
 TRISB                             0000008D
 TRISB0                            00000000
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 46
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 TRISB1                            00000001
 TRISB2                            00000002
 TRISB3                            00000003
@@ -2676,12 +2586,16 @@ TSEN                              00000005
 TSRNG                             00000004
 TUN0                              00000000
 TUN1                              00000001
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 45
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 TUN2                              00000002
 TUN3                              00000003
 TUN4                              00000004
 TUN5                              00000005
-TURN_LEFT                         00000036
-TURN_RIGHT                        0000003C
 TX1REG                            0000019A
 TX1STA                            0000019E
 TX9                               00000006
@@ -2695,6 +2609,7 @@ TXSEL                             00000002
 TXSTA                             0000019E
 TXSTA1                            0000019E
 UA                                00000001
+VALID_INPUT                       00000020
 VREGCON                           00000197
 VREGPM                            00000001
 W                                 00000000
@@ -2706,12 +2621,6 @@ WDTPS2                            00000003
 WDTPS3                            00000004
 WDTPS4                            00000005
 WPUA                              0000020C
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 47
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 WPUA0                             00000000
 WPUA1                             00000001
 WPUA2                             00000002
@@ -2736,6 +2645,12 @@ WPUC2                             00000002
 WPUC3                             00000003
 WPUC4                             00000004
 WPUC5                             00000005
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 46
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 WPUC6                             00000006
 WPUC7                             00000007
 WPUE                              00000210
@@ -2765,12 +2680,6 @@ _CP_ON                            00003F7F
 _DEVID1                           00008006
 _FCMEN_OFF                        00001FFF
 _FCMEN_ON                         00003FFF
-MPASM 5.86                    CRAPREMOTE.ASM   11-20-2024  15:16:35         PAGE 48
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 _FOSC_ECH                         00003FFF
 _FOSC_ECL                         00003FFD
 _FOSC_ECM                         00003FFE
@@ -2795,8 +2704,20 @@ _PLLEN_OFF                        00003EFF
 _PLLEN_ON                         00003FFF
 _PWRTE_OFF                        00003FFF
 _PWRTE_ON                         00003FDF
+MPASM 5.86                    CRAPREMOTE.ASM   11-21-2024  11:26:43         PAGE 47
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 _STVREN_OFF                       00003DFF
 _STVREN_ON                        00003FFF
+_SUBROUTINES_CODE_0007            00000007
+_SUBROUTINES_CODE_0011            00000011
+_SUBROUTINES_CODE_001B            0000001B
+_SUBROUTINES_CODE_0025            00000025
+_SUBROUTINES_CODE_002F            0000002F
+_SUBROUTINES_CODE_0042            00000042
 _VCAPEN_OFF                       00003FFF
 _VCAPEN_ON                        00003FDF
 _WDTE_NSLEEP                      00003FF7
@@ -2811,6 +2732,6 @@ __16F1788                         00000001
 
 Errors   :     0
 Warnings :     2 reported,     2 suppressed
-Messages :    47 reported,     1 suppressed
+Messages :    58 reported,     1 suppressed
 
 
