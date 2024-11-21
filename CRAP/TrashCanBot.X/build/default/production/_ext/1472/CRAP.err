@@ -41,11 +41,11 @@ Message[302] ..\16F1788_SETUP.INC 222 : Register in operand not in bank 0.  Ensu
 Message[302] ..\16F1788_SETUP.INC 228 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16F1788_SETUP.INC 231 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16F1788_SETUP.INC 233 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16F1788_SETUP.INC 235 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16F1788_SETUP.INC 237 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16F1788_SETUP.INC 244 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16F1788_SETUP.INC 246 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16F1788_SETUP.INC 236 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16F1788_SETUP.INC 238 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16F1788_SETUP.INC 245 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16F1788_SETUP.INC 247 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16F1788_SETUP.INC 248 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\SUBROUTINES.INC 30 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\SUBROUTINES.INC 35 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\SUBROUTINES.INC 51 : Register in operand not in bank 0.  Ensure that bank bits are correct.
