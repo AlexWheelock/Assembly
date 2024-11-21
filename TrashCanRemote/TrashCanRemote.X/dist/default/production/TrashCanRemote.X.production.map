@@ -1,5 +1,5 @@
 MPLINK 5.09, LINKER
-Linker Map File - Created Thu Nov 21 11:26:45 2024
+Linker Map File - Created Thu Nov 21 11:36:22 2024
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
@@ -7,8 +7,8 @@ Linker Map File - Created Thu Nov 21 11:26:45 2024
                    .org_0       code   0x000000    program   0x000002
                    .cinit    romdata   0x000001    program   0x000004
                    .org_1       code   0x000004    program   0x000036
-          INITIALIZE_CODE       code   0x00001f    program   0x0000fe
-         SUBROUTINES_CODE       code   0x00009e    program   0x000092
+          INITIALIZE_CODE       code   0x00001f    program   0x000100
+         SUBROUTINES_CODE       code   0x00009f    program   0x000092
 .config_8007_BUILD/DEFAULT/PRODUCTION/_EXT/14       code   0x008007    program   0x000002
 .config_8008_BUILD/DEFAULT/PRODUCTION/_EXT/14       code   0x008008    program   0x000002
 
@@ -18,9 +18,9 @@ Linker Map File - Created Thu Nov 21 11:26:45 2024
                                Start         End      
                            ---------   ---------      
                             0x000000    0x000002      
-                            0x000004    0x0000e6      
+                            0x000004    0x0000e7      
                             0x008007    0x008008      
-            232 out of 16647 program addresses used, program memory utilization is 1%
+            233 out of 16647 program addresses used, program memory utilization is 1%
 
 
 
@@ -32,21 +32,21 @@ Linker Map File - Created Thu Nov 21 11:26:45 2024
                 INTERRUPT   0x000007    program     static ..\CRAPremote.asm        
                      MAIN   0x00001e    program     static ..\CRAPremote.asm        
                     SETUP   0x000005    program     static ..\CRAPremote.asm        
-        STILL_VALID_INPUT   0x0000dd    program     static ..\SUBROUTINES.inc       
-            TEST_CONTINUE   0x0000d4    program     static ..\SUBROUTINES.inc       
+        STILL_VALID_INPUT   0x0000de    program     static ..\SUBROUTINES.inc       
+            TEST_CONTINUE   0x0000d5    program     static ..\SUBROUTINES.inc       
               TEST_INPUTS   0x00000d    program     static ..\CRAPremote.asm        
-              TOGGLE_ARMS   0x0000ca    program     static ..\SUBROUTINES.inc       
-        TRANSMIT_BACKWARD   0x0000ac    program     static ..\SUBROUTINES.inc       
-         TRANSMIT_FORWARD   0x0000a2    program     static ..\SUBROUTINES.inc       
-       TRANSMIT_HANDSHAKE   0x00009e    program     static ..\SUBROUTINES.inc       
-            TRANSMIT_LEFT   0x0000b6    program     static ..\SUBROUTINES.inc       
-           TRANSMIT_RIGHT   0x0000c0    program     static ..\SUBROUTINES.inc       
-   _SUBROUTINES_CODE_0007   0x0000a5    program     static ..\SUBROUTINES.inc       
-   _SUBROUTINES_CODE_0011   0x0000af    program     static ..\SUBROUTINES.inc       
-   _SUBROUTINES_CODE_001B   0x0000b9    program     static ..\SUBROUTINES.inc       
-   _SUBROUTINES_CODE_0025   0x0000c3    program     static ..\SUBROUTINES.inc       
-   _SUBROUTINES_CODE_002F   0x0000cd    program     static ..\SUBROUTINES.inc       
-   _SUBROUTINES_CODE_0042   0x0000e0    program     static ..\SUBROUTINES.inc       
+              TOGGLE_ARMS   0x0000cb    program     static ..\SUBROUTINES.inc       
+        TRANSMIT_BACKWARD   0x0000ad    program     static ..\SUBROUTINES.inc       
+         TRANSMIT_FORWARD   0x0000a3    program     static ..\SUBROUTINES.inc       
+       TRANSMIT_HANDSHAKE   0x00009f    program     static ..\SUBROUTINES.inc       
+            TRANSMIT_LEFT   0x0000b7    program     static ..\SUBROUTINES.inc       
+           TRANSMIT_RIGHT   0x0000c1    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0007   0x0000a6    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0011   0x0000b0    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_001B   0x0000ba    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0025   0x0000c4    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_002F   0x0000ce    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0042   0x0000e1    program     static ..\SUBROUTINES.inc       
 
 
 
@@ -59,19 +59,19 @@ Linker Map File - Created Thu Nov 21 11:26:45 2024
                    GOBACK   0x000018    program     static ..\CRAPremote.asm        
                      MAIN   0x00001e    program     static ..\CRAPremote.asm        
                INITIALIZE   0x00001f    program     static ..\16F1788_SETUP.inc     
-       TRANSMIT_HANDSHAKE   0x00009e    program     static ..\SUBROUTINES.inc       
-         TRANSMIT_FORWARD   0x0000a2    program     static ..\SUBROUTINES.inc       
-   _SUBROUTINES_CODE_0007   0x0000a5    program     static ..\SUBROUTINES.inc       
-        TRANSMIT_BACKWARD   0x0000ac    program     static ..\SUBROUTINES.inc       
-   _SUBROUTINES_CODE_0011   0x0000af    program     static ..\SUBROUTINES.inc       
-            TRANSMIT_LEFT   0x0000b6    program     static ..\SUBROUTINES.inc       
-   _SUBROUTINES_CODE_001B   0x0000b9    program     static ..\SUBROUTINES.inc       
-           TRANSMIT_RIGHT   0x0000c0    program     static ..\SUBROUTINES.inc       
-   _SUBROUTINES_CODE_0025   0x0000c3    program     static ..\SUBROUTINES.inc       
-              TOGGLE_ARMS   0x0000ca    program     static ..\SUBROUTINES.inc       
-   _SUBROUTINES_CODE_002F   0x0000cd    program     static ..\SUBROUTINES.inc       
-            TEST_CONTINUE   0x0000d4    program     static ..\SUBROUTINES.inc       
-        STILL_VALID_INPUT   0x0000dd    program     static ..\SUBROUTINES.inc       
-   _SUBROUTINES_CODE_0042   0x0000e0    program     static ..\SUBROUTINES.inc       
+       TRANSMIT_HANDSHAKE   0x00009f    program     static ..\SUBROUTINES.inc       
+         TRANSMIT_FORWARD   0x0000a3    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0007   0x0000a6    program     static ..\SUBROUTINES.inc       
+        TRANSMIT_BACKWARD   0x0000ad    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0011   0x0000b0    program     static ..\SUBROUTINES.inc       
+            TRANSMIT_LEFT   0x0000b7    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_001B   0x0000ba    program     static ..\SUBROUTINES.inc       
+           TRANSMIT_RIGHT   0x0000c1    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0025   0x0000c4    program     static ..\SUBROUTINES.inc       
+              TOGGLE_ARMS   0x0000cb    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_002F   0x0000ce    program     static ..\SUBROUTINES.inc       
+            TEST_CONTINUE   0x0000d5    program     static ..\SUBROUTINES.inc       
+        STILL_VALID_INPUT   0x0000de    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0042   0x0000e1    program     static ..\SUBROUTINES.inc       
 
 
