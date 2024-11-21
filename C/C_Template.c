@@ -118,21 +118,21 @@ Versions: 1.0
                 pressedKey = 3;   
             }
 
-            if(RA6) = 1;
+            if(RA6) == 1;
             {
                 pressedKey = 2;   
             }
 
-            if(RA5) = 1;
+            if(RA5) == 1;
             {
                 pressedKey = 1;   
             }
 
-            if RA4 == 1;
+            if (RA4) == 1;
             {
                 pressedKey = 0;   
             }
-            RA3 = 0;
+            (RA3) == 0;
         }
         while(pressedKey == 100);
 

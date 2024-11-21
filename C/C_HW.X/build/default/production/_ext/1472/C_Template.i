@@ -10411,7 +10411,7 @@ extern __bank0 __bit __timeout;
 # 40 "../C_Template.c" 2
 
 
-    int TestKeypad()
+    unsigned int TestKeypad()
     {
         unsigned int pressedKey;
         pressedKey = 100;
@@ -10500,11 +10500,11 @@ extern __bank0 __bit __timeout;
                 pressedKey = 1;
             }
 
-            if(RA4) == 1;
+            if (RA4) == 1;
             {
                 pressedKey = 0;
             }
-            RA3 = 0;
+            (RA3) == 0;
         }
         while(pressedKey == 100);
 

@@ -1,4 +1,4 @@
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE  1
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -16,24 +16,25 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00010 ;                   select (single-shot, three round burst, continuous). Different  *
                       00011 ;                   frequencies will be used to determine between player 1 (38kHz)  *
                       00012 ;                   and 2 (56kHz) for scoring. Gun will use 12V (with solenoid), or *
-                      00013 ;                   5V (without solenoid).                                          *
-                      00014 ;                                                                                   *
-                      00015 ;                   Uses CCP1 (RC2) for laser PWM, RC3 for solenoid control. RB0 for*
-                      00016 ;                   trigger, RB1 for frequency select and RB3:2 used to select from *
-                      00017 ;                   the firing modes.                                               *
-                      00018 ;                                                                                   *
-                      00019 ;************************************************************************************
-                      00020 
-                      00021 ;************************************************************************************
-                      00022 ;                                                                                   *
-                      00023 ;   Revision History:                                                               *
-                      00024 ;                                                                                   *
-                      00025 ;   1:    Got everything for the gun working the way that I think it should with    *
-                      00026 ;         base features.
-                      00027 ;                                                                                   *   
-                      00028 ;************************************************************************************           
-                      00029                 
-                      00030                 #include "p16lf1788.inc"                ; processor specific variable definitions
+                      00013 ;                   5V (without solenoid), can also use 3.3V if using the LF PIC,   *
+                      00014 ;                   with the adjustment of some resistors for the solenoid current. *
+                      00015 ;                                                                                   *
+                      00016 ;                   Uses CCP1 (RC2) for laser PWM, RC3 for solenoid control. RB0 for*
+                      00017 ;                   trigger, RB1 for frequency select and RB3:2 used to select from *
+                      00018 ;                   the firing modes.                                               *
+                      00019 ;                                                                                   *
+                      00020 ;************************************************************************************
+                      00021 
+                      00022 ;************************************************************************************
+                      00023 ;                                                                                   *
+                      00024 ;   Revision History:                                                               *
+                      00025 ;                                                                                   *
+                      00026 ;   1:    Got everything for the gun working the way that I think it should with    *
+                      00027 ;         base features.
+                      00028 ;                                                                                   *   
+                      00029 ;************************************************************************************           
+                      00030                 
+                      00031                 #include "p16lf1788.inc"                ; processor specific variable definitions
                       00001         LIST
                       00002 
                       00003 ;==========================================================================
@@ -44,7 +45,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00008 ;==========================================================================
                       00009 
                       03016         LIST
-                      00031                 #INCLUDE <16LF1788_SETUP.inc>           ; Custom setup file for the PIC16F883 micro-cont
+                      00032                 #INCLUDE <16LF1788_SETUP.inc>           ; Custom setup file for the PIC16F883 micro-cont
                             roller
                       00001 ;************************************************************************************
                       00002 ;                                                                                   *
@@ -56,13 +57,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00008 ;   Description:    Firmware for setting up a PIC16LF1788 for the laser gun of the  *
                       00009 ;                   Laser Shooting Game project.                                    *
                       00010 ;                                                                                   *
-                      00011 ;************************************************************************************
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE  2
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                      00011 ;************************************************************************************
                       00012 
                       00013 ;************************************************************************************
                       00014 ;                                                                                   *
@@ -115,13 +116,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                             --------|---------------*       
                       00042 ;DIGITAL        |DIGITAL        |DIGITAL        |DIGITAL        |DIGITAL        |DIGITAL        |DIGITAL
                                     |DIGITAL        *
-                      00043 ;INPUT          |INPUT          |INPUT          |INPUT          |INPUT          |INPUT          |INPUT  
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE  3
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                      00043 ;INPUT          |INPUT          |INPUT          |INPUT          |INPUT          |INPUT          |INPUT  
                                     |INPUT          *
                       00044 ;---------------|---------------|---------------|---------------|---------------|---------------|-------
                             --------|---------------*               
@@ -174,13 +175,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0001   30EA           00072                 MOVLW       0xEA                        ;ENABLE INTOSC, SET TO 4MHz
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0002   0099           00073                 MOVWF       OSCCON
-0003   002A           00074                 BANKSEL     CLKRCON
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE  4
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+0003   002A           00074                 BANKSEL     CLKRCON
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0004   019A           00075                 CLRF        CLKRCON                     ;DISABLE CLOCK REFERENCE
                       00076         
@@ -233,13 +234,13 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 001B   0194           00111                 CLRF        PIE4                        ;DISABLE ALL PIE4 INTERUPTS
                       00112                 
                       00113 ;*** CLEAR INTERUPT FLAGS ***
-                      00114                 
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE  5
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                      00114                 
 001C   0020           00115                 BANKSEL     PIR1
 001D   0191           00116                 CLRF        PIR1                        ;CLEAR ALL PIR1 INTERUPT FLAGS
 001E   0020           00117                 BANKSEL     PIR2
@@ -259,14 +260,14 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0028   0093           00130                 MOVWF       CCP1CON                     ;SELECT PWM MODE FOR CCP1
 0029   0025           00131                 BANKSEL     CCPR1L
-002A   3013           00132                 MOVLW       0x13                        ;PW FOR INITIALIZING 90%DC AT 38kHz
-                      00133                 ;MOVLW      0x0D                        ;PW FOR INITIALIZING 90%DC AT 56kHz
+002A   3019           00132                 MOVLW       0x19                        ;PW FOR INITIALIZING 95%DC AT 38kHz
+                      00133                 ;MOVLW      0x11                        ;PW FOR INITIALIZING 95%DC AT 56kHz
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 002B   0091           00134                 MOVWF       CCPR1L
                       00135 
                       00136 ;*** TIMER 1 SETUP *****
                       00137                 
-002C   0020           00138                 BANKSEL     T1CON                       
+002C   0020           00138                 BANKSEL     T1CON
 002D   30A8           00139                 MOVLW       0xA8                        ;ENABLE & SELECT TMR1 LP OSCILLATOR, SET PRESCAL
                             E TO 1:4, DISABLE TMR1 AT THIS POINT
 002E   0020           00140                 BANKSEL     T1GCON
@@ -292,13 +293,13 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00157  
                       00158 ;*** PORT A SETUP **** PORT A SET AS LOGIC OUTPUT (NOT USED)
                       00159 
-0038   0020           00160                 BANKSEL     PORTA
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE  6
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+0038   0020           00160                 BANKSEL     PORTA
 0039   018C           00161                 CLRF        PORTA                       ;CLEAR PORTA
 003A   0022           00162                 BANKSEL     LATA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
@@ -351,13 +352,13 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                              BETTER FOR TRIGGER INPUT)                  
                       00197                 
                       00198 ;*** PORT C SETUP **** 
-                      00199                 
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE  7
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                      00199                 
 005A   0020           00200                 BANKSEL     PORTC
 005B   018E           00201                 CLRF        PORTC                       ;CLEAR PORTC
 005C   0022           00202                 BANKSEL     LATC
@@ -391,7 +392,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00223                 
                       00224                 
 006E   0008           00225                 RETURN                                  ;RETURN TO .asm FILE
-                      00032                 #INCLUDE <SUBROUTINES.inc>              ; File containing all used subroutines
+                      00033                 #INCLUDE <SUBROUTINES.inc>              ; File containing all used subroutines
                       00001 ;************************************************************************************
                       00002 ;                                                                                   *
                       00003 ;   Filename:       SUBROUTINES.inc                                                 *
@@ -410,13 +411,13 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00016 
                       00017 ;************************************************************************************
                       00018 ;                                                                                   *
-                      00019 ;   Revision History:                                                               *
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE  8
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                      00019 ;   Revision History:                                                               *
                       00020 ;                                                                                   *
                       00021 ;   1:  Initialize file, get everything working the way that I thought it should    *
                       00022 ;       work.                                                                       *                   
@@ -469,13 +470,13 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                             LED
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0015   150E           00057                 BSF         TRISC,2                     ;OUTPUT DRIVER NOT DISABLED, DISABLE OUTPUT DRIV
-                            ER
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE  9
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                            ER
 0016   0020           00058                 BANKSEL     PORTC
 0017   118E           00059                 BCF         PORTC,3                     ;NO MATTER WHAT, VERIFY THAT THE SOLENOID IS DE-
                             ENERGIZED
@@ -528,13 +529,13 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0036   0197           00095                 CLRF        TMR1H                       ;\
 0037   1011           00096                 BCF         PIR1,0                      ;CLEAR TMR1IF
 Warning[207]: Found label after column 1. (POLL_TMR1_BURST1)
-0038                  00097         POLL_TMR1_BURST1
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 10
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+0038                  00097         POLL_TMR1_BURST1
 0038   1C11           00098                 BTFSS       PIR1,0                      ;POLL TMR1
 0039   2???           00099                 GOTO        POLL_TMR1_BURST1            ;TMR1 NOT DONE
 003A   0021           00100                 BANKSEL     TRISC               
@@ -586,14 +587,14 @@ Warning[207]: Found label after column 1. (POLL_TMR1_BURST5)
 Warning[207]: Found label after column 1. (SET_38KHZ)
 0058                  00136     SET_38KHZ
 0058   0025           00137                 BANKSEL     CCPR1L
-0059   3013           00138                 MOVLW       0x13                        ;SET PW TIME FOR 90%DC
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 11
+0059   3019           00138                 MOVLW       0x19                        ;SET PW TIME FOR 95%DC
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 11
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 005A   0091           00139                 MOVWF       CCPR1L              
 005B   0020           00140                 BANKSEL     PR2                         
 005C   3019           00141                 MOVLW       0x19                        ;SET PR2 TO 25 FOR 38kHz PERIOD
@@ -604,7 +605,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 Warning[207]: Found label after column 1. (SET_56KHZ)
 0061                  00146     SET_56KHZ
 0061   0025           00147                 BANKSEL     CCPR1L
-0062   300D           00148                 MOVLW       0x0D                        ;SET PW TIME FOR 90%DC
+0062   3011           00148                 MOVLW       0x11                        ;SET PW TIME FOR 95%DC
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0063   0091           00149                 MOVWF       CCPR1L              
 0064   0020           00150                 BANKSEL     PR2                         
@@ -618,80 +619,80 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00158     
                       00159     
                       00160                 
-                      00033                 LIST      p=16lf1788                    ; list directive to define processor
-                      00034                 errorlevel -302,-207,-305,-206,-203     ; suppress "not in bank 0" message,  Found label
+                      00034                 LIST      p=16lf1788                    ; list directive to define processor
+                      00035                 errorlevel -302,-207,-305,-206,-203     ; suppress "not in bank 0" message,  Found label
                              after column 1,
-                      00035                                                         ; Using default destination of 1 (file),  Found 
+                      00036                                                         ; Using default destination of 1 (file),  Found 
                             call to macro in column 1
-                      00036 
-                      00037                 ; CONFIG1
-                      00038 ; __config 0xC9A4
-8007   09A4           00039  __CONFIG _CONFIG1, _FOSC_INTOSC & _WDTE_OFF & _PWRTE_OFF & _MCLRE_OFF & _CP_OFF & _CPD_OFF & _BOREN_OFF
+                      00037 
+                      00038                 ; CONFIG1
+                      00039 ; __config 0xC9A4
+8007   09A4           00040  __CONFIG _CONFIG1, _FOSC_INTOSC & _WDTE_OFF & _PWRTE_OFF & _MCLRE_OFF & _CP_OFF & _CPD_OFF & _BOREN_OFF
                              & _CLKOUTEN_OFF & _IESO_OFF & _FCMEN_OFF
-                      00040 ; CONFIG2
-                      00041 ; __config 0xDFFF
-8008   1FFF           00042  __CONFIG _CONFIG2, _WRT_OFF & _PLLEN_ON & _STVREN_ON & _BORV_LO & _LPBOR_OFF & _LVP_OFF
-                      00043 
+                      00041 ; CONFIG2
+                      00042 ; __config 0xDFFF
+8008   1FFF           00043  __CONFIG _CONFIG2, _WRT_OFF & _PLLEN_ON & _STVREN_ON & _BORV_LO & _LPBOR_OFF & _LVP_OFF
                       00044 
-                      00045                 
-                      00046 ;******************************************             
-                      00047 ;Interrupt Vectors
-                      00048 ;******************************************
-                      00049                 ORG         H'000'                      ;BEGINNING OF CODE
-0000   2???           00050                 GOTO        SETUP                       ;
-                      00051                 ORG         H'004'                      ;INTERRUPT LOCATION
-0004   2???           00052                 GOTO        INTERRUPT                   ;INTERRUPT OCCURRED, RUN THROUGH ISR
-                      00053 
-                      00054 ;******************************************
-                      00055 ;SETUP ROUTINE
-                      00056 ;******************************************
-0005                  00057 SETUP
-0005   2???           00058                 CALL        INITIALIZE                  ;CALL SETUP INCLUDE FILE TO INITIALIZE PIC
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 12
+                      00045 
+                      00046                 
+                      00047 ;******************************************             
+                      00048 ;Interrupt Vectors
+                      00049 ;******************************************
+                      00050                 ORG         H'000'                      ;BEGINNING OF CODE
+0000   2???           00051                 GOTO        SETUP                       ;
+                      00052                 ORG         H'004'                      ;INTERRUPT LOCATION
+0004   2???           00053                 GOTO        INTERRUPT                   ;INTERRUPT OCCURRED, RUN THROUGH ISR
+                      00054 
+                      00055 ;******************************************
+                      00056 ;SETUP ROUTINE
+                      00057 ;******************************************
+0005                  00058 SETUP
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 12
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0006   2???           00059                 GOTO        MAIN                        ;START MAIN CODE
-                      00060                 
-                      00061 ;******************************************
-                      00062 ;INTERRUPT SERVICE ROUTINE
-                      00063 ;******************************************
-0007                  00064 INTERRUPT       
-0007   0020           00065                 BANKSEL     PORTB               
-0008   188D           00066                 BTFSC       PORTB,1                     ;TEST FREQUENCY SELECT SWITCH
-0009   2???           00067                 GOTO        SET_56KHZ                   ;RB1 IS HIGH, SET PWM FREQUENCY TO 56kHz
-000A   2???           00068                 GOTO        SET_38KHZ                   ;RB1 IS LOW, SET PWM FREQUENCY TO 38kHz
-                      00069                 
-000B                  00070         TEST_MODE       
-000B   0020           00071                 BANKSEL     PORTB               
-000C   190D           00072                 BTFSC       PORTB,2                     ;DETERMINE IF IN CONTINUOUS/FULL-AUTO MODE
-000D   2???           00073                 GOTO        FIRE_CONTINUOUS             ;GUN IS IN CONTINOUS/FULL-AUTO MODE, CHECK IF RE
+0005   2???           00059                 CALL        INITIALIZE                  ;CALL SETUP INCLUDE FILE TO INITIALIZE PIC
+0006   2???           00060                 GOTO        MAIN                        ;START MAIN CODE
+                      00061                 
+                      00062 ;******************************************
+                      00063 ;INTERRUPT SERVICE ROUTINE
+                      00064 ;******************************************
+0007                  00065 INTERRUPT       
+0007   0020           00066                 BANKSEL     PORTB               
+0008   188D           00067                 BTFSC       PORTB,1                     ;TEST FREQUENCY SELECT SWITCH
+0009   2???           00068                 GOTO        SET_56KHZ                   ;RB1 IS HIGH, SET PWM FREQUENCY TO 56kHz
+000A   2???           00069                 GOTO        SET_38KHZ                   ;RB1 IS LOW, SET PWM FREQUENCY TO 38kHz
+                      00070                 
+000B                  00071         TEST_MODE       
+000B   0020           00072                 BANKSEL     PORTB               
+000C   190D           00073                 BTFSC       PORTB,2                     ;DETERMINE IF IN CONTINUOUS/FULL-AUTO MODE
+000D   2???           00074                 GOTO        FIRE_CONTINUOUS             ;GUN IS IN CONTINOUS/FULL-AUTO MODE, CHECK IF RE
                             ADY TO FIRE
-000E   198D           00074                 BTFSC       PORTB,3                     ;GUN IS NOT IN CONTINUOUS/FULL-AUTO MODE, TEST I
+000E   198D           00075                 BTFSC       PORTB,3                     ;GUN IS NOT IN CONTINUOUS/FULL-AUTO MODE, TEST I
                             F IT IS IN BURST-FIRE MODE
-000F   2???           00075                 GOTO        FIRE_BURST                  ;GUN IS IN BURST-FIRE MODE, CHECK IF READY TO FI
+000F   2???           00076                 GOTO        FIRE_BURST                  ;GUN IS IN BURST-FIRE MODE, CHECK IF READY TO FI
                             RE
-0010   2???           00076                 GOTO        FIRE_SEMI                   ;GUN IS NOT IN CONTINUOUS OR BURST-FIRE MODE, DE
+0010   2???           00077                 GOTO        FIRE_SEMI                   ;GUN IS NOT IN CONTINUOUS OR BURST-FIRE MODE, DE
                             FAULT TO SEMI-AUTO MODE, TEST IF READY TO FIRE
-0011                  00077         GOBACK
-0011   0027           00078                 BANKSEL     IOCBF
-0012   0196           00079                 CLRF        IOCBF                       ;CLEAR PORTB IOC FLAGS
-0013   100B           00080                 BCF         INTCON,IOCIF                ;CLEAR IOCIF
-0014   0020           00081                 BANKSEL     PIR1
-0015   1011           00082                 BCF         PIR1,0                      ;CLEAR TMR1IF
-0016   0009           00083                 RETFIE                                  ;RETURN TO MAIN, RE-ENABLE GIE
-                      00084                 
-                      00085 ;******************************************
-                      00086 ;Main Code
-                      00087 ;******************************************
-0017                  00088 MAIN    
-0017   2???           00089                 GOTO        MAIN                        ;ENDLESS LOOP, NOTHING HAPPENS (WAITING FOR INTE
+0011                  00078         GOBACK
+0011   0027           00079                 BANKSEL     IOCBF
+0012   0196           00080                 CLRF        IOCBF                       ;CLEAR PORTB IOC FLAGS
+0013   100B           00081                 BCF         INTCON,IOCIF                ;CLEAR IOCIF
+0014   0020           00082                 BANKSEL     PIR1
+0015   1011           00083                 BCF         PIR1,0                      ;CLEAR TMR1IF
+0016   0009           00084                 RETFIE                                  ;RETURN TO MAIN, RE-ENABLE GIE
+                      00085                 
+                      00086 ;******************************************
+                      00087 ;Main Code
+                      00088 ;******************************************
+0017                  00089 MAIN    
+0017   2???           00090                 GOTO        MAIN                        ;ENDLESS LOOP, NOTHING HAPPENS (WAITING FOR INTE
                             RRUPT)
 Warning[205]: Found directive in column 1. (END)
-09A4 1FFF             00090 END
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 13
+09A4 1FFF             00091 END
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 13
 
 
 SYMBOL TABLE
@@ -750,7 +751,7 @@ ANSB6                             00000006
 ANSC0                             00000000
 ANSC1                             00000001
 ANSC2                             00000002
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 14
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 14
 
 
 SYMBOL TABLE
@@ -809,7 +810,7 @@ C1NCH2                            00000002
 C1OE                              00000005
 C1ON                              00000007
 C1OUT                             00000006
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 15
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 15
 
 
 SYMBOL TABLE
@@ -868,7 +869,7 @@ C4NCH0                            00000000
 C4NCH1                            00000001
 C4NCH2                            00000002
 C4OE                              00000005
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 16
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 16
 
 
 SYMBOL TABLE
@@ -927,7 +928,7 @@ CHS4                              00000006
 CHSN0                             00000000
 CHSN1                             00000001
 CHSN2                             00000002
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 17
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 17
 
 
 SYMBOL TABLE
@@ -986,7 +987,7 @@ DAC3EN                            00000007
 DAC3OE1                           00000005
 DAC3OE2                           00000004
 DAC3REF                           00000594
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 18
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 18
 
 
 SYMBOL TABLE
@@ -1045,7 +1046,7 @@ FREE                              00000004
 FSR0                              00000004
 FSR0H                             00000005
 FSR0H_SHAD                        00000FE9
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 19
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 19
 
 
 SYMBOL TABLE
@@ -1104,7 +1105,7 @@ INLVLE3                           00000003
 INTCON                            0000000B
 INTE                              00000004
 INTEDG                            00000006
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 20
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 20
 
 
 SYMBOL TABLE
@@ -1163,7 +1164,7 @@ IOCBP1                            00000001
 IOCBP2                            00000002
 IOCBP3                            00000003
 IOCBP4                            00000004
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 21
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 21
 
 
 SYMBOL TABLE
@@ -1222,7 +1223,7 @@ LATA6                             00000006
 LATA7                             00000007
 LATB                              0000010D
 LATB0                             00000000
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 22
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 22
 
 
 SYMBOL TABLE
@@ -1281,7 +1282,7 @@ ODCONA7                           00000007
 ODCONB                            0000028D
 ODCONB0                           00000000
 ODCONB1                           00000001
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 23
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 23
 
 
 SYMBOL TABLE
@@ -1340,7 +1341,7 @@ P1ASDSIN                          00000007
 P1ASE                             00000007
 P1CPRE0                           00000004
 P1CPRE1                           00000005
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 24
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 24
 
 
 SYMBOL TABLE
@@ -1399,7 +1400,7 @@ P1POLE                            00000004
 P1POLF                            00000005
 P1PRPOL                           00000006
 P1PRSC1                           00000001
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 25
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 25
 
 
 SYMBOL TABLE
@@ -1458,7 +1459,7 @@ P2DCSC2                           00000002
 P2DCSC3                           00000003
 P2DCSC4                           00000004
 P2DCSIN                           00000007
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 26
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 26
 
 
 SYMBOL TABLE
@@ -1517,7 +1518,7 @@ P2STRB                            00000001
 P2SYNC0                           00000000
 P2SYNC1                           00000001
 P2SYNC2                           00000002
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 27
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 27
 
 
 SYMBOL TABLE
@@ -1576,7 +1577,7 @@ P3MSRC0                           00000000
 P3MSRC1                           00000001
 P3MSRC2                           00000002
 P3MSRC3                           00000003
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 28
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 28
 
 
 SYMBOL TABLE
@@ -1635,7 +1636,7 @@ P4ASE                             00000007
 P4CPRE0                           00000004
 P4CPRE1                           00000005
 P4CSRC0                           00000000
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 29
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 29
 
 
 SYMBOL TABLE
@@ -1694,7 +1695,7 @@ P4REBM0                           00000000
 P4REBM1                           00000001
 P4REBSC1                          00000001
 P4REBSC2                          00000002
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 30
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 30
 
 
 SYMBOL TABLE
@@ -1753,7 +1754,7 @@ PS0                               00000000
 PS1                               00000001
 PS2                               00000002
 PSA                               00000003
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 31
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 31
 
 
 SYMBOL TABLE
@@ -1812,7 +1813,7 @@ PSMC1DC14                         00000006
 PSMC1DC15                         00000007
 PSMC1DC2                          00000002
 PSMC1DC3                          00000003
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 32
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 32
 
 
 SYMBOL TABLE
@@ -1871,7 +1872,7 @@ PSMC1PR15                         00000007
 PSMC1PR2                          00000002
 PSMC1PR3                          00000003
 PSMC1PR4                          00000004
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 33
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 33
 
 
 SYMBOL TABLE
@@ -1930,7 +1931,7 @@ PSMC2BLKR1                        00000001
 PSMC2BLKR2                        00000002
 PSMC2BLKR3                        00000003
 PSMC2BLKR4                        00000004
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 34
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 34
 
 
 SYMBOL TABLE
@@ -1989,7 +1990,7 @@ PSMC2FFA2                         00000002
 PSMC2FFA3                         00000003
 PSMC2INT                          00000EC0
 PSMC2LD                           00000006
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 35
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 35
 
 
 SYMBOL TABLE
@@ -2048,7 +2049,7 @@ PSMC2TIE                          00000005
 PSMC2TIF                          00000005
 PSMC2TMR                          00000EC7
 PSMC2TMR0                         00000000
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 36
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 36
 
 
 SYMBOL TABLE
@@ -2107,7 +2108,7 @@ PSMC3DBF7                         00000007
 PSMC3DBR                          00000EE9
 PSMC3DBR0                         00000000
 PSMC3DBR1                         00000001
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 37
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 37
 
 
 SYMBOL TABLE
@@ -2166,7 +2167,7 @@ PSMC3PH5                          00000005
 PSMC3PH6                          00000006
 PSMC3PH7                          00000007
 PSMC3PH8                          00000000
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 38
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 38
 
 
 SYMBOL TABLE
@@ -2225,7 +2226,7 @@ PSMC3TMR9                         00000001
 PSMC3TMRH                         00000EE8
 PSMC3TMRL                         00000EE7
 PSMC4ASDC                         00000F1D
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 39
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 39
 
 
 SYMBOL TABLE
@@ -2284,7 +2285,7 @@ PSMC4DC15                         00000007
 PSMC4DC2                          00000002
 PSMC4DC3                          00000003
 PSMC4DC4                          00000004
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 40
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 40
 
 
 SYMBOL TABLE
@@ -2343,7 +2344,7 @@ PSMC4PR2                          00000002
 PSMC4PR3                          00000003
 PSMC4PR4                          00000004
 PSMC4PR5                          00000005
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 41
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 41
 
 
 SYMBOL TABLE
@@ -2402,7 +2403,7 @@ RB7                               00000007
 RC0                               00000000
 RC1                               00000001
 RC1REG                            00000199
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 42
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 42
 
 
 SYMBOL TABLE
@@ -2461,7 +2462,7 @@ SLRCONB1                          00000001
 SLRCONB2                          00000002
 SLRCONB3                          00000003
 SLRCONB4                          00000004
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 43
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 43
 
 
 SYMBOL TABLE
@@ -2520,7 +2521,7 @@ SSP1MSK                           00000213
 SSP1MSK0                          00000000
 SSP1MSK1                          00000001
 SSP1MSK2                          00000002
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 44
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 44
 
 
 SYMBOL TABLE
@@ -2579,7 +2580,7 @@ T2OUTPS1                          00000004
 T2OUTPS2                          00000005
 T2OUTPS3                          00000006
 TEST_MODE                         0000000B
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 45
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 45
 
 
 SYMBOL TABLE
@@ -2638,7 +2639,7 @@ TRISC4                            00000004
 TRISC5                            00000005
 TRISC6                            00000006
 TRISC7                            00000007
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 46
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 46
 
 
 SYMBOL TABLE
@@ -2697,7 +2698,7 @@ WPUB7                             00000007
 WPUC                              0000020E
 WPUC0                             00000000
 WPUC1                             00000001
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 47
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 47
 
 
 SYMBOL TABLE
@@ -2756,7 +2757,7 @@ _LVP_OFF                          00001FFF
 _LVP_ON                           00003FFF
 _MCLRE_OFF                        00003FBF
 _MCLRE_ON                         00003FFF
-MPASM 5.86                   PROJECT_GUN.ASM   11-14-2024  14:53:07         PAGE 48
+MPASM 5.86                   PROJECT_GUN.ASM   11-18-2024  12:33:14         PAGE 48
 
 
 SYMBOL TABLE

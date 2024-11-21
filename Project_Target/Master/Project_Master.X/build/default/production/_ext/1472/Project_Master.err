@@ -1,0 +1,38 @@
+Message[301] C:\PROGRAM FILES (X86)\MICROCHIP\MPLABX\V5.30\MPASMX\P16LF1788.INC 34 : MESSAGE: (Processor-header file mismatch.  Verify selected processor.)
+Error[105]   ..\PROJECT_MASTER.ASM 32 : Cannot open file (Include File "16LF1788_SETUP.inc" not found)
+Warning[207] ..\SUBROUTINES.INC 28 : Found label after column 1. (FIRE_CONTINUOUS)
+Message[302] ..\SUBROUTINES.INC 33 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 37 : Found label after column 1. (FIRE)
+Message[302] ..\SUBROUTINES.INC 38 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 42 : Found label after column 1. (_RESET)
+Message[302] ..\SUBROUTINES.INC 43 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 47 : Found label after column 1. (CONTINUOUS_CHECK_TIMER)
+Warning[207] ..\SUBROUTINES.INC 49 : Found label after column 1. (POLL_TMR1_CONTINUOUS)
+Warning[207] ..\SUBROUTINES.INC 54 : Found label after column 1. (STOP_FIRING)
+Message[302] ..\SUBROUTINES.INC 56 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\SUBROUTINES.INC 57 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 62 : Found label after column 1. (FIRE_SEMI)
+Message[302] ..\SUBROUTINES.INC 64 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\SUBROUTINES.INC 70 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 76 : Found label after column 1. (POLL_TMR1_SEMI)
+Warning[207] ..\SUBROUTINES.INC 83 : Found label after column 1. (FIRE_BURST)
+Message[302] ..\SUBROUTINES.INC 85 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\SUBROUTINES.INC 91 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 97 : Found label after column 1. (POLL_TMR1_BURST1)
+Message[302] ..\SUBROUTINES.INC 101 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 105 : Found label after column 1. (POLL_TMR1_BURST2)
+Message[302] ..\SUBROUTINES.INC 109 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 113 : Found label after column 1. (POLL_TMR1_BURST3)
+Message[302] ..\SUBROUTINES.INC 117 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 121 : Found label after column 1. (POLL_TMR1_BURST4)
+Message[302] ..\SUBROUTINES.INC 125 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 129 : Found label after column 1. (POLL_TMR1_BURST5)
+Warning[207] ..\SUBROUTINES.INC 136 : Found label after column 1. (SET_38KHZ)
+Message[302] ..\SUBROUTINES.INC 139 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 146 : Found label after column 1. (SET_56KHZ)
+Message[302] ..\SUBROUTINES.INC 149 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[215] ..\PROJECT_MASTER.ASM 34 : Processor superseded by command line.  Verify processor symbol.
+Error[126]   ..\PROJECT_MASTER.ASM 40 : Argument out of range (not a valid config register address)
+Error[126]   ..\PROJECT_MASTER.ASM 43 : Argument out of range (not a valid config register address)
+Error[113]   ..\PROJECT_MASTER.ASM 59 : Symbol not previously defined (INITIALIZE)
+Warning[205] ..\PROJECT_MASTER.ASM 91 : Found directive in column 1. (END)
