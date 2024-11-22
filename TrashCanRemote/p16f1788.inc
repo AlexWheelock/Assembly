@@ -80,7 +80,8 @@ TMR2             EQU  H'001A'
 PR2              EQU  H'001B'
 T2CON            EQU  H'001C'
 VALID_INPUT	 EQU  H'0020'
-
+PREVIOUS_COMMAND EQU  H'0021'
+ARM_BUTTON_HELD	 EQU  H'0021'
 
 ;-----Bank1------------------
 TRISA            EQU  H'008C'
