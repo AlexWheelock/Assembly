@@ -61,9 +61,9 @@ INTERRUPT
 		BANKSEL	    PIR1
 		BTFSS	    VALID_INPUT,0
 		GOTO	    TEST_INPUTS
-		BTFSC	    ARM_BUTTON_HELD,0
-		GOTO	    TEST_ARM_BUTTON
-		BTFSC	    PIR1,1
+		;BTFSC	    ARM_BUTTON_HELD,0
+		;GOTO	    TEST_ARM_BUTTON
+		BTFSC	    PIR1,0
 		GOTO	    TEST_CONTINUE
 		GOTO	    GOBACK
 	TEST_INPUTS
@@ -83,7 +83,7 @@ INTERRUPT
 		CLRF	    IOCBF			;CLEAR PORTB IOC FLAGS
 		BCF	    INTCON,IOCIF		;CLEAR IOCIF
 		BANKSEL	    PIR1
-		BCF	    PIR1,1			;CLEAR TMR1IF
+		BCF	    PIR1,0			;CLEAR TMR1IF
 		RETFIE					;Return to MAIN, Re-enable global interrupt
 		
 ;******************************************

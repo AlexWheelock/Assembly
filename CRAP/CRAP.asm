@@ -60,16 +60,20 @@ SETUP
 INTERRUPT
 		BANKSEL	    PIR1
 		BTFSC	    PIR1,5
-		CALL	    RECEIVE_BYTE
-		BTFSC	    PIR1,1
+		GOTO	    RECEIVE
+		BTFSC	    PIR1,0
 		;GOTO	    TRANSMIT_STUFF
 		CALL	    TEST_CONTINUE
 	GOBACK
 		BANKSEL	    PIR1
 		BCF	    PIR1,5			;Clear RCIF
 		BCF	    PIR1,1
+		BCF	    PIR1,0
 		RETFIE					;Return to MAIN, Re-enable global interrupt
 		
+	RECEIVE
+		CALL	    RECEIVE_BYTE
+		GOTO	    GOBACK
 ;******************************************
 ;Main Code
 ;******************************************

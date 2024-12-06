@@ -44,21 +44,21 @@ Message[302] ..\16F1788_SETUP.INC 233 : Register in operand not in bank 0.  Ensu
 Message[302] ..\16F1788_SETUP.INC 236 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16F1788_SETUP.INC 239 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\16F1788_SETUP.INC 240 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\16F1788_SETUP.INC 247 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\16F1788_SETUP.INC 249 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\SUBROUTINES.INC 30 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\SUBROUTINES.INC 36 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Message[302] ..\SUBROUTINES.INC 37 : Register in operand not in bank 0.  Ensure that bank bits are correct.
 Warning[207] ..\SUBROUTINES.INC 44 : Found label after column 1. (SET_RA7)
 Warning[207] ..\SUBROUTINES.INC 46 : Found label after column 1. (TEST_NEW_BYTE)
-Message[302] ..\SUBROUTINES.INC 60 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\SUBROUTINES.INC 63 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\SUBROUTINES.INC 75 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\SUBROUTINES.INC 78 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\SUBROUTINES.INC 90 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\SUBROUTINES.INC 93 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\SUBROUTINES.INC 105 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\SUBROUTINES.INC 108 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\SUBROUTINES.INC 120 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Message[302] ..\SUBROUTINES.INC 123 : Register in operand not in bank 0.  Ensure that bank bits are correct.
-Warning[207] ..\SUBROUTINES.INC 136 : Found label after column 1. (SET_ARMS)
-Warning[205] ..\CRAP.ASM 85 : Found directive in column 1. (END)
+Message[302] ..\SUBROUTINES.INC 64 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\SUBROUTINES.INC 67 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\SUBROUTINES.INC 79 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\SUBROUTINES.INC 82 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\SUBROUTINES.INC 94 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\SUBROUTINES.INC 97 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\SUBROUTINES.INC 109 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\SUBROUTINES.INC 112 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\SUBROUTINES.INC 124 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\SUBROUTINES.INC 127 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\SUBROUTINES.INC 140 : Found label after column 1. (SET_ARMS)
+Warning[205] ..\CRAP.ASM 89 : Found directive in column 1. (END)

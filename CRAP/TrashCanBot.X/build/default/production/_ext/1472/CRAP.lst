@@ -1,4 +1,4 @@
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE  1
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -57,7 +57,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00019 ;************************************************************************************
                       00020                 
                       00021 ;=======================================================================================================
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE  2
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -116,7 +116,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00047 ;               |               |               |               |MODE SELECT    |FULL-AUTO MODE |SELECT 
                             SWITCH  |               *
                       00048 ;               |               |               |               |               |SELECT         |       
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE  3
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -175,7 +175,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00081 ;*** SET OPTION_REG: ****
                       00082                 
 0005   0021           00083                 BANKSEL     OPTION_REG
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE  4
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -234,7 +234,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0023   0194           00122                 CLRF        PIR4                        ;CLEAR ALL PIR4 INTERUPT FLAGS
                       00123                 
                       00124 ;*** SET CCP1CON: ****
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE  5
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -281,7 +281,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0039   3003           00156                 MOVLW       0x03
 003A   009C           00157                 MOVWF       T2CON
 003B   0020           00158                 BANKSEL     PR2                         
-003C   302F           00159                 MOVLW       0x2F                        ;SET PR2 FOR 20ms PERIOD
+003C   309B           00159                 MOVLW       0x9B                        ;SET PR2 FOR 20ms PERIOD
 003D   009B           00160                 MOVWF       PR2                         
                       00161                 
                       00162 ;*** ALTERNATE PIN FUNCTION *****
@@ -293,7 +293,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0041   019C           00167                 CLRF        APFCON2                     ;SEE DATASHEET (pg 132-133) FOR MAPPING WITH BOT
                             H CLEARED
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE  6
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -352,7 +352,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0061   018D           00206                 CLRF        INLVLB                      ;SET PORTB INPUT THRESHOLD TO TTL (IGNORED NOISE
                              BETTER FOR TRIGGER INPUT)                  
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE  7
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -367,7 +367,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0065   018E           00213                 CLRF        LATC                        ;CLEAR LATC
 0066   0021           00214                 BANKSEL     TRISC
-0067   3000           00215                 MOVLW       0x00                                
+0067   3009           00215                 MOVLW       0x09                                
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0068   008E           00216                 MOVWF       TRISC                       ;SET PORTC ALL AS OUTPUTS
 0069   0025           00217                 BANKSEL     ODCONC
@@ -408,23 +408,25 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00243                             
 007D   0020           00244                 BANKSEL     T2CON
 007E   151C           00245                 BSF         T2CON,2                     ;ENABLE TIMER 2
-007F   0023           00246                 BANKSEL     TX1STA
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0080   169E           00247                 BSF         TX1STA,5
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE  8
+007F   0020           00246                 BANKSEL     T1CON
+0080   1418           00247                 BSF         T1CON,0
+0081   0023           00248                 BANKSEL     TX1STA
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00248                 ;BANKSEL            RC1STA
-                      00249                 ;BSF        RC1STA,4
-                      00250                 ;BSF        RC1STA,7
-0081   0020           00251                 BANKSEL     PIR1
-0082   1291           00252                 BCF         PIR1,5
-                      00253                 
-                      00254                 
-0083   0008           00255                 RETURN                                  ;RETURN TO .asm FILE
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0082   169E           00249                 BSF         TX1STA,5
+                      00250                 ;BANKSEL            RC1STA
+                      00251                 ;BSF        RC1STA,4
+                      00252                 ;BSF        RC1STA,7
+0083   0020           00253                 BANKSEL     PIR1
+0084   1291           00254                 BCF         PIR1,5
+                      00255                 
+                      00256                 
+0085   0008           00257                 RETURN                                  ;RETURN TO .asm FILE
                       00022                 #INCLUDE <SUBROUTINES.inc>              ; File containing all used subroutines
                       00001 ;************************************************************************************
                       00002 ;                                                                                   *
@@ -468,14 +470,14 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0006   009A           00037         MOVWF       TX1REG
 0007   0020           00038         BANKSEL     PORTA
 0008   00AC           00039         MOVWF       RECEIVED_BYTE
-0009   1F8C           00040         BTFSS       PORTA,7
-000A   2???           00041         GOTO        SET_RA7
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE  9
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+0009   1F8C           00040         BTFSS       PORTA,7
+000A   2???           00041         GOTO        SET_RA7
 000B   138C           00042         BCF         PORTA,7
 000C   2???           00043         GOTO        TEST_NEW_BYTE
 Warning[207]: Found label after column 1. (SET_RA7)
@@ -494,179 +496,183 @@ Warning[207]: Found label after column 1. (TEST_NEW_BYTE)
 0012   01A1           00055         CLRF        BYTE2_RECEIVED
 0013   01A2           00056         CLRF        BYTE3_RECEIVED
 0014   01A3           00057         CLRF        BYTE4_RECEIVED
-0015   0025           00058         BANKSEL     CCPR1L
-0016   300B           00059         MOVLW       0x0B                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
+0015   100C           00058         BCF         PORTA,0
+0016   108C           00059         BCF         PORTA,1
+0017   110C           00060         BCF         PORTA,2
+0018   118C           00061         BCF         PORTA,3
+0019   0025           00062         BANKSEL     CCPR1L
+001A   300B           00063         MOVLW       0x0B                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0017   0091           00060         MOVWF       CCPR1L
-0018   0025           00061         BANKSEL     CCPR2L
-0019   300B           00062         MOVLW       0x0B                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
+001B   0091           00064         MOVWF       CCPR1L
+001C   0025           00065         BANKSEL     CCPR2L
+001D   300B           00066         MOVLW       0x0B                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-001A   0098           00063         MOVWF       CCPR2L
-                      00064         ;GOTO       GOBACK
-001B   0008           00065         RETURN
-                      00066         
-001C                  00067 DRIVE_FORWARD
-001C   0020           00068         BANKSEL     PORTA
-001D   140C           00069         BSF         PORTA,0
-001E   108C           00070         BCF         PORTA,1
-001F   110C           00071         BCF         PORTA,2
-0020   118C           00072         BCF         PORTA,3
-0021   0025           00073         BANKSEL     CCPR1L
-0022   300F           00074         MOVLW       0x0F                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
+001E   0098           00067         MOVWF       CCPR2L
+                      00068         ;GOTO       GOBACK
+001F   0008           00069         RETURN
+                      00070         
+0020                  00071 DRIVE_FORWARD
+0020   0020           00072         BANKSEL     PORTA
+0021   140C           00073         BSF         PORTA,0
+0022   108C           00074         BCF         PORTA,1
+0023   110C           00075         BCF         PORTA,2
+0024   118C           00076         BCF         PORTA,3
+0025   0025           00077         BANKSEL     CCPR1L
+0026   300F           00078         MOVLW       0x0F                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0023   0091           00075         MOVWF       CCPR1L
-0024   0025           00076         BANKSEL     CCPR2L
-0025   3007           00077         MOVLW       0x07                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
+0027   0091           00079         MOVWF       CCPR1L
+0028   0025           00080         BANKSEL     CCPR2L
+0029   3007           00081         MOVLW       0x07                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0026   0098           00078         MOVWF       CCPR2L
-                      00079         ;GOTO       GOBACK
-0027   0008           00080         RETURN  
-                      00081         
-0028                  00082 DRIVE_BACK
-0028   0020           00083         BANKSEL     PORTA
-0029   100C           00084         BCF         PORTA,0
-002A   148C           00085         BSF         PORTA,1
-002B   110C           00086         BCF         PORTA,2
-002C   118C           00087         BCF         PORTA,3
-002D   0025           00088         BANKSEL     CCPR1L
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 10
+002A   0098           00082         MOVWF       CCPR2L
+                      00083         ;GOTO       GOBACK
+002B   0008           00084         RETURN  
+                      00085         
+002C                  00086 DRIVE_BACK
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-002E   3007           00089         MOVLW       0x07                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
+002C   0020           00087         BANKSEL     PORTA
+002D   100C           00088         BCF         PORTA,0
+002E   148C           00089         BSF         PORTA,1
+002F   110C           00090         BCF         PORTA,2
+0030   118C           00091         BCF         PORTA,3
+0031   0025           00092         BANKSEL     CCPR1L
+0032   3007           00093         MOVLW       0x07                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-002F   0091           00090         MOVWF       CCPR1L
-0030   0025           00091         BANKSEL     CCPR2L
-0031   300F           00092         MOVLW       0x0F                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
+0033   0091           00094         MOVWF       CCPR1L
+0034   0025           00095         BANKSEL     CCPR2L
+0035   300F           00096         MOVLW       0x0F                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0032   0098           00093         MOVWF       CCPR2L
-                      00094         ;GOTO       GOBACK
-0033   0008           00095         RETURN  
-                      00096         
-0034                  00097 TURN_LEFT
-0034   0020           00098         BANKSEL     PORTA
-0035   100C           00099         BCF         PORTA,0
-0036   108C           00100         BCF         PORTA,1
-0037   150C           00101         BSF         PORTA,2
-0038   118C           00102         BCF         PORTA,3
-0039   0025           00103         BANKSEL     CCPR1L
-003A   3007           00104         MOVLW       0x07                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
+0036   0098           00097         MOVWF       CCPR2L
+                      00098         ;GOTO       GOBACK
+0037   0008           00099         RETURN  
+                      00100         
+0038                  00101 TURN_LEFT
+0038   0020           00102         BANKSEL     PORTA
+0039   100C           00103         BCF         PORTA,0
+003A   108C           00104         BCF         PORTA,1
+003B   150C           00105         BSF         PORTA,2
+003C   118C           00106         BCF         PORTA,3
+003D   0025           00107         BANKSEL     CCPR1L
+003E   3007           00108         MOVLW       0x07                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-003B   0091           00105         MOVWF       CCPR1L
-003C   0025           00106         BANKSEL     CCPR2L
-003D   3007           00107         MOVLW       0x07                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
+003F   0091           00109         MOVWF       CCPR1L
+0040   0025           00110         BANKSEL     CCPR2L
+0041   3007           00111         MOVLW       0x07                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-003E   0098           00108         MOVWF       CCPR2L
-                      00109         ;GOTO       GOBACK
-003F   0008           00110         RETURN  
-                      00111         
-0040                  00112 TURN_RIGHT
-0040   0020           00113         BANKSEL     PORTA
-0041   100C           00114         BCF         PORTA,0
-0042   108C           00115         BCF         PORTA,1
-0043   110C           00116         BCF         PORTA,2
-0044   158C           00117         BSF         PORTA,3
-0045   0025           00118         BANKSEL     CCPR1L
-0046   300F           00119         MOVLW       0x0F                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
+0042   0098           00112         MOVWF       CCPR2L
+                      00113         ;GOTO       GOBACK
+0043   0008           00114         RETURN  
+                      00115         
+0044                  00116 TURN_RIGHT
+0044   0020           00117         BANKSEL     PORTA
+0045   100C           00118         BCF         PORTA,0
+0046   108C           00119         BCF         PORTA,1
+0047   110C           00120         BCF         PORTA,2
+0048   158C           00121         BSF         PORTA,3
+0049   0025           00122         BANKSEL     CCPR1L
+004A   300F           00123         MOVLW       0x0F                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0047   0091           00120         MOVWF       CCPR1L
-0048   0025           00121         BANKSEL     CCPR2L
-0049   300F           00122         MOVLW       0x0F                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
+004B   0091           00124         MOVWF       CCPR1L
+004C   0025           00125         BANKSEL     CCPR2L
+004D   300F           00126         MOVLW       0x0F                        ;PW FOR INITIALIZING 1.5ms PW AT 50Hz
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-004A   0098           00123         MOVWF       CCPR2L
-                      00124         ;GOTO       GOBACK
-004B   0008           00125         RETURN
-                      00126         
-004C                  00127 TOGGLE_ARMS
-004C   0020           00128         BANKSEL     PORTA
-004D   1C2D           00129         BTFSS       ARM_ENABLE,0
-004E   2???           00130         GOTO        ABORT
-004F   1E0C           00131         BTFSS       PORTA,4
-0050   2???           00132         GOTO        SET_ARMS
-0051   120C           00133         BCF         PORTA,4
-0052   102D           00134         BCF         ARM_ENABLE,0
-0053   2???           00135         GOTO        ABORT
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 11
+004E   0098           00127         MOVWF       CCPR2L
+                      00128         ;GOTO       GOBACK
+004F   0008           00129         RETURN
+                      00130         
+0050                  00131 TOGGLE_ARMS
+0050   0020           00132         BANKSEL     PORTA
+0051   1C2D           00133         BTFSS       ARM_ENABLE,0
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 11
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+0052   2???           00134         GOTO        ABORT
+0053   1E8E           00135         BTFSS       PORTC,5
+0054   2???           00136         GOTO        SET_ARMS
+0055   128E           00137         BCF         PORTC,5
+0056   102D           00138         BCF         ARM_ENABLE,0
+0057   2???           00139         GOTO        ABORT
 Warning[207]: Found label after column 1. (SET_ARMS)
-0054                  00136     SET_ARMS
-0054   160C           00137         BSF         PORTA,4     
-0055   102D           00138         BCF         ARM_ENABLE,0
-0056   2???           00139         GOTO        ABORT
-                      00140         
-                      00141         
-0057                  00142 TEST_BYTE1
-                      00143         ;BANKSEL            PORTA
-                      00144         ;BTFSC      RECEIVED_BYTE,7
-                      00145         ;GOTO       ABORT
-                      00146         ;BTFSC      RECEIVED_BYTE,6
-                      00147         ;GOTO       ABORT
-                      00148         ;BTFSS      RECEIVED_BYTE,5
+0058                  00140     SET_ARMS
+0058   168E           00141         BSF         PORTC,5     
+0059   102D           00142         BCF         ARM_ENABLE,0
+005A   2???           00143         GOTO        ABORT
+                      00144         
+                      00145         
+005B                  00146 TEST_BYTE1
+                      00147         ;BANKSEL            PORTA
+                      00148         ;BTFSC      RECEIVED_BYTE,7
                       00149         ;GOTO       ABORT
-                      00150         ;BTFSC      RECEIVED_BYTE,4
+                      00150         ;BTFSC      RECEIVED_BYTE,6
                       00151         ;GOTO       ABORT
-                      00152         ;BTFSC      RECEIVED_BYTE,3
+                      00152         ;BTFSS      RECEIVED_BYTE,5
                       00153         ;GOTO       ABORT
-                      00154         ;BTFSC      RECEIVED_BYTE,2
+                      00154         ;BTFSC      RECEIVED_BYTE,4
                       00155         ;GOTO       ABORT
-                      00156         ;BTFSC      RECEIVED_BYTE,1
+                      00156         ;BTFSC      RECEIVED_BYTE,3
                       00157         ;GOTO       ABORT
-                      00158         ;BTFSS      RECEIVED_BYTE,0
+                      00158         ;BTFSC      RECEIVED_BYTE,2
                       00159         ;GOTO       ABORT
-                      00160         ;BSF        BYTE1_RECEIVED,0
-                      00161         ;GOTO       GOBACK
-                      00162         
-                      00163         
-0057                  00164 TEST_BYTE2
-0057   0020           00165         BANKSEL     PORTA
-0058   1421           00166         BSF         BYTE2_RECEIVED,0
-0059   1F2C           00167         BTFSS       RECEIVED_BYTE,6
-005A   2???           00168         GOTO        TOGGLE_ARMS
-005B   1A2C           00169         BTFSC       RECEIVED_BYTE,4
-005C   2???           00170         GOTO        TURN_RIGHT
-005D   1CAC           00171         BTFSS       RECEIVED_BYTE,1
-005E   2???           00172         GOTO        TURN_LEFT
-005F   1D2C           00173         BTFSS       RECEIVED_BYTE,2
-0060   2???           00174         GOTO        DRIVE_BACK
-0061   2???           00175         GOTO        DRIVE_FORWARD
-                      00176         
-                      00177         ;BTFSC      RECEIVED_BYTE,2
-                      00178         ;GOTO       DRIVE_FORWARD
-                      00179         ;BTFSC      RECEIVED_BYTE,3
-                      00180         ;GOTO       TURN_LEFT
+                      00160         ;BTFSC      RECEIVED_BYTE,1
+                      00161         ;GOTO       ABORT
+                      00162         ;BTFSS      RECEIVED_BYTE,0
+                      00163         ;GOTO       ABORT
+                      00164         ;BSF        BYTE1_RECEIVED,0
+                      00165         ;GOTO       GOBACK
+                      00166         
+                      00167         
+005B                  00168 TEST_BYTE2
+005B   0020           00169         BANKSEL     PORTA
+005C   1421           00170         BSF         BYTE2_RECEIVED,0
+005D   1F2C           00171         BTFSS       RECEIVED_BYTE,6
+005E   2???           00172         GOTO        TOGGLE_ARMS
+005F   1A2C           00173         BTFSC       RECEIVED_BYTE,4
+0060   2???           00174         GOTO        TURN_RIGHT
+0061   1CAC           00175         BTFSS       RECEIVED_BYTE,1
+0062   2???           00176         GOTO        TURN_LEFT
+0063   1D2C           00177         BTFSS       RECEIVED_BYTE,2
+0064   2???           00178         GOTO        DRIVE_BACK
+0065   2???           00179         GOTO        DRIVE_FORWARD
+                      00180         
                       00181         ;BTFSC      RECEIVED_BYTE,2
                       00182         ;GOTO       DRIVE_FORWARD
-                      00183         ;GOTO       DRIVE_BACK
-                      00184 
-                      00185         
-0062                  00186 CONTINUE
-0062   0020           00187         BANKSEL     PORTA
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 12
+                      00183         ;BTFSC      RECEIVED_BYTE,3
+                      00184         ;GOTO       TURN_LEFT
+                      00185         ;BTFSC      RECEIVED_BYTE,2
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 12
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0063   1424           00188         BSF         RECEIVED_CONTINUE,0
-                      00189         ;GOTO       GOBACK
-0064   0008           00190         RETURN
-                      00191         
-0065                  00192 TEST_CONTINUE
-0065   0020           00193         BANKSEL     PORTA
-0066   1C24           00194         BTFSS       RECEIVED_CONTINUE,0
-0067   2???           00195         GOTO        STOP
-0068   1024           00196         BCF         RECEIVED_CONTINUE,0
-                      00197         ;GOTO       GOBACK
-0069   0008           00198         RETURN
-006A                  00199 STOP
-006A   142D           00200         BSF         ARM_ENABLE,0
-006B   2???           00201         GOTO        ABORT
+                      00186         ;GOTO       DRIVE_FORWARD
+                      00187         ;GOTO       DRIVE_BACK
+                      00188 
+                      00189         
+0066                  00190 CONTINUE
+0066   0020           00191         BANKSEL     PORTA
+0067   1424           00192         BSF         RECEIVED_CONTINUE,0
+                      00193         ;GOTO       GOBACK
+0068   0008           00194         RETURN
+                      00195         
+0069                  00196 TEST_CONTINUE
+0069   0020           00197         BANKSEL     PORTA
+006A   1C24           00198         BTFSS       RECEIVED_CONTINUE,0
+006B   2???           00199         GOTO        STOP
+006C   1024           00200         BCF         RECEIVED_CONTINUE,0
+                      00201         ;GOTO       GOBACK
+006D   0008           00202         RETURN
+006E                  00203 STOP
+006E   142D           00204         BSF         ARM_ENABLE,0
+006F   2???           00205         GOTO        ABORT
                       00023                 LIST      p=16f1788                     ; list directive to define processor
                       00024                 errorlevel -302,-207,-305,-206,-203     ; suppress "not in bank 0" message,  Found label
                              after column 1,
@@ -700,47 +706,51 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00050 ;******************************************
                       00051 ;SETUP ROUTINE
                       00052 ;******************************************
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
 0005                  00053 SETUP
 0005   2???           00054                 CALL        INITIALIZE                  ;Call setup include file to initialize the PIC
 0006   2???           00055                 GOTO        MAIN                        ;END OF SETUP ROUTINE
                       00056                 
                       00057 ;******************************************
                       00058 ;INTERRUPT SERVICE ROUTINE
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 13
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                       00059 ;******************************************
 0007                  00060 INTERRUPT
 0007   0020           00061                 BANKSEL     PIR1
 0008   1A91           00062                 BTFSC       PIR1,5
-0009   2???           00063                 CALL        RECEIVE_BYTE
-000A   1891           00064                 BTFSC       PIR1,1
+0009   2???           00063                 GOTO        RECEIVE
+000A   1811           00064                 BTFSC       PIR1,0
                       00065                 ;GOTO       TRANSMIT_STUFF
 000B   2???           00066                 CALL        TEST_CONTINUE
 000C                  00067         GOBACK
 000C   0020           00068                 BANKSEL     PIR1
 000D   1291           00069                 BCF         PIR1,5                      ;Clear RCIF
 000E   1091           00070                 BCF         PIR1,1
-000F   0009           00071                 RETFIE                                  ;Return to MAIN, Re-enable global interrupt
-                      00072                 
-                      00073 ;******************************************
-                      00074 ;Main Code
-                      00075 ;******************************************
-0010                  00076 MAIN    
-                      00077                 ;BANKSEL            RC1STA
-                      00078                 ;BTFSC      RC1STA,1
-                      00079                 ;GOTO       THROW_OERR
-0010   2???           00080                 GOTO        MAIN
-0011                  00081         THROW_OERR
-                      00082                 ;BANKSEL            PORTA
-                      00083                 ;BSF        PORTA,7
-                      00084                 ;GOTO       MAIN
+000F   1011           00071                 BCF         PIR1,0
+0010   0009           00072                 RETFIE                                  ;Return to MAIN, Re-enable global interrupt
+                      00073                 
+0011                  00074         RECEIVE
+0011   2???           00075                 CALL        RECEIVE_BYTE
+0012   2???           00076                 GOTO        GOBACK
+                      00077 ;******************************************
+                      00078 ;Main Code
+                      00079 ;******************************************
+0013                  00080 MAIN    
+                      00081                 ;BANKSEL            RC1STA
+                      00082                 ;BTFSC      RC1STA,1
+                      00083                 ;GOTO       THROW_OERR
+0013   2???           00084                 GOTO        MAIN
+0014                  00085         THROW_OERR
+                      00086                 ;BANKSEL            PORTA
+                      00087                 ;BSF        PORTA,7
+                      00088                 ;GOTO       MAIN
 Warning[205]: Found directive in column 1. (END)
-09A4 1FFF             00085 END
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 14
+09A4 1FFF             00089 END
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 14
 
 
 SYMBOL TABLE
@@ -799,7 +809,7 @@ ANSB5                             00000005
 ANSB6                             00000006
 ANSC0                             00000000
 ANSC1                             00000001
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 15
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 15
 
 
 SYMBOL TABLE
@@ -858,7 +868,7 @@ C1IE                              00000005
 C1IF                              00000005
 C1INTN                            00000006
 C1INTP                            00000007
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 16
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 16
 
 
 SYMBOL TABLE
@@ -917,7 +927,7 @@ C3ZLF                             00000003
 C4HYS                             00000001
 C4IE                              00000002
 C4IF                              00000002
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 17
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 17
 
 
 SYMBOL TABLE
@@ -976,7 +986,7 @@ CDAFVR1                           00000003
 CFGS                              00000006
 CHS0                              00000002
 CHS1                              00000003
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 18
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 18
 
 
 SYMBOL TABLE
@@ -1009,7 +1019,7 @@ CM3CON1                           0000011F
 CM4CON0                           0000011A
 CM4CON1                           0000011B
 CMOUT                             00000115
-CONTINUE                          00000062
+CONTINUE                          00000066
 CREN                              00000004
 CSRC                              00000007
 C_SHAD                            00000000
@@ -1035,7 +1045,7 @@ DAC2EN                            00000007
 DAC2OE1                           00000005
 DAC2OE2                           00000004
 DAC2REF                           00000592
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 19
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 19
 
 
 SYMBOL TABLE
@@ -1077,8 +1087,8 @@ DC3B1                             00000005
 DC_SHAD                           00000001
 DHEN                              00000000
 DONE                              00000001
-DRIVE_BACK                        00000028
-DRIVE_FORWARD                     0000001C
+DRIVE_BACK                        0000002C
+DRIVE_FORWARD                     00000020
 D_NOT_A                           00000005
 EEADR                             00000191
 EEADRH                            00000192
@@ -1094,7 +1104,7 @@ EEPGD                             00000007
 EN                                00000007
 F                                 00000001
 FERR                              00000002
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 20
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 20
 
 
 SYMBOL TABLE
@@ -1153,7 +1163,7 @@ INLVLC5                           00000005
 INLVLC6                           00000006
 INLVLC7                           00000007
 INLVLE                            00000390
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 21
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 21
 
 
 SYMBOL TABLE
@@ -1212,7 +1222,7 @@ IOCBN6                            00000006
 IOCBN7                            00000007
 IOCBP                             00000394
 IOCBP0                            00000000
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 22
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 22
 
 
 SYMBOL TABLE
@@ -1271,7 +1281,7 @@ LATA2                             00000002
 LATA3                             00000003
 LATA4                             00000004
 LATA5                             00000005
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 23
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 23
 
 
 SYMBOL TABLE
@@ -1299,7 +1309,7 @@ LATC6                             00000006
 LATC7                             00000007
 LFIOFR                            00000001
 LWLO                              00000005
-MAIN                              00000010
+MAIN                              00000013
 MC1OUT                            00000000
 MC2OUT                            00000001
 MC3OUT                            00000002
@@ -1330,7 +1340,7 @@ ODCONA3                           00000003
 ODCONA4                           00000004
 ODCONA5                           00000005
 ODCONA6                           00000006
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 24
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 24
 
 
 SYMBOL TABLE
@@ -1389,7 +1399,7 @@ P1ASDSC1                          00000001
 P1ASDSC2                          00000002
 P1ASDSC3                          00000003
 P1ASDSC4                          00000004
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 25
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 25
 
 
 SYMBOL TABLE
@@ -1448,7 +1458,7 @@ P1POLA                            00000000
 P1POLB                            00000001
 P1POLC                            00000002
 P1POLD                            00000003
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 26
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 26
 
 
 SYMBOL TABLE
@@ -1507,7 +1517,7 @@ P2DBFE                            00000005
 P2DBRE                            00000004
 P2DCPOL                           00000005
 P2DCSC1                           00000001
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 27
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 27
 
 
 SYMBOL TABLE
@@ -1566,7 +1576,7 @@ P2REBSC4                          00000004
 P2REBSIN                          00000007
 P2SSYNC                           00000007
 P2STRA                            00000000
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 28
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 28
 
 
 SYMBOL TABLE
@@ -1625,7 +1635,7 @@ P3MODE0                           00000000
 P3MODE1                           00000001
 P3MODE2                           00000002
 P3MODE3                           00000003
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 29
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 29
 
 
 SYMBOL TABLE
@@ -1684,7 +1694,7 @@ P4ASDSC2                          00000002
 P4ASDSC3                          00000003
 P4ASDSC4                          00000004
 P4ASDSIN                          00000007
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 30
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 30
 
 
 SYMBOL TABLE
@@ -1743,7 +1753,7 @@ P4PRSC3                           00000003
 P4PRSC4                           00000004
 P4PRSIN                           00000007
 P4PRST                            00000000
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 31
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 31
 
 
 SYMBOL TABLE
@@ -1802,7 +1812,7 @@ PSA                               00000003
 PSMC1ASDC                         00000E9D
 PSMC1ASDL                         00000E9E
 PSMC1ASDS                         00000E9F
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 32
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 32
 
 
 SYMBOL TABLE
@@ -1861,7 +1871,7 @@ PSMC1DC3                          00000003
 PSMC1DC4                          00000004
 PSMC1DC5                          00000005
 PSMC1DC6                          00000006
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 33
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 33
 
 
 SYMBOL TABLE
@@ -1920,7 +1930,7 @@ PSMC1PR4                          00000004
 PSMC1PR5                          00000005
 PSMC1PR6                          00000006
 PSMC1PR7                          00000007
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 34
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 34
 
 
 SYMBOL TABLE
@@ -1979,7 +1989,7 @@ PSMC2BLKR4                        00000004
 PSMC2BLKR5                        00000005
 PSMC2BLKR6                        00000006
 PSMC2BLKR7                        00000007
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 35
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 35
 
 
 SYMBOL TABLE
@@ -2038,7 +2048,7 @@ PSMC2LD                           00000006
 PSMC2MDL                          00000EB2
 PSMC2OEN                          00000EB5
 PSMC2PH                           00000EC1
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 36
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 36
 
 
 SYMBOL TABLE
@@ -2097,7 +2107,7 @@ PSMC2TMR0                         00000000
 PSMC2TMR1                         00000001
 PSMC2TMR10                        00000002
 PSMC2TMR11                        00000003
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 37
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 37
 
 
 SYMBOL TABLE
@@ -2156,7 +2166,7 @@ PSMC3DBR1                         00000001
 PSMC3DBR2                         00000002
 PSMC3DBR3                         00000003
 PSMC3DBR4                         00000004
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 38
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 38
 
 
 SYMBOL TABLE
@@ -2215,7 +2225,7 @@ PSMC3PH8                          00000000
 PSMC3PH9                          00000001
 PSMC3PHH                          00000EE2
 PSMC3PHL                          00000EE1
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 39
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 39
 
 
 SYMBOL TABLE
@@ -2274,7 +2284,7 @@ PSMC4ASDC                         00000F1D
 PSMC4ASDL                         00000F1E
 PSMC4ASDS                         00000F1F
 PSMC4BLKF                         00000F2C
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 40
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 40
 
 
 SYMBOL TABLE
@@ -2333,7 +2343,7 @@ PSMC4DC4                          00000004
 PSMC4DC5                          00000005
 PSMC4DC6                          00000006
 PSMC4DC7                          00000007
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 41
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 41
 
 
 SYMBOL TABLE
@@ -2392,7 +2402,7 @@ PSMC4PR5                          00000005
 PSMC4PR6                          00000006
 PSMC4PR7                          00000007
 PSMC4PR8                          00000000
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 42
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 42
 
 
 SYMBOL TABLE
@@ -2451,7 +2461,7 @@ RC1REG                            00000199
 RC1STA                            0000019D
 RC2                               00000002
 RC3                               00000003
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 43
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 43
 
 
 SYMBOL TABLE
@@ -2471,6 +2481,7 @@ RCSTA                             0000019D
 RCSTA1                            0000019D
 RD                                00000000
 RE3                               00000003
+RECEIVE                           00000011
 RECEIVED_BYTE                     0000002C
 RECEIVED_CONTINUE                 00000024
 RECEIVE_BYTE                      00000004
@@ -2493,7 +2504,7 @@ SDOSEL                            00000005
 SEN                               00000000
 SENDB                             00000003
 SETUP                             00000005
-SET_ARMS                          00000054
+SET_ARMS                          00000058
 SET_RA7                           0000000D
 SLRCONA                           0000030C
 SLRCONA0                          00000000
@@ -2509,13 +2520,13 @@ SLRCONB0                          00000000
 SLRCONB1                          00000001
 SLRCONB2                          00000002
 SLRCONB3                          00000003
-SLRCONB4                          00000004
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 44
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 44
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+SLRCONB4                          00000004
 SLRCONB5                          00000005
 SLRCONB6                          00000006
 SLRCONB7                          00000007
@@ -2568,13 +2579,13 @@ SSP1IF                            00000003
 SSP1MSK                           00000213
 SSP1MSK0                          00000000
 SSP1MSK1                          00000001
-SSP1MSK2                          00000002
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 45
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 45
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+SSP1MSK2                          00000002
 SSP1MSK3                          00000003
 SSP1MSK4                          00000004
 SSP1MSK5                          00000005
@@ -2600,7 +2611,7 @@ STATUS_SHAD                       00000FE4
 STKOVF                            00000007
 STKPTR                            00000FED
 STKUNF                            00000006
-STOP                              0000006A
+STOP                              0000006E
 SWDTEN                            00000000
 SYNC                              00000004
 T0CS                              00000005
@@ -2627,17 +2638,17 @@ T2OUTPS0                          00000003
 T2OUTPS1                          00000004
 T2OUTPS2                          00000005
 T2OUTPS3                          00000006
-TEST_BYTE1                        00000057
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 46
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 46
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-TEST_BYTE2                        00000057
-TEST_CONTINUE                     00000065
+TEST_BYTE1                        0000005B
+TEST_BYTE2                        0000005B
+TEST_CONTINUE                     00000069
 TEST_NEW_BYTE                     0000000E
-THROW_OERR                        00000011
+THROW_OERR                        00000014
 TMR0                              00000015
 TMR0CS                            00000005
 TMR0IE                            00000005
@@ -2658,7 +2669,7 @@ TMR2                              0000001A
 TMR2IE                            00000001
 TMR2IF                            00000001
 TMR2ON                            00000002
-TOGGLE_ARMS                       0000004C
+TOGGLE_ARMS                       00000050
 TOSH                              00000FEF
 TOSL                              00000FEE
 TRANSMIT_STUFF                    00000000
@@ -2686,13 +2697,13 @@ TRISB6                            00000006
 TRISB7                            00000007
 TRISC                             0000008E
 TRISC0                            00000000
-TRISC1                            00000001
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 47
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 47
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+TRISC1                            00000001
 TRISC2                            00000002
 TRISC3                            00000003
 TRISC4                            00000004
@@ -2710,8 +2721,8 @@ TUN2                              00000002
 TUN3                              00000003
 TUN4                              00000004
 TUN5                              00000005
-TURN_LEFT                         00000034
-TURN_RIGHT                        00000040
+TURN_LEFT                         00000038
+TURN_RIGHT                        00000044
 TX1REG                            0000019A
 TX1STA                            0000019E
 TX9                               00000006
@@ -2745,13 +2756,13 @@ WPUA5                             00000005
 WPUA6                             00000006
 WPUA7                             00000007
 WPUB                              0000020D
-WPUB0                             00000000
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 48
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 48
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+WPUB0                             00000000
 WPUB1                             00000001
 WPUB2                             00000002
 WPUB3                             00000003
@@ -2804,13 +2815,13 @@ _FOSC_INTOSC                      00003FFC
 _FOSC_LP                          00003FF8
 _FOSC_XT                          00003FF9
 _IDLOC0                           00008000
-_IDLOC1                           00008001
-MPASM 5.86                          CRAP.ASM   11-22-2024  11:07:51         PAGE 49
+MPASM 5.86                          CRAP.ASM   12-4-2024  10:06:34         PAGE 49
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_IDLOC1                           00008001
 _IDLOC2                           00008002
 _IDLOC3                           00008003
 _IESO_OFF                         00002FFF
@@ -2840,7 +2851,7 @@ _WRT_OFF                          00003FFF
 __16F1788                         00000001
 
 Errors   :     0
-Warnings :     4 reported,     2 suppressed
+Warnings :     4 reported,     3 suppressed
 Messages :    60 reported,     0 suppressed
 
 
