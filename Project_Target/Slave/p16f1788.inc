@@ -79,7 +79,9 @@ T1GCON           EQU  H'0019'
 TMR2             EQU  H'001A'
 PR2              EQU  H'001B'
 T2CON            EQU  H'001C'
-
+RECEIVED_DATA	 EQU  H'0020'
+NEW_DATA	 EQU  H'0021'
+	    
 ;-----Bank1------------------
 TRISA            EQU  H'008C'
 TRISB            EQU  H'008D'

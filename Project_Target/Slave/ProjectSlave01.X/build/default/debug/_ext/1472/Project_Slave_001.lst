@@ -1,4 +1,4 @@
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE  1
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -44,7 +44,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00007 ;  (c) Copyright 1999-2019 Microchip Technology, All rights reserved
                       00008 ;==========================================================================
                       00009 
-                      03028         LIST
+                      03026         LIST
                       00032                 #INCLUDE <16F1788_SETUP.inc>            ; Custom setup file for the PIC16F883 micro-cont
                             roller
                       00001 ;************************************************************************************
@@ -57,7 +57,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00008 ;   Description:    Firmware for setting up a PIC16LF1788 for the laser gun of the  *
                       00009 ;                   Laser Shooting Game project.                                    *
                       00010 ;                                                                                   *
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE  2
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -116,7 +116,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                             --------|---------------*       
                       00042 ;DIGITAL        |DIGITAL        |DIGITAL        |DIGITAL        |DIGITAL        |DIGITAL        |DIGITAL
                                     |DIGITAL        *
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE  3
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -175,7 +175,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0001   307A           00072                 MOVLW       0x7A                        ;ENABLE INTOSC, SET TO 16MHz
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0002   0099           00073                 MOVWF       OSCCON
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE  4
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -220,7 +220,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00101 ;*** SET PIE1-4 REG: *****
                       00102                 
 0013   0021           00103                 BANKSEL     PIE1
-0014   3009           00104                 MOVLW       0x09
+0014   3008           00104                 MOVLW       0x08
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0015   0091           00105                 MOVWF       PIE1                        ;DISABLE ALL PIE1 INTERUPTS, EXCEPT SSP1F
 0016   0021           00106                 BANKSEL     PIE2
@@ -234,7 +234,7 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 001B   0194           00111                 CLRF        PIE4                        ;DISABLE ALL PIE4 INTERUPTS
                       00112                 
                       00113 ;*** CLEAR INTERUPT FLAGS ***
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE  5
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -248,159 +248,148 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0020   0020           00119                 BANKSEL     PIR3
 0021   0193           00120                 CLRF        PIR3                        ;CLEAR ALL PIR3 INTERUPT FLAGS
 0022   0020           00121                 BANKSEL     PIR4
-0023   0194           00122                 CLRF        PIR4                        ;CLEAR ALL PIR4 INTERUPT FLAGS
+0023   0194           00122                 CLRF        PIR4                        ;CLEAR ALL PIR4 INTERUPT FLAGS                  
                       00123                 
-                      00124 ;*** TIMER 1 SETUP *****
+                      00124 ;*** ALTERNATE PIN FUNCTION *****
                       00125                 
-0024   0020           00126                 BANKSEL     T1CON
-0025   30A8           00127                 MOVLW       0xA8                        ;ENABLE & SELECT TMR1 LP OSCILLATOR, SET PRESCAL
-                            E TO 1:4, DISABLE TMR1 AT THIS POINT
-0026   0020           00128                 BANKSEL     T1GCON
-0027   0199           00129                 CLRF        T1GCON                      ;DISABLE TMR1 GATE              
-                      00130                 
-                      00131 ;*** ALTERNATE PIN FUNCTION *****
-                      00132                 
-0028   0022           00133                 BANKSEL     APFCON1
+0024   0022           00126                 BANKSEL     APFCON1
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0029   019D           00134                 CLRF        APFCON1                     ;SELECTS PORT MAPPING
+0025   019D           00127                 CLRF        APFCON1                     ;SELECTS PORT MAPPING
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-002A   019C           00135                 CLRF        APFCON2                     ;SEE DATASHEET (pg 132-133) FOR MAPPING WITH BOT
+0026   019C           00128                 CLRF        APFCON2                     ;SEE DATASHEET (pg 132-133) FOR MAPPING WITH BOT
                             H CLEARED
-                      00136  
-                      00137 ;*** PORT A SETUP **** PORT A SET AS LOGIC OUTPUT (NOT USED)
-                      00138 
-002B   0020           00139                 BANKSEL     PORTA
-002C   018C           00140                 CLRF        PORTA                       ;CLEAR PORTA
-002D   0022           00141                 BANKSEL     LATA
+                      00129  
+                      00130 ;*** PORT A SETUP **** PORT A SET AS LOGIC OUTPUT (NOT USED)
+                      00131 
+0027   0020           00132                 BANKSEL     PORTA
+0028   018C           00133                 CLRF        PORTA                       ;CLEAR PORTA
+0029   0022           00134                 BANKSEL     LATA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-002E   018C           00142                 CLRF        LATA                        ;CLEAR LATA
-002F   0021           00143                 BANKSEL     TRISA
-0030   30FF           00144                 MOVLW       0xFF
+002A   018C           00135                 CLRF        LATA                        ;CLEAR LATA
+002B   0021           00136                 BANKSEL     TRISA
+002C   3000           00137                 MOVLW       0x00  
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0031   008C           00145                 MOVWF       TRISA                       ;SET PORTA ALL AS INPUT
-0032   0025           00146                 BANKSEL     ODCONA
+002D   008C           00138                 MOVWF       TRISA                       ;SET PORTA ALL AS INPUT
+002E   0025           00139                 BANKSEL     ODCONA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0033   018C           00147                 CLRF        ODCONA                      ;DISABLE PORTA OPEN-DRAIN               
-0034   0023           00148                 BANKSEL     ANSELA                      
+002F   018C           00140                 CLRF        ODCONA                      ;DISABLE PORTA OPEN-DRAIN               
+0030   0023           00141                 BANKSEL     ANSELA                      
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0035   018C           00149                 CLRF        ANSELA                      ;SET PORTA ALL AS DIGITAL INPUT
-0036   0026           00150                 BANKSEL     SLRCONA
+0031   018C           00142                 CLRF        ANSELA                      ;SET PORTA ALL AS DIGITAL INPUT
+0032   0026           00143                 BANKSEL     SLRCONA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0037   018C           00151                 CLRF        SLRCONA                     ;SET THE SLEW RATE FOR PORT A TO MAXIMUM
-0038   0027           00152                 BANKSEL     IOCAP
-0039   3000           00153                 MOVLW       0x00
+0033   018C           00144                 CLRF        SLRCONA                     ;SET THE SLEW RATE FOR PORT A TO MAXIMUM
+0034   0027           00145                 BANKSEL     IOCAP
+0035   3000           00146                 MOVLW       0x00
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-003A   0091           00154                 MOVWF       IOCAP
-003B   0027           00155                 BANKSEL     IOCAN
+0036   0091           00147                 MOVWF       IOCAP
+0037   0027           00148                 BANKSEL     IOCAN
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE  6
+0038   0192           00149                 CLRF        IOCAN
+                      00150                 
+                      00151 ;*** PORT B SETUP **** PORT B USED AS LOGIC INPUT
+                      00152                 
+0039   0020           00153                 BANKSEL     PORTB
+003A   018D           00154                 CLRF        PORTB                       ;CLEAR PORTB    
+003B   0022           00155                 BANKSEL     LATB
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-003C   0192           00156                 CLRF        IOCAN
-                      00157                 
-                      00158 ;*** PORT B SETUP **** PORT B USED AS LOGIC INPUT
-                      00159                 
-003D   0020           00160                 BANKSEL     PORTB
-003E   018D           00161                 CLRF        PORTB                       ;CLEAR PORTB    
-003F   0022           00162                 BANKSEL     LATB
+003C   018D           00156                 CLRF        LATB                        ;CLEAR LATB
+003D   0021           00157                 BANKSEL     TRISB
+003E   30FF           00158                 MOVLW       0xFF                                
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0040   018D           00163                 CLRF        LATB                        ;CLEAR LATB
-0041   0021           00164                 BANKSEL     TRISB
-0042   30FF           00165                 MOVLW       0xFF                                
+003F   008D           00159                 MOVWF       TRISB                       ;SET PORTB ALL AS INPUTS
+0040   0025           00160                 BANKSEL     ODCONB
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0043   008D           00166                 MOVWF       TRISB                       ;SET PORTB ALL AS INPUTS
-0044   0025           00167                 BANKSEL     ODCONB
+0041   018D           00161                 CLRF        ODCONB                      ;DISABLE PORTB OPEN-DRAIN
+0042   0023           00162                 BANKSEL     ANSELB
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0045   018D           00168                 CLRF        ODCONB                      ;DISABLE PORTB OPEN-DRAIN
-0046   0023           00169                 BANKSEL     ANSELB
+0043   018D           00163                 CLRF        ANSELB                      ;MAKE PORTB DIGITAL INPUTS
+0044   0026           00164                 BANKSEL     SLRCONB
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0047   018D           00170                 CLRF        ANSELB                      ;MAKE PORTB DIGITAL INPUTS
-0048   0026           00171                 BANKSEL     SLRCONB
+0045   018D           00165                 CLRF        SLRCONB                     ;SET THE SLEW RATE FOR PORT B TO MAXIMUM
+0046   0027           00166                 BANKSEL     IOCBP
+0047   3000           00167                 MOVLW       0x00                        ;ENABLE PORTB IOC FOR POSITIVE EDGES ON RB3:0
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0049   018D           00172                 CLRF        SLRCONB                     ;SET THE SLEW RATE FOR PORT B TO MAXIMUM
-004A   0027           00173                 BANKSEL     IOCBP
-004B   3000           00174                 MOVLW       0x00                        ;ENABLE PORTB IOC FOR POSITIVE EDGES ON RB3:0
+0048   0094           00168                 MOVWF       IOCBP
+0049   0027           00169                 BANKSEL     IOCBN
+004A   3000           00170                 MOVLW       0x00                        ;ENABLE PORTB IOC FOR NEGATIVE EDGES ON RB3:1
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-004C   0094           00175                 MOVWF       IOCBP
-004D   0027           00176                 BANKSEL     IOCBN
-004E   3000           00177                 MOVLW       0x00                        ;ENABLE PORTB IOC FOR NEGATIVE EDGES ON RB3:1
+004B   0095           00171                 MOVWF       IOCBN
+004C   0027           00172                 BANKSEL     INLVLB
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-004F   0095           00178                 MOVWF       IOCBN
-0050   0027           00179                 BANKSEL     INLVLB
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0051   018D           00180                 CLRF        INLVLB                      ;SET PORTB INPUT THRESHOLD TO TTL (IGNORED NOISE
+004D   018D           00173                 CLRF        INLVLB                      ;SET PORTB INPUT THRESHOLD TO TTL (IGNORED NOISE
                              BETTER FOR TRIGGER INPUT)                  
-                      00181                 
-                      00182 ;*** PORT C SETUP **** 
-                      00183                 
-0052   0020           00184                 BANKSEL     PORTC
-0053   018E           00185                 CLRF        PORTC                       ;CLEAR PORTC
-0054   0022           00186                 BANKSEL     LATC
+                      00174                 
+                      00175 ;*** PORT C SETUP **** 
+                      00176                 
+004E   0020           00177                 BANKSEL     PORTC
+004F   018E           00178                 CLRF        PORTC                       ;CLEAR PORTC
+0050   0022           00179                 BANKSEL     LATC
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0055   018E           00187                 CLRF        LATC                        ;CLEAR LATC
-0056   0021           00188                 BANKSEL     TRISC
-0057   30FF           00189                 MOVLW       0xFF                                
+0051   018E           00180                 CLRF        LATC                        ;CLEAR LATC
+0052   0021           00181                 BANKSEL     TRISC
+0053   30FF           00182                 MOVLW       0xFF                                
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0058   008E           00190                 MOVWF       TRISC                       ;SET PORTC ALL AS INPUTS
-0059   0025           00191                 BANKSEL     ODCONC
+0054   008E           00183                 MOVWF       TRISC                       ;SET PORTC ALL AS INPUTS
+0055   0025           00184                 BANKSEL     ODCONC
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-005A   018E           00192                 CLRF        ODCONC                      ;DISABLE PORTC OPEN-DRAIN
-005B   0023           00193                 BANKSEL     ANSELC
+0056   018E           00185                 CLRF        ODCONC                      ;DISABLE PORTC OPEN-DRAIN
+0057   0023           00186                 BANKSEL     ANSELC
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-005C   018E           00194                 CLRF        ANSELC                      ;MAKE PORTC ALL DIGITAL I/O
-005D   0026           00195                 BANKSEL     SLRCONC
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE  7
+0058   018E           00187                 CLRF        ANSELC                      ;MAKE PORTC ALL DIGITAL I/O
+0059   0026           00188                 BANKSEL     SLRCONC
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+005A   018E           00189                 CLRF        SLRCONC                     ;SET THE SLEW RATE FOR PORT C TO MAXIMUM
+                      00190                 
+                      00191 ;*** I2C SETUP ****
+                      00192                 
+005B   0024           00193                 BANKSEL     SSPADD
+005C   3001           00194                 MOVLW       0x01                        ;SET I2C ADDRESS AS 0x01
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+005D   0092           00195                 MOVWF       SSPADD
+005E   0024           00196                 BANKSEL     SSPCON
+005F   3016           00197                 MOVLW       0x16                        ;SET TO I2C 7-BIT ADDRESS SLAVE MODE
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-005E   018E           00196                 CLRF        SLRCONC                     ;SET THE SLEW RATE FOR PORT C TO MAXIMUM
-                      00197                 
-                      00198 ;*** I2C SETUP ****
-                      00199                 
-005F   0024           00200                 BANKSEL     SSPADD
-0060   3027           00201                 MOVLW       0x27                        ;SET BAUD RATE TO 100KHz w/ 16MHz OSCILLATOR
+0060   0095           00198                 MOVWF       SSPCON                      ;
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0061   0092           00202                 MOVWF       SSPADD
-0062   0024           00203                 BANKSEL     SSPCON
-0063   3008           00204                 MOVLW       0x08                        ;SET TO I2C MASTER MODE
+0061   1695           00199                 BSF         SSPCON,5                    ;ENABLE SERIAL PORT FOR I2C
+0062   0024           00200                 BANKSEL     SSPCON2
+0063   3080           00201                 MOVLW       0x80
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0064   0095           00205                 MOVWF       SSPCON                      ;
+0064   0096           00202                 MOVWF       SSPCON2
+0065   0024           00203                 BANKSEL     SSPCON3
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0065   1695           00206                 BSF         SSPCON,5                    ;ENABLE SERIAL PORT FOR I2C
-0066   0024           00207                 BANKSEL     SSPCON2
+0066   0197           00204                 CLRF        SSPCON3
+0067   0024           00205                 BANKSEL     SSPSTAT
+0068   30C0           00206                 MOVLW       0xC0
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0067   0196           00208                 CLRF        SSPCON2
-0068   0024           00209                 BANKSEL     SSPCON3
+0069   0094           00207                 MOVWF       SSPSTAT
+                      00208                 
+                      00209 ;*** BOOT CODE ****
+                      00210                 
+006A   0020           00211                 BANKSEL     INTCON
+006B   100B           00212                 BCF         INTCON,0
+                      00213                 ;BANKSEL            SSPCON1
+                      00214                 ;BSF        SSPCON1,5
+006C   0027           00215                 BANKSEL     IOCAF
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0069   0197           00210                 CLRF        SSPCON3
-006A   0024           00211                 BANKSEL     SSPSTAT
-006B   30C0           00212                 MOVLW       0xC0
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-006C   0094           00213                 MOVWF       SSPSTAT
-                      00214                 
-                      00215 ;*** BOOT CODE ****
-                      00216                 
-006D   0020           00217                 BANKSEL     PORTA
-006E   01A0           00218                 CLRF        ACTIVE_TARGET
-006F   0020           00219                 BANKSEL     INTCON
-0070   100B           00220                 BCF         INTCON,0
-                      00221                 ;BANKSEL            SSPCON1
-                      00222                 ;BSF        SSPCON1,5
-0071   0027           00223                 BANKSEL     IOCAF
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0072   0193           00224                 CLRF        IOCAF
-0073   100B           00225                 BCF         INTCON,IOCIF                ;CLEAR IOCIF
-0074   0020           00226                 BANKSEL     T1CON
-0075   1418           00227                 BSF         T1CON,0                     ;ENABLE TIMER 1
-                      00228                 
-                      00229                 
-0076   0008           00230                 RETURN                                  ;RETURN TO .asm FILE
+006D   0193           00216                 CLRF        IOCAF
+006E   100B           00217                 BCF         INTCON,IOCIF                ;CLEAR IOCIF
+                      00218                 
+                      00219                 
+006F   0008           00220                 RETURN                                  ;RETURN TO .asm FILE
                       00033                 #INCLUDE <SUBROUTINES.inc>              ; File containing all used subroutines
                       00001 ;************************************************************************************
                       00002 ;                                                                                   *
@@ -411,12 +400,6 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
                       00007 ;   Company:        Idaho State University                                          *
                       00008 ;   Description:    Contains all subroutines needed for the Laser Shooting Game     *
                       00009 ;                   project. Subroutines include the ability to swap between the    *
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE  8
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                       00010 ;                   two player PWM frequencies of 56kHz and 38kHz, and the ability  *
                       00011 ;                   to shoot in three different modes (single-shot, burst,          *
                       00012 ;                   & continuous), to move a solenoid and shoot the laser with the  *
@@ -428,6 +411,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00018 ;                                                                                   *
                       00019 ;   Revision History:                                                               *
                       00020 ;                                                                                   *
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                       00021 ;   1:  Initialize file, get everything working the way that I thought it should    *
                       00022 ;       work.                                                                       *                   
                                                                         *
@@ -436,172 +425,21 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00025             
                       00026 SUBROUTINES_CODE CODE
                       00027   
-Warning[207]: Found label after column 1. (SEND_ENABLE)
-0000                  00028     SEND_ENABLE
-0000   2???           00029             CALL            I2CIDLE             ;ENSURE THAT THE I2C LINES ARE IDLE
-0001   0024           00030             BANKSEL         SSPCON2
+Warning[207]: Found label after column 1. (RECEIVE)
+0000                  00028    RECEIVE
+0000   0024           00029         BANKSEL     SSPBUF
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0002   1416           00031             BSF             SSPCON2,0
+0001   0811           00030         MOVFW       SSPBUF
+0002   0024           00031         BANKSEL     SSPSTAT                 ;DETERMINE IF THE RECEIVED BYTE WAS DATA OR ADDRESS
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0003   1816           00032             BTFSC           SSPCON2,0           ;WAIT UNTIL START CONDITION IS COMPLETE
-0004   2???           00033             GOTO            $-1
-0005   0024           00034             BANKSEL         SSPBUF
-0006   3002           00035             MOVLW           0x02                ;SEND I2C ADDRESS OUT (WRITE TO ADDRESS 1)
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0007   0091           00036             MOVWF           SSPBUF
-0008   0024           00037             BANKSEL         SSPSTAT
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0009   1814           00038             BTFSC           SSPSTAT,0           ;WAIT UNTIL ALL DATA HAS BEEN SHIFTED OUT OF SSPBUF
-000A   2???           00039             GOTO            $-1
-000B   2???           00040             CALL            I2CIDLE             ;ENSURE THAT THE I2C LINES ARE IDLE
-000C   0024           00041             BANKSEL         SSPCON2
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-000D   1B16           00042             BTFSC           SSPCON2,6           ;DETERMINE IF THERE IS AN ACK FROM THE SLAVE
-000E   2???           00043             GOTO            BAD1                ;NACK FROM THE SLAVE, STOP COMMUNICATION
-000F   0024           00044             BANKSEL         SSPBUF
-0010   3045           00045             MOVLW           0x45
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0011   0091           00046             MOVWF           SSPBUF              ;TRANSMIT DATA TO SLAVE
-0012   0024           00047             BANKSEL         SSPSTAT
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0013   1814           00048             BTFSC           SSPSTAT,0           ;WAIT UNTIL ALL DATA HAS BEEN SHIFTED OUT OF SSPBUF
-0014   2???           00049             GOTO            $-1
-0015   2???           00050             CALL            I2CIDLE             ;ENSURE THAT THE I2C LINES ARE IDLE
-0016   0024           00051             BANKSEL         SSPCON2
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0017   1B16           00052             BTFSC           SSPCON2,6           ;DETERMINE IF THERE IS AN ACK FROM THE SLAVE
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE  9
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-0018   2???           00053             GOTO            BAD1                ;NACK FROM THE SLAVE, STOP COMMUNICATION
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0019   1516           00054             BSF             SSPCON2,2           ;CREATE STOP CONDITION
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-001A   1916           00055             BTFSC           SSPCON2,2
-001B   2???           00056             GOTO            $-1                 ;WAIT FOR STOP CONDITION TO COMPLETE
-001C   0020           00057             BANKSEL         PORTA
-001D   1420           00058             BSF             ACTIVE_TARGET,0
-001E   0008           00059             RETURN
-                      00060 
-                      00061             
-Warning[207]: Found label after column 1. (READ_TARGET_STATUS)
-001F                  00062     READ_TARGET_STATUS
-001F   2???           00063             CALL            I2CIDLE             ;ENSURE THAT THE I2C LINES ARE IDLE
-0020   0024           00064             BANKSEL         SSPCON2
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0021   1416           00065             BSF             SSPCON2,0
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0022   1816           00066             BTFSC           SSPCON2,0           ;WAIT UNTIL START CONDITION IS COMPLETE
-0023   2???           00067             GOTO            $-1
-0024   0024           00068             BANKSEL         SSPBUF
-0025   3003           00069             MOVLW           0x03                ;SEND I2C ADDRESS OUT (READ FROM ADDRESS 1)
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0026   0091           00070             MOVWF           SSPBUF
-0027   0024           00071             BANKSEL         SSPSTAT
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0028   1814           00072             BTFSC           SSPSTAT,0           ;WAIT UNTIL ALL DATA HAS BEEN SHIFTED OUT OF SSPBUF
-0029   2???           00073             GOTO            $-1
-002A   2???           00074             CALL            I2CIDLE             ;ENSURE THAT THE I2C LINES ARE IDLE
-002B   0024           00075             BANKSEL         SSPCON2
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-002C   1B16           00076             BTFSC           SSPCON2,6           ;DETERMINE IF THERE IS AN ACK FROM THE SLAVE
-002D   2???           00077             GOTO            BAD1                ;NACK FROM THE SLAVE, STOP COMMUNICATION
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-002E   1596           00078             BSF             SSPCON2,3           ;ENABLE RCEN TO RECEIVE DATA FROM THE SLAVE
-002F   0024           00079             BANKSEL         SSPSTAT
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0030   1C14           00080             BTFSS           SSPSTAT,0           ;WAIT UNTIL ALL DATA HAS BEEN SHIFTED INTO SSPBUF FROM T
-                            HE SLAVE
-0031   2???           00081             GOTO            $-1
-0032   0024           00082             BANKSEL         SSPBUF              ;\
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0033   0811           00083             MOVFW           SSPBUF              ;\\READ STATUS OF CURRENT TARGET
-0034   0020           00084             BANKSEL         PORTA               ;//STORE BYTE INTO RECEIVED_BYTE REGISTER
-0035   00A3           00085             MOVWF           RECEIVED_BYTE       ;/
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0036   1516           00086             BSF             SSPCON2,2           ;CREATE STOP CONDITION
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0037   1916           00087             BTFSC           SSPCON2,2
-0038   2???           00088             GOTO            $-1                 ;WAIT FOR STOP CONDITION TO COMPLETE
-0039   2???           00089             CALL            TEST_RECEIVED_BYTE  ;TEST TO SEE IF A PLAYER HAS SCORED
-003A   0008           00090             RETURN
-                      00091             
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 10
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                      00092     
-Warning[207]: Found label after column 1. (TEST_RECEIVED_BYTE)
-003B                  00093     TEST_RECEIVED_BYTE
-                      00094             ;PLAYER1 = 0x0F
-                      00095             ;PLAYER2 = 0xF0
-                      00096             ;NO SCORE = 0x00
-003B   0020           00097             BANKSEL         PORTA
-003C   1923           00098             BTFSC           RECEIVED_BYTE,2     ;DETERMINE IF PLAYER 1 SCORED
-003D   2???           00099             GOTO            PLAYER1_SCORED
-003E   1B23           00100             BTFSC           RECEIVED_BYTE,6     ;DETERMINE IF PLAYER 2 SCORED
-003F   2???           00101             GOTO            PLAYER2_SCORED
-0040   0008           00102             RETURN                              ;NEITHER PLAYER SCORED
-                      00103         
-Warning[207]: Found label after column 1. (PLAYER1_SCORED)
-0041                  00104         PLAYER1_SCORED
-0041   01A0           00105             CLRF            ACTIVE_TARGET
-0042   148C           00106             BSF             PORTA,1
-0043   100C           00107             BCF             PORTA,0
-0044   0008           00108             RETURN
-                      00109             
-Warning[207]: Found label after column 1. (PLAYER2_SCORED)
-0045                  00110         PLAYER2_SCORED
-0045   01A0           00111             CLRF            ACTIVE_TARGET
-0046   140C           00112             BSF             PORTA,0
-0047   108C           00113             BCF             PORTA,1
-0048   0008           00114             RETURN
-                      00115             
-                      00116             
-Warning[207]: Found label after column 1. (I2CIDLE)
-0049                  00117     I2CIDLE     
-0049   301F           00118             MOVLW           0X1F                ;Load Bus Test Value
-004A   0024           00119             BANKSEL         SSPCON2             
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-004B   0516           00120             ANDWF           SSPCON2,W           ;Compare 1F to check for 5 busy conditions
-004C   0020           00121             BANKSEL         STATUS
-004D   1D03           00122             BTFSS           STATUS,Z            ;Test Zero Bit
-004E   2???           00123             GOTO            I2CIDLE             ;Z=0  Bus is still busy -repeat
-Warning[207]: Found label after column 1. (CHECKR_W)
-004F                  00124     CHECKR_W                                    ;Z=1 Not Busy
-004F   0024           00125             BANKSEL         SSPSTAT
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0050   1914           00126             BTFSC           SSPSTAT,2           ;see if SSP is transmitting data
-0051   2???           00127             GOTO            CHECKR_W            ;R_W = 1 - Still transmitting data
-0052   0008           00128             RETURN                              ;R_W = 0 - Transmit done
-                      00129 
-                      00130 
-                      00131 
-Warning[207]: Found label after column 1. (BAD1)
-0053                  00132     BAD1        
-0053   30FF           00133             MOVLW           0XFF                ;SET RETURN CODE TO -1
-0054   0024           00134             BANKSEL         SSPCON2
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0055   1516           00135             BSF             SSPCON2,PEN         ;GENERATE A STOP CONDITION
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 11
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-Warning[207]: Found label after column 1. (LOOP5)
-0056                  00136     LOOP5       
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0056   1916           00137             BTFSC           SSPCON2,PEN         ;IS STOP CONDITION DONE
-0057   2???           00138             GOTO            LOOP5
-0058   0008           00139             RETURN
-                      00140 
-                      00141                 
+0003   1E94           00032         BTFSS       SSPSTAT,5               ;1=DATA, 0=ADDRESS
+0004   0008           00033         RETURN
+0005   0020           00034         BANKSEL     PORTA
+0006   00A0           00035         MOVWF       RECEIVED_DATA
+0007   1421           00036         BSF         NEW_DATA,0
+0008   0008           00037         RETURN
+                      00038 
+                      00039                 
                       00034                 LIST      p=16f1788                     ; list directive to define processor
                       00035                 errorlevel -302,-207,-305,-206,-203     ; suppress "not in bank 0" message,  Found label
                              after column 1,
@@ -632,52 +470,47 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 0005                  00058 SETUP
 0005   2???           00059                 CALL        INITIALIZE                  ;CALL SETUP INCLUDE FILE TO INITIALIZE PIC
 0006   2???           00060                 GOTO        MAIN                        ;START MAIN CODE
-                      00061                 
-                      00062 ;******************************************
-                      00063 ;INTERRUPT SERVICE ROUTINE
-                      00064 ;******************************************
-0007                  00065 INTERRUPT
-0007   0020           00066                 BANKSEL     PIR1
-0008   1C11           00067                 BTFSS       PIR1,0
-0009   2???           00068                 GOTO        GOBACK
-000A   0020           00069                 BANKSEL     PORTA
-000B   1820           00070                 BTFSC       ACTIVE_TARGET,0
-000C   2???           00071                 GOTO        READ
-000D   2???           00072                 GOTO        WRITE
-000E                  00073         READ    
-000E   2???           00074                 CALL        READ_TARGET_STATUS
-000F   2???           00075                 GOTO        GOBACK
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 12
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0010                  00076         WRITE
-0010   2???           00077                 CALL        SEND_ENABLE
-0011                  00078         GOBACK
-0011   0020           00079                 BANKSEL     PIR1
-0012   0191           00080                 CLRF        PIR1
-0013   0009           00081                 RETFIE                                  ;RETURN TO MAIN, RE-ENABLE GIE
-                      00082                 
-                      00083 ;******************************************
-                      00084 ;Main Code
-                      00085 ;******************************************
-0014                  00086 MAIN    
-0014   0020           00087                 BANKSEL     PORTA
-0015   0AA2           00088                 INCF        RANDOM_ADDRESS,1            ;INCREMENT THE RANDOM SLAVE ADDRESS TO ACTIVATE 
-                            NEXT
-0016   3003           00089                 MOVLW       0x03                        ;\(CHANGE THIS NUMBER IF THE NUMBER OF SLAVE DEV
-                            ICES HAS CHANGED, TO: # OF SLAVES + 1)
-0017   0222           00090                 SUBWF       RANDOM_ADDRESS,0            ;-DETERMINE IF THE RANDOM_ADDRESS VALUE EXCEEDS 
-                            THE NUMBER OF SLAVES
-0018   1903           00091                 BTFSC       STATUS,2                    ;/
-0019   01A2           00092                 CLRF        RANDOM_ADDRESS              ;MAX NUMBER OF SLAVE ADDRESSES EXCEEDED, RESET R
-                            ANDOM_ADDRESS
-001A   2???           00093                 GOTO        MAIN                
+                      00061                 
+                      00062 ;******************************************
+                      00063 ;INTERRUPT SERVICE ROUTINE
+                      00064 ;******************************************
+0007                  00065 INTERRUPT
+0007   0020           00066                 BANKSEL     PORTA
+0008   1991           00067                 BTFSC       PIR1,3                      ;CHECK SSPIF FLAG TO SEE IF DATA WAS RECIEVED FR
+                            OM MASTER
+0009   2???           00068                 CALL        RECEIVE
+000A                  00069         GOBACK
+000A   0020           00070                 BANKSEL     PIR1
+000B   1191           00071                 BCF         PIR1,3                      ;CLEAR SSP1IF
+000C   0009           00072                 RETFIE                                  ;RETURN TO MAIN, RE-ENABLE GIE
+                      00073 ;Main Code
+                      00074 ;******************************************
+000D                  00075 MAIN    
+000D   0020           00076                 BANKSEL     PORTA
+000E   1821           00077                 BTFSC       NEW_DATA,0
+000F   2???           00078                 GOTO        HANDLE_NEW_DATA
+0010   2???           00079                 GOTO        MAIN                        
+                      00080                 
+0011                  00081         HANDLE_NEW_DATA
+0011   0020           00082                 BANKSEL     PORTA
+0012   1021           00083                 BCF         NEW_DATA,0
+0013   1C0C           00084                 BTFSS       PORTA,0
+0014   2???           00085                 GOTO        SET_RA0
+0015   100C           00086                 BCF         PORTA,0
+0016   2???           00087                 GOTO        MAIN
+                      00088                 
+0017                  00089         SET_RA0
+0017   140C           00090                 BSF         PORTA,0
+0018   2???           00091                 GOTO        MAIN
 Warning[205]: Found directive in column 1. (END)
-09A4 1EFF             00094 END
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 13
+09A4 1EFF             00092 END
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 10
 
 
 SYMBOL TABLE
@@ -689,7 +522,6 @@ ACKDT                             00000005
 ACKEN                             00000004
 ACKSTAT                           00000006
 ACKTIM                            00000007
-ACTIVE_TARGET                     00000020
 ADCON0                            0000009D
 ADCON1                            0000009E
 ADCON2                            0000009F
@@ -736,13 +568,13 @@ ANSB5                             00000005
 ANSB6                             00000006
 ANSC0                             00000000
 ANSC1                             00000001
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 14
+ANSC2                             00000002
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 11
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-ANSC2                             00000002
 ANSC3                             00000003
 ANSC4                             00000004
 ANSC5                             00000005
@@ -755,7 +587,6 @@ APFCON                            0000011D
 APFCON0                           0000011D
 APFCON1                           0000011D
 APFCON2                           0000011C
-BAD1                              00000053
 BAUD1CON                          0000019F
 BAUDCON                           0000019F
 BAUDCON1                          0000019F
@@ -795,14 +626,14 @@ C1NCH0                            00000000
 C1NCH1                            00000001
 C1NCH2                            00000002
 C1OE                              00000005
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 15
+C1ON                              00000007
+C1OUT                             00000006
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 12
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-C1ON                              00000007
-C1OUT                             00000006
 C1PCH0                            00000003
 C1PCH1                            00000004
 C1PCH2                            00000005
@@ -854,14 +685,14 @@ C4INTN                            00000006
 C4INTP                            00000007
 C4NCH0                            00000000
 C4NCH1                            00000001
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 16
+C4NCH2                            00000002
+C4OE                              00000005
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 13
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-C4NCH2                            00000002
-C4OE                              00000005
 C4ON                              00000007
 C4OUT                             00000006
 C4PCH0                            00000003
@@ -907,21 +738,20 @@ CCPR3L                            00000311
 CDAFVR0                           00000002
 CDAFVR1                           00000003
 CFGS                              00000006
-CHECKR_W                          0000004F
 CHS0                              00000002
 CHS1                              00000003
 CHS2                              00000004
 CHS3                              00000005
 CHS4                              00000006
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 17
+CHSN0                             00000000
+CHSN1                             00000001
+CHSN2                             00000002
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 14
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-CHSN0                             00000000
-CHSN1                             00000001
-CHSN2                             00000002
 CHSN3                             00000003
 CKE                               00000006
 CKP                               00000004
@@ -945,7 +775,6 @@ CM4CON1                           0000011B
 CMOUT                             00000115
 CREN                              00000004
 CSRC                              00000007
-CURRENT_ADDRESS                   00000021
 C_SHAD                            00000000
 DAC1CON0                          00000118
 DAC1CON1                          00000119
@@ -972,16 +801,16 @@ DAC2REF                           00000592
 DAC3CON0                          00000593
 DAC3CON1                          00000594
 DAC3EN                            00000007
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 18
+DAC3OE1                           00000005
+DAC3OE2                           00000004
+DAC3REF                           00000594
+DAC4CON0                          00000595
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 15
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-DAC3OE1                           00000005
-DAC3OE2                           00000004
-DAC3REF                           00000594
-DAC4CON0                          00000595
 DAC4CON1                          00000596
 DAC4EN                            00000007
 DAC4OE1                           00000005
@@ -1031,16 +860,16 @@ FSR0                              00000004
 FSR0H                             00000005
 FSR0H_SHAD                        00000FE9
 FSR0L                             00000004
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 19
+FSR0L_SHAD                        00000FE8
+FSR1                              00000006
+FSR1H                             00000007
+FSR1H_SHAD                        00000FEB
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 16
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-FSR0L_SHAD                        00000FE8
-FSR1                              00000006
-FSR1H                             00000007
-FSR1H_SHAD                        00000FEB
 FSR1L                             00000006
 FSR1L_SHAD                        00000FEA
 FVRCON                            00000117
@@ -1049,12 +878,12 @@ FVRRDY                            00000006
 GCEN                              00000007
 GIE                               00000007
 GO                                00000001
-GOBACK                            00000011
+GOBACK                            0000000A
 GO_NOT_DONE                       00000001
+HANDLE_NEW_DATA                   00000011
 HFIOFL                            00000003
 HFIOFR                            00000004
 HFIOFS                            00000000
-I2CIDLE                           00000049
 INDF0                             00000000
 INDF1                             00000001
 INITIALIZE                        00000000
@@ -1090,16 +919,16 @@ INLVLE3                           00000003
 INTCON                            0000000B
 INTE                              00000004
 INTEDG                            00000006
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 20
+INTERRUPT                         00000007
+INTF                              00000001
+IOCAF                             00000393
+IOCAF0                            00000000
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 17
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-INTERRUPT                         00000007
-INTF                              00000001
-IOCAF                             00000393
-IOCAF0                            00000000
 IOCAF1                            00000001
 IOCAF2                            00000002
 IOCAF3                            00000003
@@ -1149,16 +978,16 @@ IOCBP1                            00000001
 IOCBP2                            00000002
 IOCBP3                            00000003
 IOCBP4                            00000004
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 21
+IOCBP5                            00000005
+IOCBP6                            00000006
+IOCBP7                            00000007
+IOCCF                             00000399
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 18
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-IOCBP5                            00000005
-IOCBP6                            00000006
-IOCBP7                            00000007
-IOCCF                             00000399
 IOCCF0                            00000000
 IOCCF1                            00000001
 IOCCF2                            00000002
@@ -1208,16 +1037,16 @@ LATA6                             00000006
 LATA7                             00000007
 LATB                              0000010D
 LATB0                             00000000
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 22
+LATB1                             00000001
+LATB2                             00000002
+LATB3                             00000003
+LATB4                             00000004
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 19
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-LATB1                             00000001
-LATB2                             00000002
-LATB3                             00000003
-LATB4                             00000004
 LATB5                             00000005
 LATB6                             00000006
 LATB7                             00000007
@@ -1231,9 +1060,8 @@ LATC5                             00000005
 LATC6                             00000006
 LATC7                             00000007
 LFIOFR                            00000001
-LOOP5                             00000056
 LWLO                              00000005
-MAIN                              00000014
+MAIN                              0000000D
 MC1OUT                            00000000
 MC2OUT                            00000001
 MC3OUT                            00000002
@@ -1247,6 +1075,7 @@ MSK4                              00000004
 MSK5                              00000005
 MSK6                              00000006
 MSK7                              00000007
+NEW_DATA                          00000021
 NOT_BOR                           00000000
 NOT_PD                            00000003
 NOT_POR                           00000001
@@ -1267,16 +1096,16 @@ ODCONA6                           00000006
 ODCONA7                           00000007
 ODCONB                            0000028D
 ODCONB0                           00000000
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 23
+ODCONB1                           00000001
+ODCONB2                           00000002
+ODCONB3                           00000003
+ODCONB4                           00000004
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 20
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-ODCONB1                           00000001
-ODCONB2                           00000002
-ODCONB3                           00000003
-ODCONB4                           00000004
 ODCONB5                           00000005
 ODCONB6                           00000006
 ODCONB7                           00000007
@@ -1326,16 +1155,16 @@ P1ASDSC4                          00000004
 P1ASDSIN                          00000007
 P1ASE                             00000007
 P1CPRE0                           00000004
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 24
+P1CPRE1                           00000005
+P1CSRC0                           00000000
+P1CSRC1                           00000001
+P1DBFE                            00000005
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 21
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-P1CPRE1                           00000005
-P1CSRC0                           00000000
-P1CSRC1                           00000001
-P1DBFE                            00000005
 P1DBRE                            00000004
 P1DCPOL                           00000005
 P1DCSC1                           00000001
@@ -1385,16 +1214,16 @@ P1POLD                            00000003
 P1POLE                            00000004
 P1POLF                            00000005
 P1PRPOL                           00000006
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 25
+P1PRSC1                           00000001
+P1PRSC2                           00000002
+P1PRSC3                           00000003
+P1PRSC4                           00000004
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 22
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-P1PRSC1                           00000001
-P1PRSC2                           00000002
-P1PRSC3                           00000003
-P1PRSC4                           00000004
 P1PRSIN                           00000007
 P1PRST                            00000000
 P1REBM0                           00000000
@@ -1444,16 +1273,16 @@ P2DCSC1                           00000001
 P2DCSC2                           00000002
 P2DCSC3                           00000003
 P2DCSC4                           00000004
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 26
+P2DCSIN                           00000007
+P2DCST                            00000000
+P2FEBM0                           00000004
+P2FEBM1                           00000005
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 23
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-P2DCSIN                           00000007
-P2DCST                            00000000
-P2FEBM0                           00000004
-P2FEBM1                           00000005
 P2FEBSC1                          00000001
 P2FEBSC2                          00000002
 P2FEBSC3                          00000003
@@ -1503,16 +1332,16 @@ P2STRA                            00000000
 P2STRB                            00000001
 P2SYNC0                           00000000
 P2SYNC1                           00000001
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 27
+P2SYNC2                           00000002
+P2TDCIE                           00000005
+P2TDCIF                           00000001
+P2TOVIE                           00000007
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 24
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-P2SYNC2                           00000002
-P2TDCIE                           00000005
-P2TDCIF                           00000001
-P2TOVIE                           00000007
 P2TOVIF                           00000003
 P2TPHIE                           00000006
 P2TPHIF                           00000002
@@ -1562,16 +1391,16 @@ P3MODE3                           00000003
 P3MSRC0                           00000000
 P3MSRC1                           00000001
 P3MSRC2                           00000002
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 28
+P3MSRC3                           00000003
+P3OEA                             00000000
+P3OEB                             00000001
+P3PHSC1                           00000001
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 25
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-P3MSRC3                           00000003
-P3OEA                             00000000
-P3OEB                             00000001
-P3PHSC1                           00000001
 P3PHSC2                           00000002
 P3PHSC3                           00000003
 P3PHSC4                           00000004
@@ -1621,16 +1450,16 @@ P4ASDSIN                          00000007
 P4ASE                             00000007
 P4CPRE0                           00000004
 P4CPRE1                           00000005
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 29
+P4CSRC0                           00000000
+P4CSRC1                           00000001
+P4DBFE                            00000005
+P4DBRE                            00000004
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 26
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-P4CSRC0                           00000000
-P4CSRC1                           00000001
-P4DBFE                            00000005
-P4DBRE                            00000004
 P4DCPOL                           00000005
 P4DCSC1                           00000001
 P4DCSC2                           00000002
@@ -1680,16 +1509,16 @@ P4PRST                            00000000
 P4REBM0                           00000000
 P4REBM1                           00000001
 P4REBSC1                          00000001
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 30
+P4REBSC2                          00000002
+P4REBSC3                          00000003
+P4REBSC4                          00000004
+P4REBSIN                          00000007
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 27
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-P4REBSC2                          00000002
-P4REBSC3                          00000003
-P4REBSC4                          00000004
-P4REBSIN                          00000007
 P4SSYNC                           00000007
 P4STRA                            00000000
 P4STRB                            00000001
@@ -1722,8 +1551,6 @@ PIR1                              00000011
 PIR2                              00000012
 PIR3                              00000013
 PIR4                              00000014
-PLAYER1_SCORED                    00000041
-PLAYER2_SCORED                    00000045
 PLLR                              00000006
 PMSC3TIE                          00000006
 PORTA                             0000000C
@@ -1739,18 +1566,18 @@ PSMC1ASDC                         00000E9D
 PSMC1ASDL                         00000E9E
 PSMC1ASDS                         00000E9F
 PSMC1BLKF                         00000EAC
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 31
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC1BLKF0                        00000000
 PSMC1BLKF1                        00000001
 PSMC1BLKF2                        00000002
 PSMC1BLKF3                        00000003
 PSMC1BLKF4                        00000004
 PSMC1BLKF5                        00000005
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 28
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC1BLKF6                        00000006
 PSMC1BLKF7                        00000007
 PSMC1BLKR                         00000EAB
@@ -1798,18 +1625,18 @@ PSMC1DC4                          00000004
 PSMC1DC5                          00000005
 PSMC1DC6                          00000006
 PSMC1DC7                          00000007
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 32
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC1DC8                          00000000
 PSMC1DC9                          00000001
 PSMC1DCH                          00000EA4
 PSMC1DCL                          00000EA3
 PSMC1DCS                          00000E9B
 PSMC1EN                           00000007
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 29
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC1FEBS                         00000E99
 PSMC1FFA                          00000EAD
 PSMC1FFA0                         00000000
@@ -1857,18 +1684,18 @@ PSMC1PR5                          00000005
 PSMC1PR6                          00000006
 PSMC1PR7                          00000007
 PSMC1PR8                          00000000
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 33
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC1PR9                          00000001
 PSMC1PRH                          00000EA6
 PSMC1PRL                          00000EA5
 PSMC1PRS                          00000E9C
 PSMC1REBS                         00000E98
 PSMC1SIE                          00000000
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 30
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC1SIF                          00000000
 PSMC1STR0                         00000EAE
 PSMC1STR1                         00000EAF
@@ -1916,18 +1743,18 @@ PSMC2BLKR5                        00000005
 PSMC2BLKR6                        00000006
 PSMC2BLKR7                        00000007
 PSMC2BLNK                         00000EB7
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 34
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC2CLK                          00000EB4
 PSMC2CON                          00000EB1
 PSMC2DBF                          00000ECA
 PSMC2DBF0                         00000000
 PSMC2DBF1                         00000001
 PSMC2DBF2                         00000002
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 31
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC2DBF3                         00000003
 PSMC2DBF4                         00000004
 PSMC2DBF5                         00000005
@@ -1975,18 +1802,18 @@ PSMC2MDL                          00000EB2
 PSMC2OEN                          00000EB5
 PSMC2PH                           00000EC1
 PSMC2PH0                          00000000
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 35
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC2PH1                          00000001
 PSMC2PH10                         00000002
 PSMC2PH11                         00000003
 PSMC2PH12                         00000004
 PSMC2PH13                         00000005
 PSMC2PH14                         00000006
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 32
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC2PH15                         00000007
 PSMC2PH2                          00000002
 PSMC2PH3                          00000003
@@ -2034,18 +1861,18 @@ PSMC2TMR1                         00000001
 PSMC2TMR10                        00000002
 PSMC2TMR11                        00000003
 PSMC2TMR12                        00000004
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 36
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC2TMR13                        00000005
 PSMC2TMR14                        00000006
 PSMC2TMR15                        00000007
 PSMC2TMR2                         00000002
 PSMC2TMR3                         00000003
 PSMC2TMR4                         00000004
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 33
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC2TMR5                         00000005
 PSMC2TMR6                         00000006
 PSMC2TMR7                         00000007
@@ -2093,18 +1920,18 @@ PSMC3DBR2                         00000002
 PSMC3DBR3                         00000003
 PSMC3DBR4                         00000004
 PSMC3DBR5                         00000005
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 37
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC3DBR6                         00000006
 PSMC3DBR7                         00000007
 PSMC3DC                           00000EE3
 PSMC3DC0                          00000000
 PSMC3DC1                          00000001
 PSMC3DC10                         00000002
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 34
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC3DC11                         00000003
 PSMC3DC12                         00000004
 PSMC3DC13                         00000005
@@ -2152,18 +1979,18 @@ PSMC3PH9                          00000001
 PSMC3PHH                          00000EE2
 PSMC3PHL                          00000EE1
 PSMC3PHS                          00000EDA
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 38
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC3POL                          00000ED6
 PSMC3PR                           00000EE5
 PSMC3PR0                          00000000
 PSMC3PR1                          00000001
 PSMC3PR10                         00000002
 PSMC3PR11                         00000003
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 35
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC3PR12                         00000004
 PSMC3PR13                         00000005
 PSMC3PR14                         00000006
@@ -2211,18 +2038,18 @@ PSMC4ASDL                         00000F1E
 PSMC4ASDS                         00000F1F
 PSMC4BLKF                         00000F2C
 PSMC4BLKF0                        00000000
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 39
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC4BLKF1                        00000001
 PSMC4BLKF2                        00000002
 PSMC4BLKF3                        00000003
 PSMC4BLKF4                        00000004
 PSMC4BLKF5                        00000005
 PSMC4BLKF6                        00000006
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 36
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC4BLKF7                        00000007
 PSMC4BLKR                         00000F2B
 PSMC4BLKR0                        00000000
@@ -2270,18 +2097,18 @@ PSMC4DC5                          00000005
 PSMC4DC6                          00000006
 PSMC4DC7                          00000007
 PSMC4DC8                          00000000
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 40
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC4DC9                          00000001
 PSMC4DCH                          00000F24
 PSMC4DCL                          00000F23
 PSMC4DCS                          00000F1B
 PSMC4EN                           00000007
 PSMC4FEBS                         00000F19
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 37
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC4FFA                          00000F2D
 PSMC4FFA0                         00000000
 PSMC4FFA1                         00000001
@@ -2329,18 +2156,18 @@ PSMC4PR6                          00000006
 PSMC4PR7                          00000007
 PSMC4PR8                          00000000
 PSMC4PR9                          00000001
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 41
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PSMC4PRH                          00000F26
 PSMC4PRL                          00000F25
 PSMC4PRS                          00000F1C
 PSMC4REBS                         00000F18
 PSMC4SIE                          00000003
 PSMC4SIF                          00000003
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 38
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 PSMC4STR0                         00000F2E
 PSMC4STR1                         00000F2F
 PSMC4SYNC                         00000F13
@@ -2373,7 +2200,6 @@ RA4                               00000004
 RA5                               00000005
 RA6                               00000006
 RA7                               00000007
-RANDOM_ADDRESS                    00000022
 RB0                               00000000
 RB1                               00000001
 RB2                               00000002
@@ -2388,12 +2214,6 @@ RC1REG                            00000199
 RC1STA                            0000019D
 RC2                               00000002
 RC3                               00000003
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 42
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 RC4                               00000004
 RC5                               00000005
 RC6                               00000006
@@ -2401,6 +2221,12 @@ RC7                               00000007
 RCEN                              00000003
 RCIDL                             00000006
 RCIE                              00000005
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 39
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 RCIF                              00000005
 RCREG                             00000199
 RCREG1                            00000199
@@ -2408,9 +2234,8 @@ RCSTA                             0000019D
 RCSTA1                            0000019D
 RD                                00000000
 RE3                               00000003
-READ                              0000000E
-READ_TARGET_STATUS                0000001F
-RECEIVED_BYTE                     00000023
+RECEIVE                           00000000
+RECEIVED_DATA                     00000020
 RSEN                              00000001
 RX9                               00000006
 RX9D                              00000000
@@ -2429,8 +2254,8 @@ SDISEL                            00000003
 SDOSEL                            00000005
 SEN                               00000000
 SENDB                             00000003
-SEND_ENABLE                       00000000
 SETUP                             00000005
+SET_RA0                           00000017
 SLRCONA                           0000030C
 SLRCONA0                          00000000
 SLRCONA1                          00000001
@@ -2447,12 +2272,6 @@ SLRCONB2                          00000002
 SLRCONB3                          00000003
 SLRCONB4                          00000004
 SLRCONB5                          00000005
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 43
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 SLRCONB6                          00000006
 SLRCONB7                          00000007
 SLRCONC                           0000030E
@@ -2461,6 +2280,12 @@ SLRCONC1                          00000001
 SLRCONC2                          00000002
 SLRCONC3                          00000003
 SLRCONC4                          00000004
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 40
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 SLRCONC5                          00000005
 SLRCONC6                          00000006
 SLRCONC7                          00000007
@@ -2506,12 +2331,6 @@ SSP1MSK0                          00000000
 SSP1MSK1                          00000001
 SSP1MSK2                          00000002
 SSP1MSK3                          00000003
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 44
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 SSP1MSK4                          00000004
 SSP1MSK5                          00000005
 SSP1MSK6                          00000006
@@ -2520,6 +2339,12 @@ SSP1STAT                          00000214
 SSPADD                            00000212
 SSPBUF                            00000211
 SSPCON                            00000215
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 41
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 SSPCON1                           00000215
 SSPCON2                           00000216
 SSPCON3                           00000217
@@ -2562,15 +2387,8 @@ T2OUTPS0                          00000003
 T2OUTPS1                          00000004
 T2OUTPS2                          00000005
 T2OUTPS3                          00000006
-TEST_RECEIVED_BYTE                0000003B
 TMR0                              00000015
 TMR0CS                            00000005
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 45
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 TMR0IE                            00000005
 TMR0IF                            00000002
 TMR0SE                            00000004
@@ -2580,6 +2398,12 @@ TMR1CS1                           00000007
 TMR1GE                            00000007
 TMR1GIE                           00000007
 TMR1GIF                           00000007
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 42
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 TMR1H                             00000017
 TMR1IE                            00000000
 TMR1IF                            00000000
@@ -2624,12 +2448,6 @@ TRISC6                            00000006
 TRISC7                            00000007
 TRISE                             00000090
 TRISE3                            00000003
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 46
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 TRMT                              00000001
 TSEN                              00000005
 TSRNG                             00000004
@@ -2639,6 +2457,12 @@ TUN2                              00000002
 TUN3                              00000003
 TUN4                              00000004
 TUN5                              00000005
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 43
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 TX1REG                            0000019A
 TX1STA                            0000019E
 TX9                               00000006
@@ -2683,12 +2507,6 @@ WPUB7                             00000007
 WPUC                              0000020E
 WPUC0                             00000000
 WPUC1                             00000001
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 47
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 WPUC2                             00000002
 WPUC3                             00000003
 WPUC4                             00000004
@@ -2698,11 +2516,16 @@ WPUC7                             00000007
 WPUE                              00000210
 WPUE3                             00000003
 WR                                00000001
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 44
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 WREG                              00000009
 WREG_SHAD                         00000FE5
 WREN                              00000002
 WRERR                             00000003
-WRITE                             00000010
 WUE                               00000001
 Z                                 00000002
 Z_SHAD                            00000002
@@ -2742,12 +2565,6 @@ _LPBOR_ON                         000037FF
 _LVP_OFF                          00001FFF
 _LVP_ON                           00003FFF
 _MCLRE_OFF                        00003FBF
-MPASM 5.86                PROJECT_MASTER.ASM   3-17-2025  14:49:34         PAGE 48
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 _MCLRE_ON                         00003FFF
 _PLLEN_OFF                        00003EFF
 _PLLEN_ON                         00003FFF
@@ -2755,17 +2572,15 @@ _PWRTE_OFF                        00003FFF
 _PWRTE_ON                         00003FDF
 _STVREN_OFF                       00003DFF
 _STVREN_ON                        00003FFF
-_SUBROUTINES_CODE_0004            00000004
-_SUBROUTINES_CODE_000A            0000000A
-_SUBROUTINES_CODE_0014            00000014
-_SUBROUTINES_CODE_001B            0000001B
-_SUBROUTINES_CODE_0023            00000023
-_SUBROUTINES_CODE_0029            00000029
-_SUBROUTINES_CODE_0031            00000031
-_SUBROUTINES_CODE_0038            00000038
 _VCAPEN_OFF                       00003FFF
 _VCAPEN_ON                        00003FDF
 _WDTE_NSLEEP                      00003FF7
+MPASM 5.86             PROJECT_SLAVE_001.ASM   3-14-2025  10:49:05         PAGE 45
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 _WDTE_OFF                         00003FE7
 _WDTE_ON                          00003FFF
 _WDTE_SWDTEN                      00003FEF
@@ -2774,9 +2589,11 @@ _WRT_BOOT                         00003FFE
 _WRT_HALF                         00003FFD
 _WRT_OFF                          00003FFF
 __16F1788                         00000001
+__DEBUG                           
+__MPLAB_DEBUGGER_PK3              1
 
 Errors   :     0
-Warnings :    10 reported,     3 suppressed
-Messages :    67 reported,     0 suppressed
+Warnings :     2 reported,     3 suppressed
+Messages :    45 reported,     0 suppressed
 
 

@@ -28,10 +28,10 @@
 ;										    *	
 ;************************************************************************************		
 		
-		#include "p16lf1788.inc"      		; processor specific variable definitions
-		#INCLUDE <16LF1788_SETUP.inc>		; Custom setup file for the PIC16F883 micro-controller
+		#include "p16f1788.inc"      		; processor specific variable definitions
+		#INCLUDE <16F1788_SETUP.inc>		; Custom setup file for the PIC16F883 micro-controller
 		#INCLUDE <SUBROUTINES.inc>		; File containing all used subroutines
-		LIST      p=16lf1788		  	; list directive to define processor
+		LIST      p=16f1788		  	; list directive to define processor
 		errorlevel -302,-207,-305,-206,-203	; suppress "not in bank 0" message,  Found label after column 1,
 							; Using default destination of 1 (file),  Found call to macro in column 1
 
@@ -40,7 +40,7 @@
  __CONFIG _CONFIG1, _FOSC_INTOSC & _WDTE_OFF & _PWRTE_OFF & _MCLRE_OFF & _CP_OFF & _CPD_OFF & _BOREN_OFF & _CLKOUTEN_OFF & _IESO_OFF & _FCMEN_OFF
 ; CONFIG2
 ; __config 0xDFFF
- __CONFIG _CONFIG2, _WRT_OFF & _PLLEN_ON & _STVREN_ON & _BORV_LO & _LPBOR_OFF & _LVP_OFF
+ __CONFIG _CONFIG2, _WRT_OFF & _PLLEN_OFF & _STVREN_ON & _BORV_LO & _LPBOR_OFF & _LVP_OFF
 
 
 		
@@ -62,32 +62,34 @@ SETUP
 ;******************************************
 ;INTERRUPT SERVICE ROUTINE
 ;******************************************
-INTERRUPT	
-		BANKSEL	    PORTB		
-		BTFSC	    PORTB,1			;TEST FREQUENCY SELECT SWITCH
-		GOTO	    SET_56KHZ			;RB1 IS HIGH, SET PWM FREQUENCY TO 56kHz
-		GOTO	    SET_38KHZ			;RB1 IS LOW, SET PWM FREQUENCY TO 38kHz
-		
-	TEST_MODE	
-		BANKSEL	    PORTB		
-		BTFSC	    PORTB,2			;DETERMINE IF IN CONTINUOUS/FULL-AUTO MODE
-		GOTO	    FIRE_CONTINUOUS		;GUN IS IN CONTINOUS/FULL-AUTO MODE, CHECK IF READY TO FIRE
-		BTFSC	    PORTB,3			;GUN IS NOT IN CONTINUOUS/FULL-AUTO MODE, TEST IF IT IS IN BURST-FIRE MODE
-		GOTO	    FIRE_BURST			;GUN IS IN BURST-FIRE MODE, CHECK IF READY TO FIRE
-		GOTO	    FIRE_SEMI			;GUN IS NOT IN CONTINUOUS OR BURST-FIRE MODE, DEFAULT TO SEMI-AUTO MODE, TEST IF READY TO FIRE
-	GOBACK
-		BANKSEL	    IOCBF
-		CLRF	    IOCBF			;CLEAR PORTB IOC FLAGS
-		BCF	    INTCON,IOCIF		;CLEAR IOCIF
+INTERRUPT
 		BANKSEL	    PIR1
-		BCF	    PIR1,0			;CLEAR TMR1IF
+		BTFSC	    PIR1,3			;CHECK SSPIF FLAG TO SEE IF DATA WAS RECIEVED FROM MASTER
+		CALL	    RECEIVE
+	GOBACK
+		BANKSEL	    PIR1
+		BCF	    PIR1,3			;CLEAR SSP1IF
 		RETFIE					;RETURN TO MAIN, RE-ENABLE GIE
-		
-;******************************************
 ;Main Code
 ;******************************************
+		
 MAIN	
-		GOTO	    MAIN			;ENDLESS LOOP, NOTHING HAPPENS (WAITING FOR INTERRUPT)
+		BANKSEL	    PORTA
+		BTFSC	    NEW_DATA,0
+		GOTO	    HANDLE_NEW_DATA
+		GOTO	    MAIN			
+		
+	HANDLE_NEW_DATA
+		BANKSEL	    PORTA
+		BCF	    NEW_DATA,0
+		BTFSS	    PORTA,0
+		GOTO	    SET_RA0
+		BCF	    PORTA,0
+		GOTO	    MAIN
+		
+	SET_RA0
+		BSF	    PORTA,0
+		GOTO	    MAIN
 END
 		
 ;******************************************		

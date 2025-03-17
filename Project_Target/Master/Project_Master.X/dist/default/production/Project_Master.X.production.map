@@ -1,0 +1,85 @@
+MPLINK 5.09, LINKER
+Linker Map File - Created Mon Mar 17 14:49:35 2025
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000002
+                   .cinit    romdata   0x000001    program   0x000004
+                   .org_1       code   0x000004    program   0x00002e
+          INITIALIZE_CODE       code   0x00001b    program   0x0000ee
+         SUBROUTINES_CODE       code   0x000092    program   0x0000b2
+.config_8007_BUILD/DEFAULT/PRODUCTION/_EXT/14       code   0x008007    program   0x000002
+.config_8008_BUILD/DEFAULT/PRODUCTION/_EXT/14       code   0x008008    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000002      
+                            0x000004    0x0000ea      
+                            0x008007    0x008008      
+            236 out of 16647 program addresses used, program memory utilization is 1%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     BAD1   0x0000e5    program     static ..\SUBROUTINES.inc       
+                 CHECKR_W   0x0000e1    program     static ..\SUBROUTINES.inc       
+                   GOBACK   0x000011    program     static ..\Project_Master.asm    
+                  I2CIDLE   0x0000db    program     static ..\SUBROUTINES.inc       
+               INITIALIZE   0x00001b    program     static ..\16F1788_SETUP.inc     
+                INTERRUPT   0x000007    program     static ..\Project_Master.asm    
+                    LOOP5   0x0000e8    program     static ..\SUBROUTINES.inc       
+                     MAIN   0x000014    program     static ..\Project_Master.asm    
+           PLAYER1_SCORED   0x0000d3    program     static ..\SUBROUTINES.inc       
+           PLAYER2_SCORED   0x0000d7    program     static ..\SUBROUTINES.inc       
+                     READ   0x00000e    program     static ..\Project_Master.asm    
+       READ_TARGET_STATUS   0x0000b1    program     static ..\SUBROUTINES.inc       
+              SEND_ENABLE   0x000092    program     static ..\SUBROUTINES.inc       
+                    SETUP   0x000005    program     static ..\Project_Master.asm    
+       TEST_RECEIVED_BYTE   0x0000cd    program     static ..\SUBROUTINES.inc       
+                    WRITE   0x000010    program     static ..\Project_Master.asm    
+   _SUBROUTINES_CODE_0004   0x000096    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_000A   0x00009c    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0014   0x0000a6    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_001B   0x0000ad    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0023   0x0000b5    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0029   0x0000bb    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0031   0x0000c3    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0038   0x0000ca    program     static ..\SUBROUTINES.inc       
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    SETUP   0x000005    program     static ..\Project_Master.asm    
+                INTERRUPT   0x000007    program     static ..\Project_Master.asm    
+                     READ   0x00000e    program     static ..\Project_Master.asm    
+                    WRITE   0x000010    program     static ..\Project_Master.asm    
+                   GOBACK   0x000011    program     static ..\Project_Master.asm    
+                     MAIN   0x000014    program     static ..\Project_Master.asm    
+               INITIALIZE   0x00001b    program     static ..\16F1788_SETUP.inc     
+              SEND_ENABLE   0x000092    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0004   0x000096    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_000A   0x00009c    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0014   0x0000a6    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_001B   0x0000ad    program     static ..\SUBROUTINES.inc       
+       READ_TARGET_STATUS   0x0000b1    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0023   0x0000b5    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0029   0x0000bb    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0031   0x0000c3    program     static ..\SUBROUTINES.inc       
+   _SUBROUTINES_CODE_0038   0x0000ca    program     static ..\SUBROUTINES.inc       
+       TEST_RECEIVED_BYTE   0x0000cd    program     static ..\SUBROUTINES.inc       
+           PLAYER1_SCORED   0x0000d3    program     static ..\SUBROUTINES.inc       
+           PLAYER2_SCORED   0x0000d7    program     static ..\SUBROUTINES.inc       
+                  I2CIDLE   0x0000db    program     static ..\SUBROUTINES.inc       
+                 CHECKR_W   0x0000e1    program     static ..\SUBROUTINES.inc       
+                     BAD1   0x0000e5    program     static ..\SUBROUTINES.inc       
+                    LOOP5   0x0000e8    program     static ..\SUBROUTINES.inc       
+
+

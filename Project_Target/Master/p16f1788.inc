@@ -79,6 +79,10 @@ T1GCON           EQU  H'0019'
 TMR2             EQU  H'001A'
 PR2              EQU  H'001B'
 T2CON            EQU  H'001C'
+ACTIVE_TARGET	 EQU  H'0020'
+CURRENT_ADDRESS	 EQU  H'0021'
+RANDOM_ADDRESS	 EQU  H'0022'
+RECEIVED_BYTE	 EQU  H'0023'
 
 ;-----Bank1------------------
 TRISA            EQU  H'008C'
